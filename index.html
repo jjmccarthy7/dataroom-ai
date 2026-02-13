@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataRoom.ai - The AI-Powered Data Room for Modern Fundraising</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#1B2A4A;--navy-light:#2A3F6B;--carolina:#4A90D9;--carolina-light:#6BA5E7;--oak:#C4A882;--oak-light:#DCC9AB;--oak-bg:#F5EDE3;--white:#FFFFFF;--off-white:#FAFAFA;--light-grey:#F0F0F0;--mid-grey:#999;--dark-grey:#555;--charcoal:#333;--serif:'Playfair Display',Georgia,serif;--sans:'Inter',-apple-system,sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--charcoal);line-height:1.6;background:var(--white)}
+nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid var(--light-grey)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--navy);text-decoration:none}
+.logo span{color:var(--carolina)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--dark-grey);font-size:15px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--navy)}
+.nav-cta{background:var(--navy);color:var(--white);padding:10px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s}
+.nav-cta:hover{background:var(--navy-light)}
+section{padding:120px 40px}
+.container{max-width:1200px;margin:0 auto}
+.hero{padding-top:180px;padding-bottom:120px;background:var(--white)}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero h1{font-family:var(--serif);font-size:56px;line-height:1.15;color:var(--navy);margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--carolina)}
+.hero p{font-size:19px;color:var(--dark-grey);line-height:1.7;margin-bottom:36px;max-width:520px}
+.hero-cta-row{display:flex;gap:16px;align-items:center}
+.btn-primary{background:var(--carolina);color:var(--white);padding:14px 32px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:500;transition:all 0.2s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--navy)}
+.btn-secondary{background:transparent;color:var(--navy);padding:14px 32px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:500;border:1.5px solid var(--navy);transition:all 0.2s}
+.btn-secondary:hover{background:var(--navy);color:var(--white)}
+.hero-visual{background:linear-gradient(135deg,var(--oak-bg) 0%,var(--light-grey) 100%);border-radius:16px;padding:48px;height:420px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+.hero-visual-icon{width:80px;height:80px;background:var(--navy);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.hero-visual-icon svg{width:40px;height:40px;fill:var(--white)}
+.hero-visual-label{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:16px}
+.hero-visual-items{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
+.hero-visual-item{background:var(--white);padding:12px 16px;border-radius:8px;font-size:14px;color:var(--dark-grey);display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.hero-visual-item .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-blue{background:var(--carolina)}.dot-oak{background:var(--oak)}.dot-navy{background:var(--navy)}.dot-green{background:#4CAF50}
+.trust-bar{padding:60px 40px;background:var(--off-white);border-top:1px solid var(--light-grey);border-bottom:1px solid var(--light-grey)}
+.trust-bar p{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--mid-grey);margin-bottom:24px}
+.trust-logos{display:flex;justify-content:center;gap:60px;align-items:center;opacity:0.4}
+.trust-logos span{font-family:var(--sans);font-size:18px;font-weight:600;color:var(--charcoal)}
+.value-props{background:var(--white)}
+.section-label{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--carolina);margin-bottom:16px}
+.section-title{font-family:var(--serif);font-size:44px;color:var(--navy);margin-bottom:20px;line-height:1.2}
+.section-subtitle{font-size:18px;color:var(--dark-grey);max-width:600px;line-height:1.7;margin-bottom:64px}
+.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.prop-card{padding:36px;border-radius:12px;background:var(--off-white);border:1px solid var(--light-grey);transition:all 0.3s}
+.prop-card:hover{border-color:var(--oak);box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+.prop-icon{width:48px;height:48px;background:var(--oak-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+.prop-card h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:12px}
+.prop-card p{font-size:15px;color:var(--dark-grey);line-height:1.7}
+.audiences{background:var(--navy);color:var(--white)}
+.audiences .section-label{color:var(--oak)}
+.audiences .section-title{color:var(--white)}
+.audiences .section-subtitle{color:rgba(255,255,255,0.7)}
+.audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.audience-card{padding:48px;border-radius:16px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04)}
+.audience-card h3{font-family:var(--serif);font-size:28px;margin-bottom:8px}
+.audience-card .audience-role{font-size:14px;color:var(--oak);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+.audience-card p{font-size:16px;line-height:1.7;color:rgba(255,255,255,0.8);margin-bottom:16px}
+.audience-card ul{list-style:none;margin-top:20px}
+.audience-card ul li{padding:8px 0;font-size:15px;color:rgba(255,255,255,0.8);display:flex;align-items:flex-start;gap:10px}
+.audience-card ul li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--carolina);border-radius:50%;margin-top:8px;flex-shrink:0}
+.audience-card .audience-cta{display:inline-block;margin-top:28px;color:var(--carolina);text-decoration:none;font-weight:500;font-size:15px}
+.audience-card .audience-cta:hover{text-decoration:underline}
+.how-it-works{background:var(--off-white)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+.step{text-align:center;padding:32px 20px}
+.step-num{font-family:var(--serif);font-size:48px;color:var(--oak);margin-bottom:16px}
+.step h3{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:12px}
+.step p{font-size:15px;color:var(--dark-grey);line-height:1.6}
+.ai-section{background:var(--white)}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.ai-visual{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);border-radius:16px;padding:48px;min-height:380px;display:flex;flex-direction:column;justify-content:center}
+.ai-chat{display:flex;flex-direction:column;gap:16px}
+.ai-bubble{padding:14px 18px;border-radius:12px;font-size:14px;line-height:1.5;max-width:85%}
+.ai-bubble-user{background:var(--carolina);color:white;align-self:flex-end;border-bottom-right-radius:4px}
+.ai-bubble-ai{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.9);align-self:flex-start;border-bottom-left-radius:4px}
+.ai-content h2{font-family:var(--serif);font-size:40px;color:var(--navy);margin-bottom:20px;line-height:1.2}
+.ai-content p{font-size:17px;color:var(--dark-grey);line-height:1.7;margin-bottom:16px}
+.pricing{background:var(--off-white)}
+.pricing .section-title{text-align:center}
+.pricing .section-subtitle{text-align:center;margin:0 auto 64px}
+.pricing .section-label{text-align:center}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto}
+.pricing-card{background:var(--white);border-radius:16px;padding:40px;border:1.5px solid var(--light-grey);transition:all 0.3s}
+.pricing-card.featured{border-color:var(--carolina);position:relative}
+.pricing-card.featured::before{content:'Most Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--carolina);color:white;font-size:12px;font-weight:600;padding:4px 16px;border-radius:20px}
+.pricing-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.pricing-tier{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--carolina);margin-bottom:8px}
+.pricing-name{font-family:var(--serif);font-size:26px;color:var(--navy);margin-bottom:4px}
+.pricing-price{font-family:var(--serif);font-size:44px;color:var(--navy);margin:16px 0}
+.pricing-price span{font-family:var(--sans);font-size:16px;color:var(--mid-grey);font-weight:400}
+.pricing-desc{font-size:15px;color:var(--dark-grey);margin-bottom:24px;line-height:1.6}
+.pricing-features{list-style:none;margin-bottom:32px}
+.pricing-features li{padding:8px 0;font-size:14px;color:var(--dark-grey);display:flex;align-items:center;gap:8px}
+.pricing-features li::before{content:'\2713';color:var(--carolina);font-weight:700}
+.pricing-btn{display:block;text-align:center;padding:12px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:500;transition:all 0.2s}
+.pricing-btn-primary{background:var(--carolina);color:var(--white)}
+.pricing-btn-primary:hover{background:var(--navy)}
+.pricing-btn-outline{background:transparent;border:1.5px solid var(--navy);color:var(--navy)}
+.pricing-btn-outline:hover{background:var(--navy);color:var(--white)}
+.cta-banner{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center}
+.cta-banner h2{font-family:var(--serif);font-size:40px;color:var(--white);margin-bottom:16px}
+.cta-banner p{font-size:18px;color:rgba(255,255,255,0.7);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-form{display:flex;gap:12px;justify-content:center;max-width:480px;margin:0 auto}
+.cta-form input{flex:1;padding:14px 20px;border-radius:6px;border:none;font-size:15px;font-family:var(--sans);outline:none}
+.cta-form button{background:var(--carolina);color:white;border:none;padding:14px 28px;border-radius:6px;font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.2s}
+.cta-form button:hover{background:var(--carolina-light)}
+footer{background:var(--navy);color:rgba(255,255,255,0.6);padding:64px 40px 40px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+.footer-brand .logo{color:var(--white);font-size:22px;display:inline-block;margin-bottom:16px}
+.footer-brand p{font-size:14px;line-height:1.6;max-width:280px}
+.footer-col h4{color:var(--white);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.footer-col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:14px;padding:4px 0;transition:color 0.2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{max-width:1200px;margin:40px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);font-size:13px;text-align:center}
+.oak-divider{height:4px;background:linear-gradient(90deg,var(--oak),var(--oak-light),var(--oak))}
+@media(max-width:768px){
+.hero-inner{grid-template-columns:1fr;gap:40px}
+.hero h1{font-size:38px}
+.audience-grid{grid-template-columns:1fr}
+.props-grid{grid-template-columns:1fr}
+.steps{grid-template-columns:1fr 1fr}
+.pricing-grid{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr 1fr}
+.ai-inner{grid-template-columns:1fr}
+.nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+<div class="nav-inner">
+<a href="#" class="logo">DataRoom<span>.ai</span></a>
+<ul class="nav-links">
+<li><a href="#entrepreneurs">For Entrepreneurs</a></li>
+<li><a href="#investors">For Investors</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#pricing">Pricing</a></li>
+</ul>
+<a href="#cta-banner" class="nav-cta">Request Early Access</a>
+</div>
+</nav>
+
+<section class="hero">
+<div class="container">
+<div class="hero-inner">
+<div>
+<h1>Your fundraise deserves a <em>smarter</em> data room.</h1>
+<p>DataRoom.ai is the AI-powered platform where founders organize their fundraising materials and investors discover their next great deal. Secure, intelligent, and built for how modern fundraising actually works.</p>
+<div class="hero-cta-row">
+<a href="#cta-banner" class="btn-primary">Request Early Access</a>
+<a href="#how-it-works" class="btn-secondary">See How It Works</a>
+</div>
+</div>
+<div class="hero-visual">
+<div class="hero-visual-icon">
+<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+</div>
+<div class="hero-visual-label">Your Data Room</div>
+<div class="hero-visual-items">
+<div class="hero-visual-item"><span class="dot dot-blue"></span>Pitch Deck v3.2</div>
+<div class="hero-visual-item"><span class="dot dot-oak"></span>Financial Model 2026</div>
+<div class="hero-visual-item"><span class="dot dot-navy"></span>Cap Table</div>
+<div class="hero-visual-item"><span class="dot dot-green"></span>Competitor Analysis</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="trust-bar">
+<div class="container">
+<p>Trusted by founders and investors at</p>
+<div class="trust-logos">
+<span>Y Combinator</span>
+<span>a16z</span>
+<span>Sequoia</span>
+<span>First Round</span>
+<span>Benchmark</span>
+</div>
+</div>
+</section>
+
+<section class="value-props">
+<div class="container">
+<div class="section-label">Why DataRoom.ai</div>
+<h2 class="section-title">Fundraising is broken.<br>We're fixing it.</h2>
+<p class="section-subtitle">Founders waste weeks chasing documents across email threads and shared folders. Investors wade through noise to find signal. There's a better way.</p>
+<div class="props-grid">
+<div class="prop-card">
+<div class="prop-icon">🔒</div>
+<h3>Secure by Default</h3>
+<p>Bank-level encryption with granular access controls. You decide exactly who sees what, when, and for how long. Every view is logged, every download is tracked.</p>
+</div>
+<div class="prop-card">
+<div class="prop-icon">🤖</div>
+<h3>AI That Works For You</h3>
+<p>Our AI helps investors interrogate your data room in seconds, not hours. It also helps founders discover what questions investors are actually asking.</p>
+</div>
+<div class="prop-card">
+<div class="prop-icon">📊</div>
+<h3>Real-Time Analytics</h3>
+<p>Know exactly who's been in your data room, how long they spent, which documents they focused on, and what they asked the AI. Fundraising intelligence, finally.</p>
+</div>
+<div class="prop-card">
+<div class="prop-icon">🚀</div>
+<h3>5-Minute Setup</h3>
+<p>Upload your docs, organize them with drag-and-drop, and share a link. No consultants, no configuration headaches, no learning curve.</p>
+</div>
+<div class="prop-card">
+<div class="prop-icon">🤝</div>
+<h3>Built for Both Sides</h3>
+<p>Whether you're raising or deploying capital, DataRoom.ai speaks your language. One platform, two powerful experiences.</p>
+</div>
+<div class="prop-card">
+<div class="prop-icon">🌐</div>
+<h3>A Marketplace Emerges</h3>
+<p>As more founders and investors join, DataRoom.ai becomes the place where capital meets opportunity. The platform where great companies get funded.</p>
+</div>
+</div>
+</div>
+</section>
+
+<div class="oak-divider"></div>
+
+<section class="audiences" id="entrepreneurs">
+<div class="container">
+<div class="section-label">Two Sides, One Platform</div>
+<h2 class="section-title">Built for founders.<br>Loved by investors.</h2>
+<p class="section-subtitle">DataRoom.ai serves both sides of the fundraising table — because the best deals happen when everyone has the tools they need.</p>
+<div class="audience-grid">
+<div class="audience-card">
+<div class="audience-role">For Entrepreneurs</div>
+<h3>Your story, told right.</h3>
+<p>You've poured everything into building your company. Your data room should reflect that same care. DataRoom.ai gives you a beautiful, organized, secure space to present your fundraising materials — and the intelligence to know how investors are engaging with them.</p>
+<ul>
+<li>Upload and organize pitch decks, financials, cap tables, and more</li>
+<li>Control access — invite investors or approve inbound requests</li>
+<li>Track who's viewed your room, how often, and what they're asking</li>
+<li>Collaborate with co-founders and advisors in real time</li>
+</ul>
+</div>
+<div class="audience-card" id="investors">
+<div class="audience-role">For Investors</div>
+<h3>Find signal, not noise.</h3>
+<p>You see hundreds of decks a year. Most don't match your thesis. DataRoom.ai's AI-powered discovery engine surfaces the companies you actually want to talk to — then gives you the tools to diligence them in a fraction of the time.</p>
+<ul>
+<li>Describe your investment thesis and let AI find matching startups</li>
+<li>Request access to data rooms or schedule meetings directly</li>
+<li>Use the AI assistant to interrogate documents and extract key answers</li>
+<li>Track your deal pipeline across multiple data rooms</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+<div class="container">
+<div class="section-label">How It Works</div>
+<h2 class="section-title">From upload to funded<br>in four steps.</h2>
+<p class="section-subtitle">We've stripped away the complexity so you can focus on what matters — building your company and finding the right partners.</p>
+<div class="steps">
+<div class="step">
+<div class="step-num">01</div>
+<h3>Create Your Room</h3>
+<p>Sign up, name your data room, and start uploading. Drag and drop your pitch deck, financials, cap table, and any supporting materials.</p>
+</div>
+<div class="step">
+<div class="step-num">02</div>
+<h3>Organize &amp; Polish</h3>
+<p>Structure your room into sections that tell a compelling story. Our AI suggests an optimal layout based on what top-performing data rooms look like.</p>
+</div>
+<div class="step">
+<div class="step-num">03</div>
+<h3>Share &amp; Control</h3>
+<p>Invite specific investors or open your room to discovery. Set permissions, expiration dates, and NDAs. You're always in control.</p>
+</div>
+<div class="step">
+<div class="step-num">04</div>
+<h3>Engage &amp; Close</h3>
+<p>Track engagement in real time. See who's interested, what they're asking, and when it's time to follow up. Let the data guide your fundraise.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ai-section">
+<div class="container">
+<div class="ai-inner">
+<div class="ai-visual">
+<div class="ai-chat">
+<div class="ai-bubble ai-bubble-user">Show me AI startups in the renovation space that are pre-Series A with at least $500K ARR.</div>
+<div class="ai-bubble ai-bubble-ai">I found 3 companies matching your criteria. RenovateAI has the strongest growth trajectory at 40% MoM, with a data room that includes detailed financials and a competitive analysis. Would you like me to request access?</div>
+<div class="ai-bubble ai-bubble-user">Yes, and also summarize their cap table.</div>
+<div class="ai-bubble ai-bubble-ai">Access requested. I'll notify you when approved. In the meantime, based on their pitch deck, here's what I can share about their current raise...</div>
+</div>
+</div>
+<div class="ai-content">
+<div class="section-label">AI-Powered Intelligence</div>
+<h2>Your AI co-pilot for deal flow.</h2>
+<p>Whether you're a founder wanting to understand how investors engage with your materials, or an investor searching for your next portfolio company — our AI is there to make the process 10x faster.</p>
+<p>Natural language search across the entire DataRoom.ai marketplace. Instant document analysis. Smart notifications when something matches your criteria. This is fundraising, upgraded.</p>
+</div>
+</div>
+</div>
+</section>
+
+<div class="oak-divider"></div>
+
+<section class="pricing" id="pricing">
+<div class="container">
+<div class="section-label">Pricing</div>
+<h2 class="section-title">Start free. Scale when you're ready.</h2>
+<p class="section-subtitle">We believe every founder should have access to a world-class data room. That's why our core product is free.</p>
+<div class="pricing-grid">
+<div class="pricing-card">
+<div class="pricing-tier">Starter</div>
+<div class="pricing-name">Founder</div>
+<div class="pricing-price">Free</div>
+<p class="pricing-desc">Everything you need to create, organize, and share your first data room.</p>
+<ul class="pricing-features">
+<li>1 data room</li>
+<li>Up to 500MB storage</li>
+<li>Invite up to 10 viewers</li>
+<li>Basic analytics</li>
+<li>AI document assistant</li>
+</ul>
+<a href="#cta-banner" class="pricing-btn pricing-btn-outline">Get Started Free</a>
+</div>
+<div class="pricing-card featured">
+<div class="pricing-tier">Growth</div>
+<div class="pricing-name">Scale-Up</div>
+<div class="pricing-price">$49<span> /month</span></div>
+<p class="pricing-desc">For founders running active fundraises who need more power and insight.</p>
+<ul class="pricing-features">
+<li>Unlimited data rooms</li>
+<li>5GB storage</li>
+<li>Unlimited viewers</li>
+<li>Advanced analytics &amp; engagement tracking</li>
+<li>AI-powered Q&amp;A insights</li>
+<li>Custom branding</li>
+</ul>
+<a href="#cta-banner" class="pricing-btn pricing-btn-primary">Request Early Access</a>
+</div>
+<div class="pricing-card">
+<div class="pricing-tier">Enterprise</div>
+<div class="pricing-name">Investor Suite</div>
+<div class="pricing-price">Custom</div>
+<p class="pricing-desc">For VCs and institutional investors who want AI-powered deal discovery and pipeline management.</p>
+<ul class="pricing-features">
+<li>AI startup discovery engine</li>
+<li>Unlimited data room access</li>
+<li>Advanced AI interrogation tools</li>
+<li>Deal pipeline management</li>
+<li>Team collaboration</li>
+<li>Priority support</li>
+</ul>
+<a href="#cta-banner" class="pricing-btn pricing-btn-outline">Contact Us</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cta-banner" id="cta-banner">
+<div class="container">
+<h2>Ready to upgrade your fundraise?</h2>
+<p>Join the founders and investors who are already rethinking how deals get done. Early access is limited.</p>
+<div class="cta-form">
+<input type="email" placeholder="Enter your email">
+<button type="button">Request Early Access</button>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="footer-inner">
+<div class="footer-brand">
+<a href="#" class="logo">DataRoom<span>.ai</span></a>
+<p>The AI-powered data room platform where founders and investors connect, collaborate, and close deals faster.</p>
+</div>
+<div class="footer-col">
+<h4>Product</h4>
+<a href="#entrepreneurs">For Entrepreneurs</a>
+<a href="#investors">For Investors</a>
+<a href="#how-it-works">How It Works</a>
+<a href="#pricing">Pricing</a>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<a href="#">About</a>
+<a href="#">Blog</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+</div>
+<div class="footer-col">
+<h4>Legal</h4>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+<a href="#">Security</a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 DataRoom.ai. All rights reserved.</p>
+</div>
+</footer>
+</body>
+</html>
