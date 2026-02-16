@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dashboard - DataRoom.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+  </head>
+<body>
+    <nav class="dash-nav">
+          <div class="nav-inner">
+                  <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>a>
+                <div class="nav-right">
+                        <div class="user-menu" id="user-menu">
+                                  <button class="user-menu-btn" id="user-menu-btn">
+                                              <div class="avatar-small" id="nav-avatar">
+                                                            <span id="nav-initials"></span>
+                                              </div>div>
+                                              <span id="nav-name">Loading...</span>
+                                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>svg>
+                                  </button>button>
+                                  <div class="user-dropdown" id="user-dropdown">
+                                              <a href="profile.html">My Profile</a>a>
+                                              <a href="#" id="logout-btn">Log Out</a>a>
+                                  </div>div>
+                        </div>div>
+                </div>div>
+          </div>div>
+    </nav>nav>
+
+  <main class="dashboard-main">
+      <div class="container">
+            <div class="dash-header">
+                    <h1>My Data Rooms</h1>
+            </div>div>
+      
+            <div id="datarooms-container">
+                    <!-- Empty state - shown when no data rooms exist -->
+                    <div class="empty-state" id="empty-state">
+                              <div class="empty-icon">
+                                          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M12 8v8M8 12h8"/></svg>svg>
+                              </div>div>
+                              <h2>No data rooms yet</h2>
+                              <p>Create your first data room to start organizing your fundraising materials and sharing them with investors.</p>
+                              <button class="btn-primary" id="create-room-btn">Create Data Room</button>button>
+                    </div>div>
+            
+                    <!-- Data rooms list - shown when rooms exist -->
+                    <div class="rooms-grid" id="rooms-grid" style="display:none;">
+                              <!-- Rooms will be dynamically inserted here -->
+                    </div>div>
+            </div>div>
+      </div>div>
+  </main>main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+        // Require authentication
+        (async () => {
+                const isAuth = await requireAuth();
+                if (!isAuth) return;
+
+                // Load user profile
+                const { profile } = await profiles.getMyProfile();
+                if (profile) {
+                          const displayName = profile.display_name || profile.email || 'User';
+                          document.getElementById('nav-name').textContent = displayName;
+
+                          // Set avatar
+                          if (profile.avatar_url) {
+                                      document.getElementById('nav-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
+                          } else {
+                                      const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                                      document.getElementById('nav-initials').textContent = initials;
+                          }
+                }
+
+                // Check if profile needs setup (no handle yet)
+                if (profile && !profile.handle) {
+                          // Show a subtle prompt to complete profile
+                          const banner = document.createElement('div');
+                          banner.className = 'setup-banner';
+                          banner.innerHTML = '<p>Welcome! <a href="profile.html">Complete your profile</a> to set up your handle and preferences.</p>';
+                          document.querySelector('.dashboard-main .container').prepend(banner);
+                }
+        })();
+
+        // User menu toggle
+        document.getElementById('user-menu-btn').addEventListener('click', () => {
+                document.getElementById('user-dropdown').classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+                if (!document.getElementById('user-menu').contains(e.target)) {
+                          document.getElementById('user-dropdown').classList.remove('show');
+                }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async (e) => {
+                e.preventDefault();
+                await auth.signOut();
+                window.location.href = 'index.html';
+        });
+
+        // Create data room button (placeholder for now)
+        document.getElementById('create-room-btn').addEventListener('click', () => {
+                alert('Data room creation coming soon!');
+        });
+  </script>
+</body>
+</html>html>
+  </script></p></h2></h1></span>
+</body></title>
+  </head>
