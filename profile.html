@@ -1,165 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>My Profile - DataRoom.ai</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - DataRoom.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
 <body>
-    <nav class="dash-nav">
-          <div class="nav-inner">
-                  <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>a>
-                <div class="nav-right">
-                        <a href="dashboard.html" class="back-link">Back to Dashboard</a>a>
-                </div>div>
-          </div>div>
-    </nav>nav>
+  <nav class="dash-nav">
+    <div class="nav-inner">
+      <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
+      <div class="nav-right">
+        <a href="dashboard.html" class="back-link">Back to Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
   <main class="dashboard-main">
-      <div class="container profile-container">
-            <h1>My Profile</h1>
-            <div id="success-message" class="success-message" style="display:none;"></div>div>
-            <div id="error-message" class="error-message" style="display:none;"></div>div>
-            <div class="profile-section">
-                    <h2>Profile Photo</h2>
-                    <div class="avatar-upload">
-                              <div class="avatar-large" id="profile-avatar"><span id="profile-initials"></span></div>div>
-                              <div class="avatar-actions">
-                                          <label for="avatar-input" class="btn-secondary btn-sm">Upload Photo</label>label>
-                                          <input type="file" id="avatar-input" accept="image/*" style="display:none;">
-                                          <p class="help-text">JPG, PNG, or GIF. Max 2MB.</p>p>
-                              </div>div>
-                    </div>div>
-            </div>div>
-            <div class="profile-section">
-                    <h2>Profile Information</h2>
-                    <form id="profile-form">
-                              <div class="form-group">
-                                          <label for="display-name">Display Name</label>label>
-                                          <input type="text" id="display-name" placeholder="Your full name">
-                                          <p class="help-text">This is how your name appears to others.</p>p>
-                              </div>div>
-                              <div class="form-group">
-                                          <label for="handle">Handle</label>label>
-                                          <div class="input-with-prefix">
-                                                        <span class="input-prefix">@</span>
-                                                        <input type="text" id="handle" placeholder="yourhandle" pattern="[a-z0-9_]{3,30}">
-                                          </div>div>
-                                          <p class="help-text" id="handle-status">Lowercase letters, numbers, and underscores. 3-30 characters.</p>p>
-                              </div>div>
-                              <div class="form-group">
-                                          <label>I am a...</label>
-                                          <div class="checkbox-group">
-                                                        <label class="checkbox-label">
-                                                                          <input type="checkbox" id="type-entrepreneur" value="entrepreneur">
-                                                                          <span class="checkbox-custom"></span>
-                                                                          Entrepreneur
-                                                        </label>
-                                                          <label class="checkbox-label">
-                                                                            <input type="checkbox" id="type-investor" value="investor">
-                                                                            <span class="checkbox-custom"></span>
-                                                                            Investor
-                                                          </label>
-                                          </div>div>
-                                            <p class="help-text">Select all that apply. This helps personalize your experience.</p>p>
-                              </div>div>
-                                <button type="submit" class="btn-primary" id="save-profile-btn">Save Profile</button>button>
-                    </form>form>
-            </div>div>
-              <div class="profile-section">
-                        <h2>Change Password</h2>
-                        <form id="password-form">
-                                    <div class="form-group">
-                                                  <label for="new-password">New Password</label>
-                                                  <input type="password" id="new-password" placeholder="At least 8 characters" minlength="8">
-                                    </div>div>
-                                    <div class="form-group">
-                                                  <label for="confirm-new-password">Confirm New Password</label>
-                                                  <input type="password" id="confirm-new-password" placeholder="Confirm new password" minlength="8">
-                                    </div>div>
-                                    <button type="submit" class="btn-secondary" id="change-password-btn">Update Password</button>button>
-                        </form>form>
-              </div>div>
-      </div>div>
-  </main>main>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-config.js"></script>
-    <script>
-          let currentProfile = null;
-          let handleCheckTimeout = null;
-          (async () => {
-                  const isAuth = await requireAuth();
-                  if (!isAuth) return;
-                  const { profile } = await profiles.getMyProfile();
-                  if (profile) {
-                            currentProfile = profile;
-                            document.getElementById('display-name').value = profile.display_name || '';
-                            document.getElementById('handle').value = profile.handle || '';
-                            if (profile.user_types && profile.user_types.includes('entrepreneur'))
-                                        document.getElementById('type-entrepreneur').checked = true;
-                            if (profile.user_types && profile.user_types.includes('investor'))
-                                        document.getElementById('type-investor').checked = true;
-                            if (profile.avatar_url) {
-                                        document.getElementById('profile-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
-                            } else {
-                                        const name = profile.display_name || profile.email || 'U';
-                                        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                                        document.getElementById('profile-initials').textContent = initials;
-                            }
-                  }
-          })();
-          document.getElementById('handle').addEventListener('input', (e) => {
-                  const handle = e.target.value.toLowerCase();
-                  const statusEl = document.getElementById('handle-status');
-                  if (handleCheckTimeout) clearTimeout(handleCheckTimeout);
-                  if (handle.length < 3) { statusEl.textContent = 'Handle must be at least 3 characters.'; statusEl.className = 'help-text'; return; }
-                  if (!/^[a-z0-9_]+$/.test(handle)) { statusEl.textContent = 'Only lowercase letters, numbers, and underscores.'; statusEl.className = 'help-text error-text'; return; }
-                  statusEl.textContent = 'Checking availability...';
-                  handleCheckTimeout = setTimeout(async () => {
-                            const { available } = await profiles.checkHandleAvailable(handle);
-                            if (available) { statusEl.textContent = '@' + handle + ' is available!'; statusEl.className = 'help-text success-text'; }
-                            else { statusEl.textContent = '@' + handle + ' is already taken.'; statusEl.className = 'help-text error-text'; }
-                  }, 500);
-          });
-          document.getElementById('profile-form').addEventListener('submit', async (e) => {
-                  e.preventDefault();
-                  const btn = document.getElementById('save-profile-btn');
-                  btn.disabled = true; btn.textContent = 'Saving...';
-                  const userTypes = [];
-                  if (document.getElementById('type-entrepreneur').checked) userTypes.push('entrepreneur');
-                  if (document.getElementById('type-investor').checked) userTypes.push('investor');
-                  const updates = { display_name: document.getElementById('display-name').value, handle: document.getElementById('handle').value.toLowerCase(), user_types: userTypes };
-                  const { data, error } = await profiles.updateProfile(updates);
-                  if (error) { document.getElementById('error-message').textContent = error.message || 'Failed to update profile.'; document.getElementById('error-message').style.display = 'block'; document.getElementById('success-message').style.display = 'none'; }
-                  else { document.getElementById('success-message').textContent = 'Profile updated successfully!'; document.getElementById('success-message').style.display = 'block'; document.getElementById('error-message').style.display = 'none'; }
-                  btn.disabled = false; btn.textContent = 'Save Profile';
-          });
-          document.getElementById('avatar-input').addEventListener('change', async (e) => {
-                  const file = e.target.files[0];
-                  if (!file) return;
-                  if (file.size > 2 * 1024 * 1024) { document.getElementById('error-message').textContent = 'Image must be less than 2MB.'; document.getElementById('error-message').style.display = 'block'; return; }
-                  const { url, error } = await profiles.uploadAvatar(file);
-                  if (error) { document.getElementById('error-message').textContent = 'Failed to upload photo.'; document.getElementById('error-message').style.display = 'block'; }
-                  else { document.getElementById('profile-avatar').innerHTML = '<img src="' + url + '" alt="Avatar">'; document.getElementById('success-message').textContent = 'Photo updated!'; document.getElementById('success-message').style.display = 'block'; }
-          });
-          document.getElementById('password-form').addEventListener('submit', async (e) => {
-                  e.preventDefault();
-                  const newPw = document.getElementById('new-password').value;
-                  const confirmPw = document.getElementById('confirm-new-password').value;
-                  const btn = document.getElementById('change-password-btn');
-                  if (newPw !== confirmPw) { document.getElementById('error-message').textContent = 'Passwords do not match.'; document.getElementById('error-message').style.display = 'block'; return; }
-                  btn.disabled = true; btn.textContent = 'Updating...';
-                  const { error } = await auth.updatePassword(newPw);
-                  if (error) { document.getElementById('error-message').textContent = error.message; document.getElementById('error-message').style.display = 'block'; }
-                  else { document.getElementById('success-message').textContent = 'Password updated!'; document.getElementById('success-message').style.display = 'block'; document.getElementById('new-password').value = ''; document.getElementById('confirm-new-password').value = ''; }
-                  btn.disabled = false; btn.textContent = 'Update Password';
-          });
-    </script>
+    <div class="container profile-container">
+      <h1>My Profile</h1>
+
+      <div id="success-message" class="success-message" style="display:none;"></div>
+      <div id="error-message" class="error-message" style="display:none;"></div>
+
+      <div class="profile-section">
+        <h2>Profile Photo</h2>
+        <div class="avatar-upload">
+          <div class="avatar-large" id="profile-avatar"><span id="profile-initials"></span></div>
+          <div class="avatar-actions">
+            <label for="avatar-input" class="btn-secondary btn-sm">Upload Photo</label>
+            <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+            <p class="help-text">JPG, PNG, or GIF. Max 2MB.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h2>Profile Information</h2>
+        <form id="profile-form">
+          <div class="form-group">
+            <label for="display-name">Display Name</label>
+            <input type="text" id="display-name" placeholder="Your full name">
+            <p class="help-text">This is how your name appears to others.</p>
+          </div>
+          <div class="form-group">
+            <label for="handle">Handle</label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">@</span>
+              <input type="text" id="handle" placeholder="yourhandle" pattern="[a-z0-9_]{3,30}">
+            </div>
+            <p class="help-text" id="handle-status">Lowercase letters, numbers, and underscores. 3-30 characters.</p>
+          </div>
+          <div class="form-group">
+            <label>I am a...</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="type-entrepreneur" value="entrepreneur">
+                <span class="checkbox-custom"></span>
+                Entrepreneur
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="type-investor" value="investor">
+                <span class="checkbox-custom"></span>
+                Investor
+              </label>
+            </div>
+            <p class="help-text">Select all that apply. This helps personalize your experience.</p>
+          </div>
+          <button type="submit" class="btn-primary" id="save-profile-btn">Save Profile</button>
+        </form>
+      </div>
+
+      <div class="profile-section">
+        <h2>Change Password</h2>
+        <form id="password-form">
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" placeholder="At least 8 characters" minlength="8">
+          </div>
+          <div class="form-group">
+            <label for="confirm-new-password">Confirm New Password</label>
+            <input type="password" id="confirm-new-password" placeholder="Confirm new password" minlength="8">
+          </div>
+          <button type="submit" class="btn-secondary" id="change-password-btn">Update Password</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+    let currentProfile = null;
+    let handleCheckTimeout = null;
+
+    (async () => {
+      const isAuth = await requireAuth();
+      if (!isAuth) return;
+
+      const { profile } = await profiles.getMyProfile();
+      if (profile) {
+        currentProfile = profile;
+        document.getElementById('display-name').value = profile.display_name || '';
+        document.getElementById('handle').value = profile.handle || '';
+
+        if (profile.user_types && profile.user_types.includes('entrepreneur'))
+          document.getElementById('type-entrepreneur').checked = true;
+        if (profile.user_types && profile.user_types.includes('investor'))
+          document.getElementById('type-investor').checked = true;
+
+        if (profile.avatar_url) {
+          document.getElementById('profile-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
+        } else {
+          const name = profile.display_name || profile.email || 'U';
+          const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+          document.getElementById('profile-initials').textContent = initials;
+        }
+      }
+    })();
+
+    document.getElementById('handle').addEventListener('input', (e) => {
+      const handle = e.target.value.toLowerCase();
+      const statusEl = document.getElementById('handle-status');
+      if (handleCheckTimeout) clearTimeout(handleCheckTimeout);
+
+      if (handle.length < 3) {
+        statusEl.textContent = 'Handle must be at least 3 characters.';
+        statusEl.className = 'help-text';
+        return;
+      }
+      if (!/^[a-z0-9_]+$/.test(handle)) {
+        statusEl.textContent = 'Only lowercase letters, numbers, and underscores.';
+        statusEl.className = 'help-text error-text';
+        return;
+      }
+
+      statusEl.textContent = 'Checking availability...';
+      handleCheckTimeout = setTimeout(async () => {
+        const { available } = await profiles.checkHandleAvailable(handle);
+        if (available) {
+          statusEl.textContent = '@' + handle + ' is available!';
+          statusEl.className = 'help-text success-text';
+        } else {
+          statusEl.textContent = '@' + handle + ' is already taken.';
+          statusEl.className = 'help-text error-text';
+        }
+      }, 500);
+    });
+
+    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('save-profile-btn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      const userTypes = [];
+      if (document.getElementById('type-entrepreneur').checked) userTypes.push('entrepreneur');
+      if (document.getElementById('type-investor').checked) userTypes.push('investor');
+
+      const updates = {
+        display_name: document.getElementById('display-name').value,
+        handle: document.getElementById('handle').value.toLowerCase(),
+        user_types: userTypes
+      };
+
+      const { data, error } = await profiles.updateProfile(updates);
+      if (error) {
+        document.getElementById('error-message').textContent = error.message || 'Failed to update profile.';
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('success-message').style.display = 'none';
+      } else {
+        document.getElementById('success-message').textContent = 'Profile updated successfully!';
+        document.getElementById('success-message').style.display = 'block';
+        document.getElementById('error-message').style.display = 'none';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Save Profile';
+    });
+
+    document.getElementById('avatar-input').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024) {
+        document.getElementById('error-message').textContent = 'Image must be less than 2MB.';
+        document.getElementById('error-message').style.display = 'block';
+        return;
+      }
+      const { url, error } = await profiles.uploadAvatar(file);
+      if (error) {
+        document.getElementById('error-message').textContent = 'Failed to upload photo.';
+        document.getElementById('error-message').style.display = 'block';
+      } else {
+        document.getElementById('profile-avatar').innerHTML = '<img src="' + url + '" alt="Avatar">';
+        document.getElementById('success-message').textContent = 'Photo updated!';
+        document.getElementById('success-message').style.display = 'block';
+      }
+    });
+
+    document.getElementById('password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newPw = document.getElementById('new-password').value;
+      const confirmPw = document.getElementById('confirm-new-password').value;
+      const btn = document.getElementById('change-password-btn');
+
+      if (newPw !== confirmPw) {
+        document.getElementById('error-message').textContent = 'Passwords do not match.';
+        document.getElementById('error-message').style.display = 'block';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Updating...';
+
+      const { error } = await auth.updatePassword(newPw);
+      if (error) {
+        document.getElementById('error-message').textContent = error.message;
+        document.getElementById('error-message').style.display = 'block';
+      } else {
+        document.getElementById('success-message').textContent = 'Password updated!';
+        document.getElementById('success-message').style.display = 'block';
+        document.getElementById('new-password').value = '';
+        document.getElementById('confirm-new-password').value = '';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Update Password';
+    });
+  </script>
 </body>
-</html>html>
-    </script>
-                                                        </label></h2></h1></span>
-</body></title>
-  </head>
+</html>
