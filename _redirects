@@ -1,4 +1,5 @@
-/login    /login.html   200
-/signup   /signup.html  200
+/login    /login.html     200
+/signup   /signup.html    200
 /dashboard  /dashboard.html  200
-/profile  /profile.html  200
+/profile  /profile.html   200
+/dataroom  /dataroom.html  200
