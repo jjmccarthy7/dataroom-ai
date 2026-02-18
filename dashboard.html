@@ -18,7 +18,7 @@
             <div class="avatar-small" id="nav-avatar">
               <span id="nav-initials"></span>
             </div>
-            <span id="nav-name">Loading...</span>
+            <span id="nav-name"></span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
           <div class="user-dropdown" id="user-dropdown">
@@ -34,27 +34,125 @@
     <div class="container">
       <div class="dash-header">
         <h1>My Data Rooms</h1>
+        <button class="btn-primary" id="create-room-btn" style="display:none;">+ Create Data Room</button>
       </div>
 
-      <div id="datarooms-container">
-        <div class="empty-state" id="empty-state">
-          <div class="empty-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M12 8v8M8 12h8"/></svg>
-          </div>
-          <h2>No data rooms yet</h2>
-          <p>Create your first data room to start organizing your fundraising materials and sharing them with investors.</p>
-          <button class="btn-primary" id="create-room-btn">Create Data Room</button>
-        </div>
-
-        <div class="rooms-grid" id="rooms-grid" style="display:none;">
-        </div>
+      <!-- Profile setup banner (shown if no handle yet) -->
+      <div id="setup-banner" class="setup-banner" style="display:none;">
+        <p>Welcome! <a href="profile.html">Complete your profile</a> to set up your handle and preferences.</p>
       </div>
+
+      <!-- Loading state -->
+      <div id="loading-state" class="empty-state">
+        <p style="color:#999;">Loading your data rooms...</p>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <h2>No data rooms yet</h2>
+        <p>Create your first data room to start organizing your fundraising materials.</p>
+        <button class="btn-primary" id="create-room-btn-empty">Create Data Room</button>
+      </div>
+
+      <!-- Rooms grid -->
+      <div class="rooms-grid" id="rooms-grid" style="display:none;"></div>
     </div>
   </main>
+
+  <!-- Create Data Room Modal -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Create a Data Room</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div id="modal-error" class="error-message" style="display:none;"></div>
+      <form id="create-room-form">
+        <div class="form-group">
+          <label for="company-name">Company Name <span class="required">*</span></label>
+          <input type="text" id="company-name" placeholder="e.g. Acme Corp" required>
+        </div>
+        <div class="form-group">
+          <label for="short-description">Short Description</label>
+          <input type="text" id="short-description" placeholder="One sentence about your company">
+        </div>
+        <div class="form-group">
+          <label for="stage">Stage</label>
+          <select id="stage">
+            <option value="">Select stage...</option>
+            <option value="pre-seed">Pre-seed</option>
+            <option value="seed">Seed</option>
+            <option value="series-a">Series A</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="owner-role">Your Role</label>
+          <select id="owner-role">
+            <option value="founder">Founder</option>
+            <option value="investor">Investor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="website">Website</label>
+          <input type="text" id="website" placeholder="https://yourcompany.com">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" placeholder="e.g. San Francisco, CA">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn-primary" id="create-room-submit">Create Data Room</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script>
+    function openModal() {
+      document.getElementById('modal-overlay').style.display = 'flex';
+      document.getElementById('company-name').focus();
+    }
+    function closeModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('create-room-form').reset();
+      document.getElementById('modal-error').style.display = 'none';
+    }
+
+    function renderRooms(rooms) {
+      const grid = document.getElementById('rooms-grid');
+      grid.innerHTML = '';
+      rooms.forEach(function(room) {
+        const stageLabels = { 'pre-seed': 'Pre-seed', 'seed': 'Seed', 'series-a': 'Series A', 'other': 'Other' };
+        const roleLabel = room.owner_role === 'investor' ? 'Investor' : 'Founder';
+        const updated = new Date(room.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const initials = room.company_name.slice(0, 2).toUpperCase();
+        const card = document.createElement('div');
+        card.className = 'room-card';
+        card.innerHTML =
+          '<div class="room-card-logo">' + (room.logo_url ? '<img src="' + room.logo_url + '" alt="Logo">' : '<span>' + initials + '</span>') + '</div>' +
+          '<div class="room-card-body">' +
+            '<h3 class="room-card-name">' + room.company_name + '</h3>' +
+            (room.short_description ? '<p class="room-card-desc">' + room.short_description + '</p>' : '') +
+            '<div class="room-card-meta">' +
+              '<span class="room-card-role">' + roleLabel + '</span>' +
+              (room.stage ? '<span class="room-card-stage">' + (stageLabels[room.stage] || room.stage) + '</span>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="room-card-footer">Updated ' + updated + '</div>';
+        card.addEventListener('click', function() {
+          window.location.href = 'dataroom.html?id=' + room.id;
+        });
+        grid.appendChild(card);
+      });
+    }
+
     (async () => {
       const isAuth = await requireAuth();
       if (!isAuth) return;
@@ -63,41 +161,81 @@
       if (profile) {
         const displayName = profile.display_name || profile.email || 'User';
         document.getElementById('nav-name').textContent = displayName;
-
         if (profile.avatar_url) {
           document.getElementById('nav-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
         } else {
-          const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+          const initials = displayName.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0, 2);
           document.getElementById('nav-initials').textContent = initials;
+        }
+        if (!profile.handle) {
+          document.getElementById('setup-banner').style.display = 'block';
         }
       }
 
-      if (profile && !profile.handle) {
-        const banner = document.createElement('div');
-        banner.className = 'setup-banner';
-        banner.innerHTML = '<p>Welcome! <a href="profile.html">Complete your profile</a> to set up your handle and preferences.</p>';
-        document.querySelector('.dashboard-main .container').prepend(banner);
+      const { rooms, error } = await dataRooms.getMyRooms();
+      document.getElementById('loading-state').style.display = 'none';
+
+      if (error) {
+        document.getElementById('empty-state').style.display = 'block';
+        return;
+      }
+
+      if (rooms.length === 0) {
+        document.getElementById('empty-state').style.display = 'block';
+      } else {
+        document.getElementById('rooms-grid').style.display = 'grid';
+        document.getElementById('create-room-btn').style.display = 'inline-block';
+        renderRooms(rooms);
       }
     })();
 
-    document.getElementById('user-menu-btn').addEventListener('click', () => {
+    document.getElementById('user-menu-btn').addEventListener('click', function() {
       document.getElementById('user-dropdown').classList.toggle('show');
     });
-
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', function(e) {
       if (!document.getElementById('user-menu').contains(e.target)) {
         document.getElementById('user-dropdown').classList.remove('show');
       }
     });
-
-    document.getElementById('logout-btn').addEventListener('click', async (e) => {
+    document.getElementById('logout-btn').addEventListener('click', async function(e) {
       e.preventDefault();
       await auth.signOut();
       window.location.href = 'index.html';
     });
 
-    document.getElementById('create-room-btn').addEventListener('click', () => {
-      alert('Data room creation coming soon!');
+    document.getElementById('create-room-btn').addEventListener('click', openModal);
+    document.getElementById('create-room-btn-empty').addEventListener('click', openModal);
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    });
+
+    document.getElementById('create-room-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('create-room-submit');
+      btn.disabled = true;
+      btn.textContent = 'Creating...';
+      document.getElementById('modal-error').style.display = 'none';
+
+      const { data, error } = await dataRooms.createRoom({
+        company_name: document.getElementById('company-name').value.trim(),
+        short_description: document.getElementById('short-description').value.trim(),
+        stage: document.getElementById('stage').value,
+        owner_role: document.getElementById('owner-role').value,
+        website: document.getElementById('website').value.trim(),
+        location: document.getElementById('location').value.trim()
+      });
+
+      if (error) {
+        document.getElementById('modal-error').textContent = error.message || 'Failed to create data room.';
+        document.getElementById('modal-error').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Data Room';
+        return;
+      }
+
+      window.location.href = 'dataroom.html?id=' + data.id;
     });
   </script>
 </body>
