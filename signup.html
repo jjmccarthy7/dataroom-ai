@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - DataRoom.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">DataRoom<span>.ai</span></a>
+      <div class="nav-auth-links">
+        <a href="login.html" class="nav-cta-outline">Log In</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="auth-subtitle">Join the platform where founders and investors connect</p>
+
+      <div id="error-message" class="error-message" style="display:none;"></div>
+
+      <button id="google-btn" class="google-btn" type="button">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="divider"><span>or</span></div>
+
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" placeholder="Rob Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 8 characters" required minlength="8">
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm your password" required minlength="8">
+        </div>
+        <button type="submit" class="btn-primary" id="signup-btn">Create Account</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+    redirectIfAuth();
+
+    document.getElementById('google-btn').addEventListener('click', async () => {
+      const { error } = await auth.signInWithGoogle();
+      if (error) {
+        document.getElementById('error-message').textContent = error.message;
+        document.getElementById('error-message').style.display = 'block';
+      }
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('full-name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const btn = document.getElementById('signup-btn');
+
+      if (password !== confirmPassword) {
+        document.getElementById('error-message').textContent = 'Passwords do not match.';
+        document.getElementById('error-message').style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      document.getElementById('error-message').style.display = 'none';
+
+      const { data, error } = await auth.signUp(email, password, fullName);
+      if (error) {
+        document.getElementById('error-message').textContent = error.message;
+        document.getElementById('error-message').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+        return;
+      }
+
+      window.location.href = 'login.html?registered=true';
+    });
+  </script>
+</body>
+</html>
