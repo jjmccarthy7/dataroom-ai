@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Room - DataRoom.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <nav class="dash-nav">
+    <div class="nav-inner">
+      <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
+      <div class="nav-right">
+        <div class="user-menu" id="user-menu">
+          <button class="user-menu-btn" id="user-menu-btn">
+            <div class="avatar-small" id="nav-avatar">
+              <span id="nav-initials"></span>
+            </div>
+            <span id="nav-name">Loading...</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="user-dropdown" id="user-dropdown">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-main">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <a href="dashboard.html">My Data Rooms</a>
+        <span class="breadcrumb-sep">/</span>
+        <span id="breadcrumb-name">Loading...</span>
+      </div>
+
+      <!-- Room Header -->
+      <div class="room-header" id="room-header">
+        <div class="room-header-left">
+          <div class="room-logo" id="room-logo">
+            <span id="room-logo-initials"></span>
+          </div>
+          <div class="room-title-block">
+            <h1 id="room-title">Loading...</h1>
+            <p id="room-meta" class="room-meta"></p>
+          </div>
+        </div>
+        <div class="room-header-right">
+          <span class="room-stage-badge" id="room-stage"></span>
+        </div>
+      </div>
+
+      <!-- Room Details -->
+      <div class="room-details-grid">
+        <div class="room-detail-card">
+          <div class="detail-label">Description</div>
+          <div class="detail-value" id="detail-description">—</div>
+        </div>
+        <div class="room-detail-card">
+          <div class="detail-label">Website</div>
+          <div class="detail-value" id="detail-website">—</div>
+        </div>
+        <div class="room-detail-card">
+          <div class="detail-label">Location</div>
+          <div class="detail-value" id="detail-location">—</div>
+        </div>
+        <div class="room-detail-card">
+          <div class="detail-label">Created</div>
+          <div class="detail-value" id="detail-created">—</div>
+        </div>
+      </div>
+
+      <!-- Documents Section (empty state for V1) -->
+      <div class="room-section">
+        <div class="room-section-header">
+          <h2>Documents</h2>
+          <button class="btn-primary btn-sm" id="upload-doc-btn">+ Add Document</button>
+        </div>
+        <div class="room-empty-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+          <p>No documents yet. Add your pitch deck, financials, and other materials.</p>
+          <button class="btn-secondary btn-sm" id="upload-doc-btn-2">Upload First Document</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+    (async () => {
+      const isAuth = await requireAuth();
+      if (!isAuth) return;
+
+      // Get room ID from URL params
+      const params = new URLSearchParams(window.location.search);
+      const roomId = params.get('id');
+      if (!roomId) {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      // Load user profile for nav
+      const { profile } = await profiles.getMyProfile();
+      if (profile) {
+        const displayName = profile.display_name || profile.email || 'User';
+        document.getElementById('nav-name').textContent = displayName;
+        if (profile.avatar_url) {
+          document.getElementById('nav-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
+        } else {
+          const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+          document.getElementById('nav-initials').textContent = initials;
+        }
+      }
+
+      // Load data room
+      const { data: room, error } = await dataRooms.getRoom(roomId);
+      if (error || !room) {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      // Populate UI
+      document.title = room.company_name + ' - DataRoom.ai';
+      document.getElementById('breadcrumb-name').textContent = room.company_name;
+      document.getElementById('room-title').textContent = room.company_name;
+
+      // Meta line: role + owner
+      const roleLabel = room.owner_role === 'investor' ? 'Investor' : 'Founder';
+      document.getElementById('room-meta').textContent = roleLabel + ' · Owner';
+
+      // Stage badge
+      const stageLabels = { 'pre-seed': 'Pre-seed', 'seed': 'Seed', 'series-a': 'Series A', 'other': 'Other' };
+      const stageBadge = document.getElementById('room-stage');
+      if (room.stage) {
+        stageBadge.textContent = stageLabels[room.stage] || room.stage;
+        stageBadge.style.display = 'inline-block';
+      }
+
+      // Logo
+      if (room.logo_url) {
+        document.getElementById('room-logo').innerHTML = '<img src="' + room.logo_url + '" alt="Logo">';
+      } else {
+        document.getElementById('room-logo-initials').textContent = room.company_name.slice(0, 2).toUpperCase();
+      }
+
+      // Details
+      if (room.short_description) document.getElementById('detail-description').textContent = room.short_description;
+      if (room.website) {
+        const link = document.createElement('a');
+        link.href = room.website.startsWith('http') ? room.website : 'https://' + room.website;
+        link.textContent = room.website;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.getElementById('detail-website').innerHTML = '';
+        document.getElementById('detail-website').appendChild(link);
+      }
+      if (room.location) document.getElementById('detail-location').textContent = room.location;
+      if (room.created_at) {
+        const date = new Date(room.created_at);
+        document.getElementById('detail-created').textContent = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+    })();
+
+    // Nav dropdown
+    document.getElementById('user-menu-btn').addEventListener('click', () => {
+      document.getElementById('user-dropdown').classList.toggle('show');
+    });
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('user-menu').contains(e.target)) {
+        document.getElementById('user-dropdown').classList.remove('show');
+      }
+    });
+    document.getElementById('logout-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      await auth.signOut();
+      window.location.href = 'index.html';
+    });
+
+    // Upload placeholders
+    document.getElementById('upload-doc-btn').addEventListener('click', () => alert('Document upload coming soon!'));
+    document.getElementById('upload-doc-btn-2').addEventListener('click', () => alert('Document upload coming soon!'));
+  </script>
+</body>
+</html>
