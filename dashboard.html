@@ -14,7 +14,7 @@
       <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
       <div class="nav-right">
         <div class="user-menu" id="user-menu">
-          <button class="user-menu-btn" id="user-menu-btn">
+          <button class="user-menu-btn" id="user-menu-btn"
             <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
             <span id="nav-name"></span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -142,10 +142,19 @@
       currentUser = sessionRes.session.user;
 
       // Load profile and rooms in parallel
-      var results = await Promise.all([
-        profiles.getMyProfile(),
-        dataRooms.getMyRooms()
-      ]);
+      var results;
+      try {
+        results = await Promise.all([
+          profiles.getMyProfile(),
+          dataRooms.getMyRooms()
+        ]);
+      } catch (loadErr) {
+        console.error('Dashboard data load failed:', loadErr);
+        document.getElementById('rooms-loading').style.display = 'none';
+        document.getElementById('rooms-empty').style.display = 'flex';
+        document.getElementById('empty-state-msg').textContent = 'Could not load your rooms. Please refresh.';
+        return;
+      }
       currentProfile = results[0].profile;
       userRooms = results[1].rooms || [];
 
@@ -255,7 +264,7 @@
       grid.innerHTML = rooms.map(function(room) {
         var updated = formatDate(room.updated_at || room.created_at);
         var initials = room.company_name.slice(0,2).toUpperCase();
-        return '<div class="room-card" onclick="enterRoom('' + room.id + '')">' +
+        return '<div class="room-card" onclick="enterRoom(\'' + room.id + '\')">' +
           '<div class="room-card-header">' +
             '<div class="room-card-logo">' + initials + '</div>' +
             '<div class="room-card-badges">' +
@@ -320,7 +329,7 @@
         return;
       }
       closeModal();
-      window.location.href = 'dataroom.html?id=' + res.room.id;
+      window.location.href = 'dataroom.html?id=' + res.data.id;
     }
 
     // ── UTILS ─────────────────────────────────────────────────
