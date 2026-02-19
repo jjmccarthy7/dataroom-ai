@@ -38,7 +38,7 @@ var profiles = {
       updateProfile: async function(updates) {
               var u = await auth.getUser();
               if (!u.user) return { data: null, error: 'Not authenticated' };
-              delete updates.role; delete updates.id; delete updates.created_at;
+              delete updates.id; delete updates.created_at;
               var r = await _supabase.from('profiles').update(updates).eq('id', u.user.id).select().single();
               return { data: r.data, error: r.error };
       },
