@@ -605,3 +605,298 @@
 .btn-danger:hover { background: #b52a38; }
 .btn-danger:disabled { opacity: 0.6; cursor: not-allowed; }
 
+
+/* ── DASHBOARD SUBTITLE ─────────────────────────────────── */
+.dash-subtitle {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 4px 0 0 0;
+}
+
+/* ── ONBOARDING BANNER (P7) ─────────────────────────────── */
+.onboarding-banner {
+  background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%);
+  border: 1px solid #dde4ff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.onboarding-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.onboarding-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  padding: 4px 0;
+}
+.onboarding-step.done { opacity: 0.5; }
+.onboarding-divider {
+  width: 40px;
+  height: 1px;
+  background: #c5d0f5;
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-icon.incomplete {
+  background: #1a1a2e;
+  color: #fff;
+}
+.step-icon.complete {
+  background: #22c55e;
+  color: #fff;
+}
+.step-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.step-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.step-sub {
+  font-size: 0.78rem;
+  color: #888;
+}
+.step-action {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4f6ef7;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+.step-action:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+  .onboarding-steps { flex-direction: column; align-items: flex-start; }
+  .onboarding-divider { width: 1px; height: 20px; margin: 0 16px; }
+}
+
+/* ── PROFILE PAGE ───────────────────────────────────────── */
+.profile-page-header {
+  margin-bottom: 28px;
+}
+.profile-page-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--navy);
+  margin: 0 0 6px 0;
+}
+.profile-page-sub {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Profile banner messages */
+.profile-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+}
+.profile-banner.success {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+.profile-banner.error {
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+/* Profile layout: avatar card + form card side by side */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .profile-layout { grid-template-columns: 1fr; }
+}
+
+/* Avatar card */
+.profile-avatar-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.profile-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.profile-avatar-lg {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--carolina);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+.profile-avatar-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+}
+.btn-avatar-upload {
+  display: inline-block;
+  padding: 7px 16px;
+  background: #f4f4f8;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-avatar-upload:hover { background: #e8e8f0; }
+.avatar-hint {
+  font-size: 0.72rem;
+  color: #aaa;
+  margin: 0;
+}
+.profile-email-display {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+/* Profile form card */
+.profile-form-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+/* Handle input */
+.handle-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.handle-input-wrap:focus-within { border-color: var(--carolina); }
+.handle-prefix {
+  padding: 0 10px;
+  color: #888;
+  font-size: 0.95rem;
+  background: #f8f8f8;
+  border-right: 1px solid #eee;
+  line-height: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+.handle-input {
+  border: none !important;
+  border-radius: 0 !important;
+  flex: 1;
+  min-width: 0;
+}
+.handle-input:focus { box-shadow: none !important; outline: none; }
+.handle-status {
+  padding: 0 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.handle-status.ok { color: #22c55e; }
+.handle-status.error { color: #dc3545; }
+.handle-status.checking { color: #888; }
+
+/* Role selector */
+.role-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .role-selector { grid-template-columns: 1fr; }
+}
+.role-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 12px;
+  background: #f8f8f8;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.role-btn:hover {
+  border-color: #c0c8f0;
+  background: #f0f4ff;
+}
+.role-btn.selected {
+  border-color: var(--carolina);
+  background: #eef2ff;
+}
+.role-icon { font-size: 1.5rem; }
+.role-label { font-size: 0.875rem; font-weight: 600; color: #1a1a2e; }
+.role-desc { font-size: 0.72rem; color: #888; }
+
+/* Form actions */
+.form-actions {
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 8px;
+}
+
+/* Form hint */
+.form-hint {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin: 4px 0 0 0;
+}
+
+/* Required asterisk */
+.required { color: #dc3545; }
+

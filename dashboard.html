@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - DataRoom.ai</title>
+  <title>Dashboard – DataRoom.ai</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/dashboard.css">
@@ -14,14 +14,13 @@
       <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
       <div class="nav-right">
         <div class="user-menu" id="user-menu">
-          <button class="user-menu-btn" id="user-menu-btn">
-            <div class="avatar-small" id="nav-avatar">
-              <span id="nav-initials"></span>
-            </div>
+          <button class="user-menu-btn" id="user-menu-btn"
+            <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
             <span id="nav-name"></span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
           <div class="user-dropdown" id="user-dropdown">
+            <a href="dashboard.html">Dashboard</a>
             <a href="profile.html">My Profile</a>
             <a href="#" id="logout-btn">Log Out</a>
           </div>
@@ -31,82 +30,100 @@
   </nav>
 
   <main class="dashboard-main">
-    <div class="container">
-      <div class="dash-header">
-        <h1>My Data Rooms</h1>
-        <button class="btn-primary" id="create-room-btn" style="display:none;">+ Create Data Room</button>
-      </div>
+    <div class="dashboard-inner">
 
-      <!-- Profile setup banner (shown if no handle yet) -->
-      <div id="setup-banner" class="setup-banner" style="display:none;">
-        <p>Welcome! <a href="profile.html">Complete your profile</a> to set up your handle and preferences.</p>
-      </div>
-
-      <!-- Loading state -->
-      <div id="loading-state" class="empty-state">
-        <p style="color:#999;">Loading your data rooms...</p>
-      </div>
-
-      <!-- Empty state -->
-      <div class="empty-state" id="empty-state" style="display:none;">
-        <div class="empty-icon">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M12 8v8M8 12h8"/></svg>
+      <!-- ── ONBOARDING BANNER (P7) ──────────────────────── -->
+      <div class="onboarding-banner" id="onboarding-banner" style="display:none;">
+        <div class="onboarding-steps">
+          <div class="onboarding-step" id="step-profile">
+            <div class="step-icon incomplete" id="step-profile-icon">1</div>
+            <div class="step-text">
+              <span class="step-title">Complete your profile</span>
+              <span class="step-sub">Add your name and role</span>
+            </div>
+            <a href="profile.html" class="step-action">Go →</a>
+          </div>
+          <div class="onboarding-divider"></div>
+          <div class="onboarding-step" id="step-room">
+            <div class="step-icon incomplete" id="step-room-icon">2</div>
+            <div class="step-text">
+              <span class="step-title">Create your first data room</span>
+              <span class="step-sub">Get your fundraise organised</span>
+            </div>
+            <button class="step-action" id="step-create-room-btn">Create →</button>
+          </div>
         </div>
-        <h2>No data rooms yet</h2>
-        <p>Create your first data room to start organizing your fundraising materials.</p>
-        <button class="btn-primary" id="create-room-btn-empty">Create Data Room</button>
       </div>
 
-      <!-- Rooms grid -->
-      <div class="rooms-grid" id="rooms-grid" style="display:none;"></div>
+      <!-- ── DASHBOARD HEADER ────────────────────────────── -->
+      <div class="dash-header" id="dash-header">
+        <div>
+          <h1 id="dash-greeting">My Data Rooms</h1>
+          <p class="dash-subtitle" id="dash-subtitle"></p>
+        </div>
+        <div id="dash-header-actions"></div>
+      </div>
+
+      <!-- ── ROOM CONTENT ────────────────────────────────── -->
+      <div id="rooms-loading" class="loading-state">Loading your rooms...</div>
+      <div id="rooms-empty" class="empty-state" style="display:none;">
+        <div class="empty-icon">📁</div>
+        <h2>No data rooms yet</h2>
+        <p id="empty-state-msg">Create your first data room to get started.</p>
+        <button class="btn-primary" id="empty-create-btn">Create Data Room</button>
+      </div>
+      <div class="room-grid" id="room-grid" style="display:none;"></div>
+
     </div>
   </main>
 
   <!-- Create Data Room Modal -->
-  <div class="modal-overlay" id="modal-overlay" style="display:none;">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Create a Data Room</h2>
-        <button class="modal-close" id="modal-close">&times;</button>
-      </div>
-      <div id="modal-error" class="error-message" style="display:none;"></div>
-      <form id="create-room-form">
+  <div class="modal-overlay" id="create-modal" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn">✕</button>
+      <h2 class="modal-title">Create Data Room</h2>
+      <p class="modal-subtitle">Set up your new data room in seconds</p>
+      <form id="create-room-form" novalidate>
         <div class="form-group">
-          <label for="company-name">Company Name <span class="required">*</span></label>
-          <input type="text" id="company-name" placeholder="e.g. Acme Corp" required>
+          <label class="form-label" for="company-name">Company Name <span class="required">*</span></label>
+          <input class="form-input" type="text" id="company-name" placeholder="e.g. Acme Inc." maxlength="80" required>
         </div>
         <div class="form-group">
-          <label for="short-description">Short Description</label>
-          <input type="text" id="short-description" placeholder="One sentence about your company">
+          <label class="form-label" for="short-desc">Short Description</label>
+          <input class="form-input" type="text" id="short-desc" placeholder="One line about your company" maxlength="120">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="stage">Stage</label>
+            <select class="form-input" id="stage">
+              <option value="">Select stage</option>
+              <option value="Pre-seed">Pre-seed</option>
+              <option value="Seed">Seed</option>
+              <option value="Series A">Series A</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="owner-role">Your Role</label>
+            <select class="form-input" id="owner-role">
+              <option value="">Select role</option>
+              <option value="Founder">Founder</option>
+              <option value="Investor">Investor</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label for="stage">Stage</label>
-          <select id="stage">
-            <option value="">Select stage...</option>
-            <option value="pre-seed">Pre-seed</option>
-            <option value="seed">Seed</option>
-            <option value="series-a">Series A</option>
-            <option value="other">Other</option>
-          </select>
+          <label class="form-label" for="website">Website</label>
+          <input class="form-input" type="url" id="website" placeholder="https://yoursite.com">
         </div>
         <div class="form-group">
-          <label for="owner-role">Your Role</label>
-          <select id="owner-role">
-            <option value="founder">Founder</option>
-            <option value="investor">Investor</option>
-          </select>
+          <label class="form-label" for="location">Location</label>
+          <input class="form-input" type="text" id="location" placeholder="e.g. San Francisco, CA" maxlength="80">
         </div>
-        <div class="form-group">
-          <label for="website">Website</label>
-          <input type="text" id="website" placeholder="https://yourcompany.com">
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" placeholder="e.g. San Francisco, CA">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-secondary" id="modal-cancel">Cancel</button>
-          <button type="submit" class="btn-primary" id="create-room-submit">Create Data Room</button>
+        <div class="modal-error" id="modal-error" style="display:none;"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn-primary" id="create-submit-btn">Create Data Room</button>
         </div>
       </form>
     </div>
@@ -115,128 +132,214 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script>
+    var currentUser = null;
+    var currentProfile = null;
+    var userRooms = [];
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      var sessionRes = await auth.getSession();
+      if (!sessionRes.session) { window.location.href = 'login.html'; return; }
+      currentUser = sessionRes.session.user;
+
+      // Load profile and rooms in parallel
+      var results;
+      try {
+        results = await Promise.all([
+          profiles.getMyProfile(),
+          dataRooms.getMyRooms()
+        ]);
+      } catch (loadErr) {
+        console.error('Dashboard data load failed:', loadErr);
+        document.getElementById('rooms-loading').style.display = 'none';
+        document.getElementById('rooms-empty').style.display = 'flex';
+        document.getElementById('empty-state-msg').textContent = 'Could not load your rooms. Please refresh.';
+        return;
+      }
+      currentProfile = results[0].profile;
+      userRooms = results[1].rooms || [];
+
+      var p = currentProfile;
+      var displayName = (p && p.display_name) ? p.display_name
+        : (currentUser.user_metadata && currentUser.user_metadata.full_name) ? currentUser.user_metadata.full_name
+        : currentUser.email;
+
+      // ── NAV ───────────────────────────────────────────────
+      document.getElementById('nav-name').textContent = displayName;
+      var initials = displayName.split(' ').map(function(w){ return w[0] || ''; }).join('').toUpperCase().slice(0,2);
+      document.getElementById('nav-initials').textContent = initials;
+      if (p && p.avatar_url) {
+        var navAvatar = document.getElementById('nav-avatar');
+        navAvatar.style.backgroundImage = 'url(' + p.avatar_url + ')';
+        navAvatar.style.backgroundSize = 'cover';
+        document.getElementById('nav-initials').style.display = 'none';
+      }
+
+      document.getElementById('user-menu-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('user-dropdown').classList.toggle('open');
+      });
+      document.addEventListener('click', function() {
+        document.getElementById('user-dropdown').classList.remove('open');
+      });
+      document.getElementById('logout-btn').addEventListener('click', async function(e) {
+        e.preventDefault();
+        await auth.signOut();
+        window.location.href = 'login.html';
+      });
+
+      // ── ROLE-BASED GREETING (P6) ──────────────────────────
+      var role = p && p.role;
+      var firstName = displayName.split(' ')[0];
+      var greeting = 'Welcome back, ' + firstName + '.';
+      var subtitle = '';
+      if (role === 'Entrepreneur') {
+        greeting = 'Your data rooms, ' + firstName + '.';
+        subtitle = 'Organise your fundraise. Share with confidence.';
+      } else if (role === 'Investor') {
+        greeting = 'Deal review, ' + firstName + '.';
+        subtitle = 'Your shared data rooms will appear here.';
+      } else if (role === 'Both') {
+        greeting = 'Welcome back, ' + firstName + '.';
+        subtitle = 'Manage your rooms or review shared deals.';
+      }
+      document.getElementById('dash-greeting').textContent = greeting;
+      document.getElementById('dash-subtitle').textContent = subtitle;
+
+      // ── ONBOARDING BANNER (P7) ────────────────────────────
+      var profileIncomplete = !p || !p.display_name || !p.role;
+      var noRooms = userRooms.length === 0;
+      if (profileIncomplete || noRooms) {
+        document.getElementById('onboarding-banner').style.display = 'block';
+        // Step 1 — profile
+        if (!profileIncomplete) {
+          document.getElementById('step-profile-icon').textContent = '✓';
+          document.getElementById('step-profile-icon').className = 'step-icon complete';
+          document.getElementById('step-profile').classList.add('done');
+        }
+        // Step 2 — room
+        if (!noRooms) {
+          document.getElementById('step-room-icon').textContent = '✓';
+          document.getElementById('step-room-icon').className = 'step-icon complete';
+          document.getElementById('step-room').classList.add('done');
+        }
+        document.getElementById('step-create-room-btn').addEventListener('click', openModal);
+      }
+
+      // ── EMPTY STATE COPY (role-aware) ─────────────────────
+      if (role === 'Investor') {
+        document.getElementById('empty-state-msg').textContent = 'No rooms have been shared with you yet.';
+        document.getElementById('empty-create-btn').textContent = '+ Create a Room';
+      }
+
+      // ── HEADER ACTIONS ────────────────────────────────────
+      if (userRooms.length > 0) {
+        var btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.textContent = '+ Create Data Room';
+        btn.addEventListener('click', openModal);
+        document.getElementById('dash-header-actions').appendChild(btn);
+      }
+
+      // ── RENDER ROOMS ──────────────────────────────────────
+      document.getElementById('rooms-loading').style.display = 'none';
+      if (userRooms.length === 0) {
+        document.getElementById('rooms-empty').style.display = 'flex';
+      } else {
+        renderRooms(userRooms);
+      }
+
+      // ── MODAL WIRING ──────────────────────────────────────
+      document.getElementById('empty-create-btn').addEventListener('click', openModal);
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
+      document.getElementById('create-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+      document.getElementById('create-room-form').addEventListener('submit', handleCreateRoom);
+    });
+
+    // ── RENDER ROOMS ──────────────────────────────────────────
+    function renderRooms(rooms) {
+      var grid = document.getElementById('room-grid');
+      grid.innerHTML = rooms.map(function(room) {
+        var updated = formatDate(room.updated_at || room.created_at);
+        var initials = room.company_name.slice(0,2).toUpperCase();
+        return '<div class="room-card" onclick="enterRoom(\'' + room.id + '\')">' +
+          '<div class="room-card-header">' +
+            '<div class="room-card-logo">' + initials + '</div>' +
+            '<div class="room-card-badges">' +
+              (room.owner_role ? '<span class="badge badge-role">' + room.owner_role + '</span>' : '') +
+              (room.stage ? '<span class="badge badge-stage">' + room.stage + '</span>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="room-card-body">' +
+            '<h3 class="room-card-name">' + escapeHtml(room.company_name) + '</h3>' +
+            (room.short_description ? '<p class="room-card-desc">' + escapeHtml(room.short_description) + '</p>' : '') +
+          '</div>' +
+          '<div class="room-card-footer">' +
+            '<span class="room-card-updated">Updated ' + updated + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      grid.style.display = 'grid';
+    }
+
+    function enterRoom(id) {
+      window.location.href = 'dataroom.html?id=' + id;
+    }
+
+    // ── CREATE ROOM ───────────────────────────────────────────
     function openModal() {
-      document.getElementById('modal-overlay').style.display = 'flex';
+      document.getElementById('create-modal').style.display = 'flex';
       document.getElementById('company-name').focus();
     }
     function closeModal() {
-      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('create-modal').style.display = 'none';
       document.getElementById('create-room-form').reset();
       document.getElementById('modal-error').style.display = 'none';
     }
 
-    function renderRooms(rooms) {
-      const grid = document.getElementById('rooms-grid');
-      grid.innerHTML = '';
-      rooms.forEach(function(room) {
-        const stageLabels = { 'pre-seed': 'Pre-seed', 'seed': 'Seed', 'series-a': 'Series A', 'other': 'Other' };
-        const roleLabel = room.owner_role === 'investor' ? 'Investor' : 'Founder';
-        const updated = new Date(room.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const initials = room.company_name.slice(0, 2).toUpperCase();
-        const card = document.createElement('div');
-        card.className = 'room-card';
-        card.innerHTML =
-          '<div class="room-card-logo">' + (room.logo_url ? '<img src="' + room.logo_url + '" alt="Logo">' : '<span>' + initials + '</span>') + '</div>' +
-          '<div class="room-card-body">' +
-            '<h3 class="room-card-name">' + room.company_name + '</h3>' +
-            (room.short_description ? '<p class="room-card-desc">' + room.short_description + '</p>' : '') +
-            '<div class="room-card-meta">' +
-              '<span class="room-card-role">' + roleLabel + '</span>' +
-              (room.stage ? '<span class="room-card-stage">' + (stageLabels[room.stage] || room.stage) + '</span>' : '') +
-            '</div>' +
-          '</div>' +
-          '<div class="room-card-footer">Updated ' + updated + '</div>';
-        card.addEventListener('click', function() {
-          window.location.href = 'dataroom.html?id=' + room.id;
-        });
-        grid.appendChild(card);
+    async function handleCreateRoom(e) {
+      e.preventDefault();
+      var name = document.getElementById('company-name').value.trim();
+      if (!name) {
+        document.getElementById('modal-error').textContent = 'Company name is required.';
+        document.getElementById('modal-error').style.display = 'block';
+        return;
+      }
+      var btn = document.getElementById('create-submit-btn');
+      btn.textContent = 'Creating...';
+      btn.disabled = true;
+
+      var res = await dataRooms.createRoom({
+        company_name: name,
+        short_description: document.getElementById('short-desc').value.trim() || null,
+        stage: document.getElementById('stage').value || null,
+        owner_role: document.getElementById('owner-role').value || null,
+        website: document.getElementById('website').value.trim() || null,
+        location: document.getElementById('location').value.trim() || null
       });
+
+      btn.textContent = 'Create Data Room';
+      btn.disabled = false;
+
+      if (res.error) {
+        document.getElementById('modal-error').textContent = res.error.message;
+        document.getElementById('modal-error').style.display = 'block';
+        return;
+      }
+      closeModal();
+      window.location.href = 'dataroom.html?id=' + res.data.id;
     }
 
-    (async () => {
-      const isAuth = await requireAuth();
-      if (!isAuth) return;
-
-      const { profile } = await profiles.getMyProfile();
-      if (profile) {
-        const displayName = profile.display_name || profile.email || 'User';
-        document.getElementById('nav-name').textContent = displayName;
-        if (profile.avatar_url) {
-          document.getElementById('nav-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
-        } else {
-          const initials = displayName.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0, 2);
-          document.getElementById('nav-initials').textContent = initials;
-        }
-        if (!profile.handle) {
-          document.getElementById('setup-banner').style.display = 'block';
-        }
-      }
-
-      const { rooms, error } = await dataRooms.getMyRooms();
-      document.getElementById('loading-state').style.display = 'none';
-
-      if (error) {
-        document.getElementById('empty-state').style.display = 'block';
-        return;
-      }
-
-      if (rooms.length === 0) {
-        document.getElementById('empty-state').style.display = 'block';
-      } else {
-        document.getElementById('rooms-grid').style.display = 'grid';
-        document.getElementById('create-room-btn').style.display = 'inline-block';
-        renderRooms(rooms);
-      }
-    })();
-
-    document.getElementById('user-menu-btn').addEventListener('click', function() {
-      document.getElementById('user-dropdown').classList.toggle('show');
-    });
-    document.addEventListener('click', function(e) {
-      if (!document.getElementById('user-menu').contains(e.target)) {
-        document.getElementById('user-dropdown').classList.remove('show');
-      }
-    });
-    document.getElementById('logout-btn').addEventListener('click', async function(e) {
-      e.preventDefault();
-      await auth.signOut();
-      window.location.href = 'index.html';
-    });
-
-    document.getElementById('create-room-btn').addEventListener('click', openModal);
-    document.getElementById('create-room-btn-empty').addEventListener('click', openModal);
-    document.getElementById('modal-close').addEventListener('click', closeModal);
-    document.getElementById('modal-cancel').addEventListener('click', closeModal);
-    document.getElementById('modal-overlay').addEventListener('click', function(e) {
-      if (e.target === document.getElementById('modal-overlay')) closeModal();
-    });
-
-    document.getElementById('create-room-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('create-room-submit');
-      btn.disabled = true;
-      btn.textContent = 'Creating...';
-      document.getElementById('modal-error').style.display = 'none';
-
-      const { data, error } = await dataRooms.createRoom({
-        company_name: document.getElementById('company-name').value.trim(),
-        short_description: document.getElementById('short-description').value.trim(),
-        stage: document.getElementById('stage').value,
-        owner_role: document.getElementById('owner-role').value,
-        website: document.getElementById('website').value.trim(),
-        location: document.getElementById('location').value.trim()
-      });
-
-      if (error) {
-        document.getElementById('modal-error').textContent = error.message || 'Failed to create data room.';
-        document.getElementById('modal-error').style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Create Data Room';
-        return;
-      }
-
-      window.location.href = 'dataroom.html?id=' + data.id;
-    });
+    // ── UTILS ─────────────────────────────────────────────────
+    function formatDate(iso) {
+      var d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function escapeHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
   </script>
 </body>
 </html>
