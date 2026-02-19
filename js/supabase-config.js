@@ -71,3 +71,45 @@ async function redirectIfAuth() {
       if (r.session) { window.location.href = '/dashboard.html'; return true; }
       return false;
 }
+
+var dataRooms = {
+  createRoom: async function(roomData) {
+    var u = await auth.getUser();
+    if (!u.user) return { data: null, error: 'Not authenticated' };
+    var r = await _supabase.from('data_rooms').insert({
+      owner_id: u.user.id,
+      company_name: roomData.company_name,
+      short_description: roomData.short_description || null,
+      stage: roomData.stage || null,
+      owner_role: roomData.owner_role || 'founder',
+      logo_url: roomData.logo_url || null,
+      website: roomData.website || null,
+      location: roomData.location || null
+    }).select().single();
+    return { data: r.data, error: r.error };
+  },
+  getMyRooms: async function() {
+    var u = await auth.getUser();
+    if (!u.user) return { rooms: [], error: 'Not authenticated' };
+    var r = await _supabase.from('data_rooms').select('*').eq('owner_id', u.user.id).order('created_at', { ascending: false });
+    return { rooms: r.data || [], error: r.error };
+  },
+  getRoom: async function(id) {
+    var u = await auth.getUser();
+    if (!u.user) return { data: null, error: 'Not authenticated' };
+    var r = await _supabase.from('data_rooms').select('*').eq('id', id).eq('owner_id', u.user.id).single();
+    return { data: r.data, error: r.error };
+  },
+  updateRoom: async function(id, updates) {
+    var u = await auth.getUser();
+    if (!u.user) return { data: null, error: 'Not authenticated' };
+    var r = await _supabase.from('data_rooms').update(updates).eq('id', id).eq('owner_id', u.user.id).select().single();
+    return { data: r.data, error: r.error };
+  },
+  deleteRoom: async function(id) {
+    var u = await auth.getUser();
+    if (!u.user) return { error: 'Not authenticated' };
+    var r = await _supabase.from('data_rooms').delete().eq('id', id).eq('owner_id', u.user.id);
+    return { error: r.error };
+  }
+};
