@@ -59,7 +59,11 @@
     document.getElementById('google-btn').addEventListener('click', async () => {
       const { error } = await auth.signInWithGoogle();
       if (error) {
-        document.getElementById('error-message').textContent = error.message;
+        var msg = error.message || 'Google sign-in failed.';
+        if (msg.includes('not enabled') || msg.includes('validation_failed') || msg.includes('Unsupported provider')) {
+          msg = 'Google sign-in is not available right now. Please use email and password.';
+        }
+        document.getElementById('error-message').textContent = msg;
         document.getElementById('error-message').style.display = 'block';
       }
     });
