@@ -113,3 +113,44 @@ var dataRooms = {
     return { error: r.error };
   }
 };
+
+var documents = {
+  uploadDocument: async function(roomId, file) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    var uid = crypto.randomUUID();
+    var filePath = 'rooms/' + roomId + '/' + uid + '-' + file.name;
+    var uploadResult = await _supabase.storage
+      .from('room-documents')
+      .upload(filePath, file, { upsert: false });
+    if (uploadResult.error) return { document: null, error: uploadResult.error };
+    var r = await _supabase.from('documents').insert([{
+      room_id: roomId,
+      uploader_id: (await _supabase.auth.getUser()).data.user.id,
+      original_filename: file.name,
+      file_path: filePath,
+      file_type: file.type || ext,
+      file_size: file.size
+    }]).select().single();
+    if (!r.error) {
+      await _supabase.from('data_rooms').update({ updated_at: new Date().toISOString() }).eq('id', roomId);
+    }
+    return { document: r.data, error: r.error };
+  },
+  getDocuments: async function(roomId) {
+    var r = await _supabase.from('documents').select('*').eq('room_id', roomId).order('created_at', { ascending: false });
+    return { documents: r.data, error: r.error };
+  },
+  getSignedUrl: async function(filePath) {
+    var r = await _supabase.storage.from('room-documents').createSignedUrl(filePath, 3600);
+    return { url: r.data?.signedUrl, error: r.error };
+  },
+  deleteDocument: async function(documentId, filePath, roomId) {
+    var storageResult = await _supabase.storage.from('room-documents').remove([filePath]);
+    if (storageResult.error) return { error: storageResult.error };
+    var r = await _supabase.from('documents').delete().eq('id', documentId);
+    if (!r.error) {
+      await _supabase.from('data_rooms').update({ updated_at: new Date().toISOString() }).eq('id', roomId);
+    }
+    return { error: r.error };
+  }
+};
