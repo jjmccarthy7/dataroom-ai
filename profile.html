@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Profile - DataRoom.ai</title>
+  <title>My Profile – DataRoom.ai</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/dashboard.css">
@@ -13,79 +13,107 @@
     <div class="nav-inner">
       <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
       <div class="nav-right">
-        <a href="dashboard.html" class="back-link">Back to Dashboard</a>
+        <div class="user-menu" id="user-menu">
+          <button class="user-menu-btn" id="user-menu-btn">
+            <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
+            <span id="nav-name"></span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="user-dropdown" id="user-dropdown">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log Out</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 
   <main class="dashboard-main">
-    <div class="container profile-container">
-      <h1>My Profile</h1>
+    <div class="dashboard-inner">
 
-      <div id="success-message" class="success-message" style="display:none;"></div>
-      <div id="error-message" class="error-message" style="display:none;"></div>
+      <div class="profile-page-header">
+        <h1 class="profile-page-title">My Profile</h1>
+        <p class="profile-page-sub">Manage your account details and preferences</p>
+      </div>
 
-      <div class="profile-section">
-        <h2>Profile Photo</h2>
-        <div class="avatar-upload">
-          <div class="avatar-large" id="profile-avatar"><span id="profile-initials"></span></div>
-          <div class="avatar-actions">
-            <label for="avatar-input" class="btn-secondary btn-sm">Upload Photo</label>
-            <input type="file" id="avatar-input" accept="image/*" style="display:none;">
-            <p class="help-text">JPG, PNG, or GIF. Max 2MB.</p>
+      <!-- Success / Error banners -->
+      <div class="profile-banner success" id="profile-success" style="display:none;">
+        <span id="profile-success-msg">Profile saved successfully.</span>
+      </div>
+      <div class="profile-banner error" id="profile-error" style="display:none;">
+        <span id="profile-error-msg">Something went wrong. Please try again.</span>
+      </div>
+
+      <div class="profile-layout">
+
+        <!-- LEFT: Avatar card -->
+        <div class="profile-avatar-card">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar-lg" id="profile-avatar-lg">
+              <span id="profile-avatar-initials"></span>
+              <img id="profile-avatar-img" src="" alt="" style="display:none;">
+            </div>
+            <label class="btn-avatar-upload" for="avatar-file-input">
+              Change Photo
+            </label>
+            <input type="file" id="avatar-file-input" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none;">
+            <p class="avatar-hint">JPG, PNG, GIF or WebP · Max 5MB</p>
+          </div>
+          <div class="profile-email-display">
+            <span class="detail-label">Email</span>
+            <span id="profile-email-val" class="detail-value"></span>
           </div>
         </div>
-      </div>
 
-      <div class="profile-section">
-        <h2>Profile Information</h2>
-        <form id="profile-form">
-          <div class="form-group">
-            <label for="display-name">Display Name</label>
-            <input type="text" id="display-name" placeholder="Your full name">
-            <p class="help-text">This is how your name appears to others.</p>
-          </div>
-          <div class="form-group">
-            <label for="handle">Handle</label>
-            <div class="input-with-prefix">
-              <span class="input-prefix">@</span>
-              <input type="text" id="handle" placeholder="yourhandle" pattern="[a-z0-9_]{3,30}">
-            </div>
-            <p class="help-text" id="handle-status">Lowercase letters, numbers, and underscores. 3-30 characters.</p>
-          </div>
-          <div class="form-group">
-            <label>I am a...</label>
-            <div class="checkbox-group">
-              <label class="checkbox-label">
-                <input type="checkbox" id="type-entrepreneur" value="entrepreneur">
-                <span class="checkbox-custom"></span>
-                Entrepreneur
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" id="type-investor" value="investor">
-                <span class="checkbox-custom"></span>
-                Investor
-              </label>
-            </div>
-            <p class="help-text">Select all that apply. This helps personalize your experience.</p>
-          </div>
-          <button type="submit" class="btn-primary" id="save-profile-btn">Save Profile</button>
-        </form>
-      </div>
+        <!-- RIGHT: Form card -->
+        <div class="profile-form-card">
+          <form id="profile-form" novalidate>
 
-      <div class="profile-section">
-        <h2>Change Password</h2>
-        <form id="password-form">
-          <div class="form-group">
-            <label for="new-password">New Password</label>
-            <input type="password" id="new-password" placeholder="At least 8 characters" minlength="8">
-          </div>
-          <div class="form-group">
-            <label for="confirm-new-password">Confirm New Password</label>
-            <input type="password" id="confirm-new-password" placeholder="Confirm new password" minlength="8">
-          </div>
-          <button type="submit" class="btn-secondary" id="change-password-btn">Update Password</button>
-        </form>
+            <div class="form-group">
+              <label class="form-label" for="display-name">Display Name</label>
+              <input class="form-input" type="text" id="display-name" placeholder="Your name" maxlength="60" autocomplete="name">
+              <p class="form-hint">This is how your name appears across the platform.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="handle">Handle</label>
+              <div class="handle-input-wrap">
+                <span class="handle-prefix">@</span>
+                <input class="form-input handle-input" type="text" id="handle" placeholder="yourhandle" maxlength="30" autocomplete="off" spellcheck="false">
+                <span class="handle-status" id="handle-status"></span>
+              </div>
+              <p class="form-hint" id="handle-hint">Lowercase letters, numbers, and underscores only. Must be unique.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">I am a</label>
+              <div class="role-selector" id="role-selector">
+                <button type="button" class="role-btn" data-role="Entrepreneur">
+                  <span class="role-icon">🚀</span>
+                  <span class="role-label">Entrepreneur</span>
+                  <span class="role-desc">I'm raising capital</span>
+                </button>
+                <button type="button" class="role-btn" data-role="Investor">
+                  <span class="role-icon">💼</span>
+                  <span class="role-label">Investor</span>
+                  <span class="role-desc">I'm reviewing deals</span>
+                </button>
+                <button type="button" class="role-btn" data-role="Both">
+                  <span class="role-icon">⚡</span>
+                  <span class="role-label">Both</span>
+                  <span class="role-desc">I do both</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary" id="save-btn">Save Profile</button>
+            </div>
+
+          </form>
+        </div>
+
       </div>
     </div>
   </main>
@@ -93,139 +121,236 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script>
-    let currentProfile = null;
-    let handleCheckTimeout = null;
+    var currentUser = null;
+    var currentProfile = null;
+    var selectedRole = null;
+    var handleCheckTimeout = null;
+    var avatarUploading = false;
 
-    (async () => {
-      const isAuth = await requireAuth();
-      if (!isAuth) return;
+    // ── INIT ───────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async function() {
+      var sessionRes = await auth.getSession();
+      if (!sessionRes.session) { window.location.href = 'login.html'; return; }
+      currentUser = sessionRes.session.user;
 
-      const { profile } = await profiles.getMyProfile();
-      if (profile) {
-        currentProfile = profile;
-        document.getElementById('display-name').value = profile.display_name || '';
-        document.getElementById('handle').value = profile.handle || '';
+      await loadProfile();
 
-        if (profile.user_types && profile.user_types.includes('entrepreneur'))
-          document.getElementById('type-entrepreneur').checked = true;
-        if (profile.user_types && profile.user_types.includes('investor'))
-          document.getElementById('type-investor').checked = true;
+      // Nav dropdown
+      document.getElementById('user-menu-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('user-dropdown').classList.toggle('open');
+      });
+      document.addEventListener('click', function() {
+        document.getElementById('user-dropdown').classList.remove('open');
+      });
 
-        if (profile.avatar_url) {
-          document.getElementById('profile-avatar').innerHTML = '<img src="' + profile.avatar_url + '" alt="Avatar">';
-        } else {
-          const name = profile.display_name || profile.email || 'U';
-          const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-          document.getElementById('profile-initials').textContent = initials;
-        }
-      }
-    })();
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', async function(e) {
+        e.preventDefault();
+        await auth.signOut();
+        window.location.href = 'login.html';
+      });
 
-    document.getElementById('handle').addEventListener('input', (e) => {
-      const handle = e.target.value.toLowerCase();
-      const statusEl = document.getElementById('handle-status');
-      if (handleCheckTimeout) clearTimeout(handleCheckTimeout);
+      // Role buttons
+      document.querySelectorAll('.role-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          selectedRole = this.dataset.role;
+          document.querySelectorAll('.role-btn').forEach(function(b) { b.classList.remove('selected'); });
+          this.classList.add('selected');
+        });
+      });
 
-      if (handle.length < 3) {
-        statusEl.textContent = 'Handle must be at least 3 characters.';
-        statusEl.className = 'help-text';
-        return;
-      }
-      if (!/^[a-z0-9_]+$/.test(handle)) {
-        statusEl.textContent = 'Only lowercase letters, numbers, and underscores.';
-        statusEl.className = 'help-text error-text';
-        return;
-      }
+      // Handle input — real-time uniqueness check
+      document.getElementById('handle').addEventListener('input', function() {
+        var val = this.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
+        this.value = val;
+        clearTimeout(handleCheckTimeout);
+        var status = document.getElementById('handle-status');
+        if (!val) { status.textContent = ''; status.className = 'handle-status'; return; }
+        if (val.length < 3) { status.textContent = 'Too short'; status.className = 'handle-status error'; return; }
+        status.textContent = 'Checking...'; status.className = 'handle-status checking';
+        handleCheckTimeout = setTimeout(async function() {
+          var res = await checkHandleAvailable(val);
+          if (res.available) {
+            status.textContent = '✓ Available'; status.className = 'handle-status ok';
+          } else {
+            status.textContent = '✗ Taken'; status.className = 'handle-status error';
+          }
+        }, 500);
+      });
 
-      statusEl.textContent = 'Checking availability...';
-      handleCheckTimeout = setTimeout(async () => {
-        const { available } = await profiles.checkHandleAvailable(handle);
-        if (available) {
-          statusEl.textContent = '@' + handle + ' is available!';
-          statusEl.className = 'help-text success-text';
-        } else {
-          statusEl.textContent = '@' + handle + ' is already taken.';
-          statusEl.className = 'help-text error-text';
-        }
-      }, 500);
+      // Avatar upload
+      document.getElementById('avatar-file-input').addEventListener('change', handleAvatarUpload);
+
+      // Form submit
+      document.getElementById('profile-form').addEventListener('submit', handleSave);
     });
 
-    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    // ── LOAD PROFILE ───────────────────────────────────────────
+    async function loadProfile() {
+      var res = await profiles.getMyProfile();
+      currentProfile = res.profile;
+      var p = currentProfile;
+
+      // Email
+      document.getElementById('profile-email-val').textContent = currentUser.email;
+
+      // Nav
+      var displayName = (p && p.display_name) ? p.display_name
+        : (currentUser.user_metadata && currentUser.user_metadata.full_name) ? currentUser.user_metadata.full_name
+        : currentUser.email;
+      updateNav(displayName, p && p.avatar_url);
+
+      // Form fields
+      if (p) {
+        document.getElementById('display-name').value = p.display_name || '';
+        document.getElementById('handle').value = p.handle || '';
+        if (p.role) {
+          selectedRole = p.role;
+          document.querySelectorAll('.role-btn').forEach(function(btn) {
+            if (btn.dataset.role === p.role) btn.classList.add('selected');
+          });
+        }
+        if (p.avatar_url) {
+          showAvatarImage(p.avatar_url);
+        } else {
+          showAvatarInitials(displayName);
+        }
+      } else {
+        showAvatarInitials(displayName);
+      }
+    }
+
+    // ── HANDLE CHECK ───────────────────────────────────────────
+    async function checkHandleAvailable(handle) {
+      var r = await _supabase.from('profiles').select('id').eq('handle', handle).neq('id', currentUser.id);
+      if (r.error) return { available: true };
+      return { available: !r.data || r.data.length === 0 };
+    }
+
+    // ── AVATAR UPLOAD ──────────────────────────────────────────
+    async function handleAvatarUpload(e) {
+      var file = e.target.files[0];
+      e.target.value = '';
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showError('Avatar must be under 5MB.'); return; }
+
+      var label = document.querySelector('.btn-avatar-upload');
+      label.textContent = 'Uploading...';
+      avatarUploading = true;
+
+      var ext = file.name.split('.').pop().toLowerCase();
+      var path = 'avatars/' + currentUser.id + '.' + ext;
+
+      var uploadRes = await _supabase.storage.from('avatars').upload(path, file, { upsert: true });
+      if (uploadRes.error) {
+        label.textContent = 'Change Photo';
+        avatarUploading = false;
+        showError('Avatar upload failed: ' + uploadRes.error.message);
+        return;
+      }
+
+      var urlRes = _supabase.storage.from('avatars').getPublicUrl(path);
+      var avatarUrl = urlRes.data.publicUrl + '?t=' + Date.now();
+
+      await profiles.updateProfile({ avatar_url: avatarUrl });
+      currentProfile = currentProfile || {};
+      currentProfile.avatar_url = avatarUrl;
+      showAvatarImage(avatarUrl);
+      updateNav(document.getElementById('display-name').value || currentUser.email, avatarUrl);
+      label.textContent = 'Change Photo';
+      avatarUploading = false;
+      showSuccess('Profile photo updated.');
+    }
+
+    // ── SAVE ───────────────────────────────────────────────────
+    async function handleSave(e) {
       e.preventDefault();
-      const btn = document.getElementById('save-profile-btn');
-      btn.disabled = true;
-      btn.textContent = 'Saving...';
+      hideMessages();
 
-      const userTypes = [];
-      if (document.getElementById('type-entrepreneur').checked) userTypes.push('entrepreneur');
-      if (document.getElementById('type-investor').checked) userTypes.push('investor');
+      var displayName = document.getElementById('display-name').value.trim();
+      var handle = document.getElementById('handle').value.trim().toLowerCase();
+      var saveBtn = document.getElementById('save-btn');
 
-      const updates = {
-        display_name: document.getElementById('display-name').value,
-        handle: document.getElementById('handle').value.toLowerCase(),
-        user_types: userTypes
+      // Validate
+      if (!displayName) { showError('Display name is required.'); return; }
+      if (handle && handle.length < 3) { showError('Handle must be at least 3 characters.'); return; }
+      if (handle && !/^[a-z0-9_]+$/.test(handle)) { showError('Handle can only contain lowercase letters, numbers, and underscores.'); return; }
+
+      // Check handle uniqueness if changed
+      if (handle && handle !== (currentProfile && currentProfile.handle)) {
+        var avail = await checkHandleAvailable(handle);
+        if (!avail.available) { showError('That handle is already taken. Please choose another.'); return; }
+      }
+
+      saveBtn.textContent = 'Saving...';
+      saveBtn.disabled = true;
+
+      var updates = {
+        display_name: displayName,
+        handle: handle || null,
+        role: selectedRole || null
       };
 
-      const { data, error } = await profiles.updateProfile(updates);
-      if (error) {
-        document.getElementById('error-message').textContent = error.message || 'Failed to update profile.';
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('success-message').style.display = 'none';
+      var res = await profiles.updateProfile(updates);
+
+      saveBtn.textContent = 'Save Profile';
+      saveBtn.disabled = false;
+
+      if (res.error) { showError('Save failed: ' + res.error.message); return; }
+
+      currentProfile = Object.assign({}, currentProfile, updates);
+      updateNav(displayName, currentProfile && currentProfile.avatar_url);
+      showSuccess('Profile saved successfully.');
+    }
+
+    // ── NAV UPDATE ─────────────────────────────────────────────
+    function updateNav(displayName, avatarUrl) {
+      document.getElementById('nav-name').textContent = displayName || '';
+      var initials = (displayName || '?').split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
+      document.getElementById('nav-initials').textContent = initials;
+      var navAvatar = document.getElementById('nav-avatar');
+      if (avatarUrl) {
+        navAvatar.style.backgroundImage = 'url(' + avatarUrl + ')';
+        navAvatar.style.backgroundSize = 'cover';
+        document.getElementById('nav-initials').style.display = 'none';
       } else {
-        document.getElementById('success-message').textContent = 'Profile updated successfully!';
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('error-message').style.display = 'none';
+        navAvatar.style.backgroundImage = '';
+        document.getElementById('nav-initials').style.display = '';
       }
-      btn.disabled = false;
-      btn.textContent = 'Save Profile';
-    });
+    }
 
-    document.getElementById('avatar-input').addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      if (file.size > 2 * 1024 * 1024) {
-        document.getElementById('error-message').textContent = 'Image must be less than 2MB.';
-        document.getElementById('error-message').style.display = 'block';
-        return;
-      }
-      const { url, error } = await profiles.uploadAvatar(file);
-      if (error) {
-        document.getElementById('error-message').textContent = 'Failed to upload photo.';
-        document.getElementById('error-message').style.display = 'block';
-      } else {
-        document.getElementById('profile-avatar').innerHTML = '<img src="' + url + '" alt="Avatar">';
-        document.getElementById('success-message').textContent = 'Photo updated!';
-        document.getElementById('success-message').style.display = 'block';
-      }
-    });
+    // ── AVATAR DISPLAY ─────────────────────────────────────────
+    function showAvatarImage(url) {
+      var img = document.getElementById('profile-avatar-img');
+      img.src = url;
+      img.style.display = 'block';
+      document.getElementById('profile-avatar-initials').style.display = 'none';
+    }
 
-    document.getElementById('password-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const newPw = document.getElementById('new-password').value;
-      const confirmPw = document.getElementById('confirm-new-password').value;
-      const btn = document.getElementById('change-password-btn');
+    function showAvatarInitials(name) {
+      var initials = (name || '?').split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
+      document.getElementById('profile-avatar-initials').textContent = initials;
+      document.getElementById('profile-avatar-initials').style.display = '';
+      document.getElementById('profile-avatar-img').style.display = 'none';
+    }
 
-      if (newPw !== confirmPw) {
-        document.getElementById('error-message').textContent = 'Passwords do not match.';
-        document.getElementById('error-message').style.display = 'block';
-        return;
-      }
-      btn.disabled = true;
-      btn.textContent = 'Updating...';
-
-      const { error } = await auth.updatePassword(newPw);
-      if (error) {
-        document.getElementById('error-message').textContent = error.message;
-        document.getElementById('error-message').style.display = 'block';
-      } else {
-        document.getElementById('success-message').textContent = 'Password updated!';
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('new-password').value = '';
-        document.getElementById('confirm-new-password').value = '';
-      }
-      btn.disabled = false;
-      btn.textContent = 'Update Password';
-    });
+    // ── MESSAGES ───────────────────────────────────────────────
+    function showSuccess(msg) {
+      document.getElementById('profile-success-msg').textContent = msg;
+      document.getElementById('profile-success').style.display = 'flex';
+      document.getElementById('profile-error').style.display = 'none';
+      setTimeout(function() { document.getElementById('profile-success').style.display = 'none'; }, 4000);
+    }
+    function showError(msg) {
+      document.getElementById('profile-error-msg').textContent = msg;
+      document.getElementById('profile-error').style.display = 'flex';
+      document.getElementById('profile-success').style.display = 'none';
+    }
+    function hideMessages() {
+      document.getElementById('profile-success').style.display = 'none';
+      document.getElementById('profile-error').style.display = 'none';
+    }
   </script>
 </body>
 </html>
