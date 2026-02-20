@@ -1123,6 +1123,124 @@ select.form-input:focus {
   margin-top: 4px;
 }
 
+/* ── ADD DOCUMENT BUTTON SPLIT (file vs link) ──────────── */
+.add-doc-split {
+  position: relative;
+  display: inline-flex;
+}
+.add-doc-split .btn-add-doc-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px 9px 18px;
+  background: var(--green-dark);
+  color: var(--white);
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition);
+}
+.add-doc-split .btn-add-doc-main:hover { background: var(--green-mid); }
+.add-doc-split .btn-add-doc-main:disabled { opacity: 0.55; cursor: not-allowed; }
+.add-doc-split .btn-add-doc-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 10px;
+  background: var(--green-dark);
+  color: var(--white);
+  border: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.add-doc-split .btn-add-doc-arrow:hover { background: var(--green-mid); }
+.add-doc-split .btn-add-doc-arrow svg { display: block; }
+.add-doc-split-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  background: var(--white);
+  border: 1px solid var(--soft-gray);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+  min-width: 176px;
+  z-index: 200;
+  overflow: hidden;
+}
+.add-doc-split.open .add-doc-split-dropdown { display: block; }
+.add-doc-split-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-family: var(--sans);
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.add-doc-split-dropdown button:hover { background: var(--light-gray); }
+.add-doc-split-dropdown .split-icon { font-size: 1rem; flex-shrink: 0; }
+.add-doc-split-dropdown .split-label { font-weight: 600; }
+.add-doc-split-dropdown .split-sub { font-size: 11px; color: var(--muted); display: block; }
+
+/* ── LINK DOCUMENT MODAL ────────────────────────────────── */
+#link-modal .modal-box { max-width: 480px; }
+.link-modal-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--green-tint);
+  border: 1px solid rgba(95,175,143,0.3);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--green-dark);
+  line-height: 1.5;
+}
+.link-modal-hint-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.link-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--light-gray);
+  border-radius: var(--radius-sm);
+  margin-top: 14px;
+  font-size: 13px;
+}
+.link-preview-icon { font-size: 1.1rem; flex-shrink: 0; }
+.link-preview-name { font-weight: 600; color: var(--charcoal); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── LINK-TYPE DOC ROWS ─────────────────────────────────── */
+.doc-type-badge.link-badge {
+  background: #eef2ff;
+  color: #4a5fa0;
+}
+.doc-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--green-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+.doc-source-link:hover { text-decoration: underline; }
+.doc-source-link svg { flex-shrink: 0; }
+
 /* ── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .dashboard-main {
