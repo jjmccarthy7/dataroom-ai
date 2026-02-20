@@ -240,7 +240,7 @@
       avatarUploading = true;
 
       var ext = file.name.split('.').pop().toLowerCase();
-      var path = 'avatars/' + currentUser.id + '.' + ext;
+      var path = currentUser.id + '.' + ext;
 
       var uploadRes = await _supabase.storage.from('avatars').upload(path, file, { upsert: true });
       if (uploadRes.error) {
