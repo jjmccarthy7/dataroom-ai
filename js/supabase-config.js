@@ -144,7 +144,25 @@ var documents = {
     var r = await _supabase.storage.from('room-documents').createSignedUrl(filePath, 3600);
     return { url: r.data?.signedUrl, error: r.error };
   },
-  deleteDocument: async function(documentId, filePath, roomId) {
+  addLinkDocument: async function(roomId, label, url) {
+    var u = await auth.getUser();
+    if (!u.user) return { document: null, error: 'Not authenticated' };
+    var r = await _supabase.from('documents').insert([{
+      room_id: roomId,
+      uploader_id: u.user.id,
+      original_filename: label,
+      file_path: null,
+      file_type: 'link',
+      file_size: null,
+      source_type: 'link',
+      source_url: url
+    }]).select().single();
+    if (!r.error) {
+      await _supabase.from('data_rooms').update({ updated_at: new Date().toISOString() }).eq('id', roomId);
+    }
+    return { document: r.data, error: r.error };
+  },
+    deleteDocument: async function(documentId, filePath, roomId) {
     var storageResult = await _supabase.storage.from('room-documents').remove([filePath]);
     if (storageResult.error) return { error: storageResult.error };
     var r = await _supabase.from('documents').delete().eq('id', documentId);

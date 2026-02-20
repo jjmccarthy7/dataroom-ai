@@ -59,7 +59,22 @@
       <div class="section-card" id="documents-section">
             <div class="section-header">
                     <h2 class="section-title">Documents</h2>
-                    <button class="btn-add-doc" id="add-doc-btn" style="display:none;">+ Add Document</button>
+                    <div class="add-doc-split" id="add-doc-split" style="display:none;">
+          <button class="btn-add-doc-main" id="add-doc-main-btn">+ Add Document</button>
+          <button class="btn-add-doc-arrow" id="add-doc-arrow-btn" aria-label="More options">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="add-doc-split-dropdown" id="add-doc-dropdown">
+            <button id="opt-upload-file">
+              <span class="split-icon">&#128196;</span>
+              <span><span class="split-label">Upload File</span><span class="split-sub">PDF, PPTX, DOCX, XLSX&hellip;</span></span>
+            </button>
+            <button id="opt-add-link">
+              <span class="split-icon">&#128279;</span>
+              <span><span class="split-label">Paste a Link</span><span class="split-sub">Google Docs, Slides, Notion&hellip;</span></span>
+            </button>
+          </div>
+        </div>
             </div>
             <!-- Loading -->
             <div id="docs-loading" class="docs-loading">Loading documents...</div>
@@ -68,7 +83,10 @@
                     <div class="docs-empty-icon">&#128196;</div>
                     <p class="docs-empty-title">No documents yet</p>
                     <p class="docs-empty-sub">Upload your first document to get started</p>
-                    <button class="btn-upload-first" id="upload-first-btn">Upload First Document</button>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+          <button class="btn-upload-first" id="upload-first-btn">&#128196; Upload File</button>
+          <button class="btn-upload-first" id="link-first-btn" style="background:var(--green-mid);">&#128279; Paste a Link</button>
+        </div>
             </div>
             <!-- Document List -->
             <div id="docs-list" style="display:none;">
@@ -104,6 +122,32 @@
             <button class="btn-secondary" id="delete-cancel-btn">Cancel</button>
             <button class="btn-danger" id="delete-confirm-btn">Delete</button>
       </div>
+  </div>
+</div>
+
+<!-- Add Link Modal -->
+<div class="modal-overlay" id="link-modal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close" id="link-modal-close-btn">&#10005;</button>
+    <h2 class="modal-title">Paste a Document Link</h2>
+    <p class="modal-subtitle">Add a Google Doc, Slides, Notion page, or any shareable URL.</p>
+    <div class="link-modal-hint">
+      <span class="link-modal-hint-icon">&#128161;</span>
+      <span>Make sure the document is set to <strong>&ldquo;Anyone with the link can view&rdquo;</strong> before sharing.</span>
+    </div>
+    <div id="link-modal-error" class="modal-error" style="display:none;"></div>
+    <div class="form-group">
+      <label class="form-label" for="link-url-input">Document URL <span class="required">*</span></label>
+      <input class="form-input" type="url" id="link-url-input" placeholder="https://docs.google.com/..." autocomplete="off">
+    </div>
+    <div class="form-group" style="margin-top:14px;">
+      <label class="form-label" for="link-label-input">Label <span class="required">*</span></label>
+      <input class="form-input" type="text" id="link-label-input" placeholder="e.g. Pitch Deck" maxlength="120" autocomplete="off">
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" id="link-modal-cancel-btn">Cancel</button>
+      <button type="button" class="btn-primary" id="link-modal-submit-btn">Add Link</button>
+    </div>
   </div>
 </div>
 
@@ -196,7 +240,7 @@
       await loadDocuments();
 
       // Show add-doc button
-      document.getElementById('add-doc-btn').style.display = 'inline-flex';
+      document.getElementById('add-doc-split').style.display = 'inline-flex';
 
       // Nav dropdown
       document.getElementById('user-menu-btn').addEventListener('click', function(e) {
@@ -215,13 +259,44 @@
       });
 
       // File input
-      document.getElementById('add-doc-btn').addEventListener('click', function() {
-            document.getElementById('file-input').click();
+      // ── Add Document split button ──────────────────────────
+      // Main button = upload file (most common action)
+      document.getElementById('add-doc-main-btn').addEventListener('click', function() {
+        document.getElementById('file-input').click();
       });
+      // Arrow = open dropdown
+      document.getElementById('add-doc-arrow-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('add-doc-split').classList.toggle('open');
+      });
+      document.getElementById('opt-upload-file').addEventListener('click', function() {
+        document.getElementById('add-doc-split').classList.remove('open');
+        document.getElementById('file-input').click();
+      });
+      document.getElementById('opt-add-link').addEventListener('click', function() {
+        document.getElementById('add-doc-split').classList.remove('open');
+        openLinkModal();
+      });
+      // Close split dropdown on outside click
+      document.addEventListener('click', function(e) {
+        var split = document.getElementById('add-doc-split');
+        if (split && !split.contains(e.target)) split.classList.remove('open');
+      });
+      // Empty-state buttons
       document.getElementById('upload-first-btn').addEventListener('click', function() {
-            document.getElementById('file-input').click();
+        document.getElementById('file-input').click();
       });
+      document.getElementById('link-first-btn').addEventListener('click', openLinkModal);
+      // File input change
       document.getElementById('file-input').addEventListener('change', handleFileSelect);
+      // ── Link modal wiring ────────────────────────────────────
+      document.getElementById('link-modal-close-btn').addEventListener('click', closeLinkModal);
+      document.getElementById('link-modal-cancel-btn').addEventListener('click', closeLinkModal);
+      document.getElementById('link-modal-submit-btn').addEventListener('click', handleAddLink);
+      document.getElementById('link-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeLinkModal();
+      });
+      document.getElementById('link-url-input').addEventListener('input', updateLinkPreview);
 
       // Delete modal
       document.getElementById('delete-cancel-btn').addEventListener('click', closeDeleteModal);
@@ -294,66 +369,74 @@
   // ── FIX: use data-* attributes + addEventListener instead of
   //         inline onclick strings with fragile quote escaping ──
   function renderDocumentList(docs) {
-      var tbody = document.getElementById('docs-tbody');
-      tbody.innerHTML = docs.map(function(doc) {
-            return '<tr>' +
-                    '<td class="doc-name-cell">' +
-                      '<span class="doc-icon">' + getTypeIcon(doc.file_type, doc.original_filename) + '</span>' +
-                      '<span class="doc-name">'  + escapeHtml(doc.original_filename) + '</span>' +
-                    '</td>' +
-                    '<td><span class="doc-type-badge">' + getTypeLabel(doc.file_type, doc.original_filename) + '</span></td>' +
-                    '<td class="doc-size">'  + formatBytes(doc.file_size) + '</td>' +
-                    '<td class="doc-date">'  + formatDate(doc.created_at) + '</td>' +
-                    '<td class="doc-actions">' +
-                      '<div class="doc-menu-wrapper">' +
-                        '<button class="doc-menu-btn" title="Options" data-doc-menu>&#8943;</button>' +
-                        '<div class="doc-menu-dropdown">' +
-                          '<button data-action="open"     data-doc-id="' + escapeAttr(doc.id)                  + '" data-file-path="' + escapeAttr(doc.file_path)        + '">Open</button>' +
-                          '<button data-action="download" data-doc-id="' + escapeAttr(doc.id)                  + '" data-file-path="' + escapeAttr(doc.file_path)        + '" data-filename="' + escapeAttr(doc.original_filename) + '">Download</button>' +
-                          '<button data-action="delete"   data-doc-id="' + escapeAttr(doc.id)                  + '" data-file-path="' + escapeAttr(doc.file_path)        + '" data-filename="' + escapeAttr(doc.original_filename) + '" class="danger">Delete</button>' +
-                        '</div>' +
-                      '</div>' +
-                    '</td>' +
-                  '</tr>';
-      }).join('');
+    var tbody = document.getElementById('docs-tbody');
+    tbody.innerHTML = docs.map(function(doc) {
+      var isLink = (doc.source_type === 'link');
+      var icon   = isLink ? '\uD83D\uDD17' : getTypeIcon(doc.file_type, doc.original_filename);
+      var badge  = isLink ? '<span class="doc-type-badge link-badge">LINK</span>'
+                          : '<span class="doc-type-badge">' + getTypeLabel(doc.file_type, doc.original_filename) + '</span>';
+      var size   = isLink ? '<span style="color:var(--muted);font-size:12px;">&#8212;</span>'
+                          : formatBytes(doc.file_size);
+      var actions;
+      if (isLink) {
+        actions =
+          '<div class="doc-menu-wrapper">' +
+            '<button class="doc-menu-btn" title="Options" data-doc-menu>&#8943;</button>' +
+            '<div class="doc-menu-dropdown">' +
+              '<button data-action="open-link" data-doc-id="' + escapeAttr(doc.id) + '" data-source-url="' + escapeAttr(doc.source_url || '') + '">Open Link</button>' +
+              '<button data-action="delete" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="" data-filename="' + escapeAttr(doc.original_filename) + '" class="danger">Remove</button>' +
+            '</div>' +
+          '</div>';
+      } else {
+        actions =
+          '<div class="doc-menu-wrapper">' +
+            '<button class="doc-menu-btn" title="Options" data-doc-menu>&#8943;</button>' +
+            '<div class="doc-menu-dropdown">' +
+              '<button data-action="open" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '">Open</button>' +
+              '<button data-action="download" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '" data-filename="' + escapeAttr(doc.original_filename) + '">Download</button>' +
+              '<button data-action="delete" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '" data-filename="' + escapeAttr(doc.original_filename) + '" class="danger">Delete</button>' +
+            '</div>' +
+          '</div>';
+      }
+      return '<tr>' +
+        '<td class="doc-name-cell">' +
+          '<span class="doc-icon">' + icon + '</span>' +
+          '<span class="doc-name">' + escapeHtml(doc.original_filename) + '</span>' +
+        '</td>' +
+        '<td>' + badge + '</td>' +
+        '<td class="doc-size">' + size + '</td>' +
+        '<td class="doc-date">' + formatDate(doc.created_at) + '</td>' +
+        '<td class="doc-actions">' + actions + '</td>' +
+      '</tr>';
+    }).join('');
 
-      // Attach delegated listeners
-      var list = document.getElementById('docs-list');
-
-      // Remove old delegated listener by cloning the node
-      var newList = list.cloneNode(false);
-      newList.appendChild(tbody.parentElement ? list.querySelector('table') : document.createElement('table'));
-      // Simpler: just use the tbody directly
-      tbody.addEventListener('click', handleDocTableClick);
-
-      document.getElementById('docs-list').style.display = 'block';
-      document.getElementById('docs-empty').style.display = 'none';
+    tbody.addEventListener('click', handleDocTableClick);
+    document.getElementById('docs-list').style.display = 'block';
+    document.getElementById('docs-empty').style.display = 'none';
   }
-
   function handleDocTableClick(e) {
-      var menuBtn = e.target.closest('[data-doc-menu]');
-      var actionBtn = e.target.closest('[data-action]');
-
-      if (menuBtn) {
-            var wrapper = menuBtn.closest('.doc-menu-wrapper');
-            var isOpen  = wrapper.classList.contains('open');
-            closeAllDocMenus();
-            if (!isOpen) wrapper.classList.add('open');
-            return;
-      }
-
-      if (actionBtn) {
-            var action   = actionBtn.dataset.action;
-            var docId    = actionBtn.dataset.docId;
-            var filePath = actionBtn.dataset.filePath;
-            var filename = actionBtn.dataset.filename;
-            closeAllDocMenus();
-            if (action === 'open')     openDocument(docId, filePath);
-            if (action === 'download') downloadDocument(docId, filePath, filename);
-            if (action === 'delete')   promptDelete(docId, filePath, filename);
-      }
+    var menuBtn = e.target.closest('[data-doc-menu]');
+    var actionBtn = e.target.closest('[data-action]');
+    if (menuBtn) {
+      var wrapper = menuBtn.closest('.doc-menu-wrapper');
+      var isOpen = wrapper.classList.contains('open');
+      closeAllDocMenus();
+      if (!isOpen) wrapper.classList.add('open');
+      return;
+    }
+    if (actionBtn) {
+      var action    = actionBtn.dataset.action;
+      var docId     = actionBtn.dataset.docId;
+      var filePath  = actionBtn.dataset.filePath;
+      var filename  = actionBtn.dataset.filename;
+      var sourceUrl = actionBtn.dataset.sourceUrl;
+      closeAllDocMenus();
+      if (action === 'open')      openDocument(docId, filePath);
+      if (action === 'download')  downloadDocument(docId, filePath, filename);
+      if (action === 'open-link') window.open(sourceUrl, '_blank', 'noopener');
+      if (action === 'delete')    promptDelete(docId, filePath, filename);
+    }
   }
-
   // ── FILE SELECT & UPLOAD ─────────────────────────────────────
   async function handleFileSelect(e) {
       var file = e.target.files[0];
@@ -434,6 +517,96 @@
       closeDeleteModal();
       if (res.error) { alert('Delete failed: ' + res.error.message); return; }
       await loadDocuments();
+  }
+
+  // ── LINK MODAL ──────────────────────────────────────────
+  function getLinkIcon(url) {
+    if (!url) return '\uD83D\uDD17';
+    var u = url.toLowerCase();
+    if (u.includes('docs.google.com/document'))       return '\uD83D\uDCDD';
+    if (u.includes('docs.google.com/presentation'))   return '\uD83D\uDCCA';
+    if (u.includes('docs.google.com/spreadsheets'))   return '\uD83D\uDCD7';
+    if (u.includes('notion.so') || u.includes('notion.site')) return '\uD83D\uDCD3';
+    if (u.includes('figma.com'))                      return '\uD83C\uDFA8';
+    if (u.includes('loom.com'))                       return '\uD83C\uDFAC';
+    return '\uD83D\uDD17';
+  }
+
+  function isValidUrl(str) {
+    try { var u = new URL(str); return u.protocol === 'http:' || u.protocol === 'https:'; }
+    catch (_) { return false; }
+  }
+
+  function openLinkModal() {
+    document.getElementById('link-url-input').value = '';
+    document.getElementById('link-label-input').value = '';
+    document.getElementById('link-modal-error').style.display = 'none';
+    var preview = document.getElementById('link-preview');
+    if (preview) preview.remove();
+    document.getElementById('link-modal').style.display = 'flex';
+    document.getElementById('link-url-input').focus();
+  }
+
+  function closeLinkModal() {
+    document.getElementById('link-modal').style.display = 'none';
+  }
+
+  function updateLinkPreview() {
+    var urlVal = document.getElementById('link-url-input').value.trim();
+    var labelInput = document.getElementById('link-label-input');
+    // Auto-fill label from URL hostname if label is empty
+    if (urlVal && isValidUrl(urlVal) && !labelInput.value.trim()) {
+      try {
+        var host = new URL(urlVal).hostname.replace('www.','');
+        if (host.includes('docs.google.com')) {
+          var path = new URL(urlVal).pathname;
+          if (path.includes('/presentation/')) labelInput.placeholder = 'e.g. Pitch Deck';
+          else if (path.includes('/document/')) labelInput.placeholder = 'e.g. Executive Summary';
+          else if (path.includes('/spreadsheets/')) labelInput.placeholder = 'e.g. Financial Model';
+        }
+      } catch(_) {}
+    }
+  }
+
+  async function handleAddLink() {
+    var urlVal   = document.getElementById('link-url-input').value.trim();
+    var labelVal = document.getElementById('link-label-input').value.trim();
+    var errorEl  = document.getElementById('link-modal-error');
+    errorEl.style.display = 'none';
+
+    if (!urlVal) {
+      errorEl.textContent = 'Please enter a document URL.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (!isValidUrl(urlVal)) {
+      errorEl.textContent = 'That doesn\u2019t look like a valid URL. Please include https://.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (!labelVal) {
+      errorEl.textContent = 'Please give this document a label so others know what it is.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    var submitBtn = document.getElementById('link-modal-submit-btn');
+    submitBtn.textContent = 'Adding\u2026';
+    submitBtn.disabled = true;
+
+    var res = await documents.addLinkDocument(currentRoomId, labelVal, urlVal);
+
+    submitBtn.textContent = 'Add Link';
+    submitBtn.disabled = false;
+
+    if (res.error) {
+      errorEl.textContent = 'Failed to add link: ' + (res.error.message || res.error);
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    closeLinkModal();
+    await loadDocuments();
   }
 
   // ── DOC MENU HELPERS ─────────────────────────────────────────
