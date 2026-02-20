@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DataRoom.ai - The AI-Powered Data Room for Modern Fundraising</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--navy:#1B2A4A;--navy-light:#2A3F6B;--carolina:#4A90D9;--carolina-light:#6BA5E7;--oak:#C4A882;--oak-light:#DCC9AB;--oak-bg:#F5EDE3;--white:#FFFFFF;--off-white:#FAFAFA;--light-grey:#F0F0F0;--mid-grey:#999;--dark-grey:#555;--charcoal:#333;--serif:'Playfair Display',Georgia,serif;--sans:'Inter',-apple-system,sans-serif}
+:root{--navy:#1B2A4A;--navy-light:#2A3F6B;--carolina:#4A90D9;--carolina-light:#6BA5E7;--oak:#C4A882;--oak-light:#DCC9AB;--oak-bg:#F5EDE3;--white:#FFFFFF;--off-white:#FAFAFA;--light-grey:#F0F0F0;--mid-grey:#999;--dark-grey:#555;--charcoal:#333;--serif: var(--sans);--sans:'Inter',-apple-system,sans-serif}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--charcoal);line-height:1.6;background:var(--white)}
 nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid var(--light-grey)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--navy);text-decoration:none}
+.logo{font-family: var(--sans);font-size:24px;font-weight:700;color:var(--navy);text-decoration:none}
 .logo span{color:var(--carolina)}
 .nav-links{display:flex;gap:36px;list-style:none}
 .nav-links a{text-decoration:none;color:var(--dark-grey);font-size:15px;font-weight:500;transition:color 0.2s}
@@ -23,7 +23,7 @@ section{padding:120px 40px}
 .container{max-width:1200px;margin:0 auto}
 .hero{padding-top:180px;padding-bottom:120px;background:var(--white)}
 .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.hero h1{font-family:var(--serif);font-size:56px;line-height:1.15;color:var(--navy);margin-bottom:24px}
+.hero h1{font-family: var(--sans);font-size:56px;line-height:1.15;color:var(--navy);margin-bottom:24px}
 .hero h1 em{font-style:normal;color:var(--carolina)}
 .hero p{font-size:19px;color:var(--dark-grey);line-height:1.7;margin-bottom:36px;max-width:520px}
 .hero-cta-row{display:flex;gap:16px;align-items:center}
@@ -34,7 +34,7 @@ section{padding:120px 40px}
 .hero-visual{background:linear-gradient(135deg,var(--oak-bg) 0%,var(--light-grey) 100%);border-radius:16px;padding:48px;height:420px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
 .hero-visual-icon{width:80px;height:80px;background:var(--navy);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
 .hero-visual-icon svg{width:40px;height:40px;fill:var(--white)}
-.hero-visual-label{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:16px}
+.hero-visual-label{font-family: var(--sans);font-size:20px;color:var(--navy);margin-bottom:16px}
 .hero-visual-items{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
 .hero-visual-item{background:var(--white);padding:12px 16px;border-radius:8px;font-size:14px;color:var(--dark-grey);display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
 .hero-visual-item .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -45,13 +45,13 @@ section{padding:120px 40px}
 .trust-logos span{font-family:var(--sans);font-size:18px;font-weight:600;color:var(--charcoal)}
 .value-props{background:var(--white)}
 .section-label{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--carolina);margin-bottom:16px}
-.section-title{font-family:var(--serif);font-size:44px;color:var(--navy);margin-bottom:20px;line-height:1.2}
+.section-title{font-family: var(--sans);font-size:44px;color:var(--navy);margin-bottom:20px;line-height:1.2}
 .section-subtitle{font-size:18px;color:var(--dark-grey);max-width:600px;line-height:1.7;margin-bottom:64px}
 .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
 .prop-card{padding:36px;border-radius:12px;background:var(--off-white);border:1px solid var(--light-grey);transition:all 0.3s}
 .prop-card:hover{border-color:var(--oak);box-shadow:0 8px 30px rgba(0,0,0,0.06)}
 .prop-icon{width:48px;height:48px;background:var(--oak-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
-.prop-card h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:12px}
+.prop-card h3{font-family: var(--sans);font-size:22px;color:var(--navy);margin-bottom:12px}
 .prop-card p{font-size:15px;color:var(--dark-grey);line-height:1.7}
 .audiences{background:var(--navy);color:var(--white)}
 .audiences .section-label{color:var(--oak)}
@@ -59,7 +59,7 @@ section{padding:120px 40px}
 .audiences .section-subtitle{color:rgba(255,255,255,0.7)}
 .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
 .audience-card{padding:48px;border-radius:16px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04)}
-.audience-card h3{font-family:var(--serif);font-size:28px;margin-bottom:8px}
+.audience-card h3{font-family: var(--sans);font-size:28px;margin-bottom:8px}
 .audience-card .audience-role{font-size:14px;color:var(--oak);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
 .audience-card p{font-size:16px;line-height:1.7;color:rgba(255,255,255,0.8);margin-bottom:16px}
 .audience-card ul{list-style:none;margin-top:20px}
@@ -70,8 +70,8 @@ section{padding:120px 40px}
 .how-it-works{background:var(--off-white)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
 .step{text-align:center;padding:32px 20px}
-.step-num{font-family:var(--serif);font-size:48px;color:var(--oak);margin-bottom:16px}
-.step h3{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:12px}
+.step-num{font-family: var(--sans);font-size:48px;color:var(--oak);margin-bottom:16px}
+.step h3{font-family: var(--sans);font-size:20px;color:var(--navy);margin-bottom:12px}
 .step p{font-size:15px;color:var(--dark-grey);line-height:1.6}
 .ai-section{background:var(--white)}
 .ai-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
@@ -80,7 +80,7 @@ section{padding:120px 40px}
 .ai-bubble{padding:14px 18px;border-radius:12px;font-size:14px;line-height:1.5;max-width:85%}
 .ai-bubble-user{background:var(--carolina);color:white;align-self:flex-end;border-bottom-right-radius:4px}
 .ai-bubble-ai{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.9);align-self:flex-start;border-bottom-left-radius:4px}
-.ai-content h2{font-family:var(--serif);font-size:40px;color:var(--navy);margin-bottom:20px;line-height:1.2}
+.ai-content h2{font-family: var(--sans);font-size:40px;color:var(--navy);margin-bottom:20px;line-height:1.2}
 .ai-content p{font-size:17px;color:var(--dark-grey);line-height:1.7;margin-bottom:16px}
 .pricing{background:var(--off-white)}
 .pricing .section-title{text-align:center}
@@ -92,8 +92,8 @@ section{padding:120px 40px}
 .pricing-card.featured::before{content:'Most Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--carolina);color:white;font-size:12px;font-weight:600;padding:4px 16px;border-radius:20px}
 .pricing-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
 .pricing-tier{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--carolina);margin-bottom:8px}
-.pricing-name{font-family:var(--serif);font-size:26px;color:var(--navy);margin-bottom:4px}
-.pricing-price{font-family:var(--serif);font-size:44px;color:var(--navy);margin:16px 0}
+.pricing-name{font-family: var(--sans);font-size:26px;color:var(--navy);margin-bottom:4px}
+.pricing-price{font-family: var(--sans);font-size:44px;color:var(--navy);margin:16px 0}
 .pricing-price span{font-family:var(--sans);font-size:16px;color:var(--mid-grey);font-weight:400}
 .pricing-desc{font-size:15px;color:var(--dark-grey);margin-bottom:24px;line-height:1.6}
 .pricing-features{list-style:none;margin-bottom:32px}
@@ -105,7 +105,7 @@ section{padding:120px 40px}
 .pricing-btn-outline{background:transparent;border:1.5px solid var(--navy);color:var(--navy)}
 .pricing-btn-outline:hover{background:var(--navy);color:var(--white)}
 .cta-banner{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);text-align:center}
-.cta-banner h2{font-family:var(--serif);font-size:40px;color:var(--white);margin-bottom:16px}
+.cta-banner h2{font-family: var(--sans);font-size:40px;color:var(--white);margin-bottom:16px}
 .cta-banner p{font-size:18px;color:rgba(255,255,255,0.7);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
 .cta-form{display:flex;gap:12px;justify-content:center;max-width:480px;margin:0 auto}
 .cta-form input{flex:1;padding:14px 20px;border-radius:6px;border:none;font-size:15px;font-family:var(--sans);outline:none}
