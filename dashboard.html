@@ -11,24 +11,24 @@
 <body>
   <nav class="dash-nav">
       <div class="nav-inner">
-            <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>a>
+            <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
           <div class="nav-right">
                 <div class="user-menu" id="user-menu">
                         <!-- FIX: closing > was missing from button tag -->
                         <button class="user-menu-btn" id="user-menu-btn">
-                                  <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>div>
+                                  <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
                                   <span id="nav-name"></span>
-                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>svg>
-                        </button>button>
+                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </button>
                         <div class="user-dropdown" id="user-dropdown">
-                                  <a href="dashboard.html">Dashboard</a>a>
-                                  <a href="profile.html">My Profile</a>a>
-                                  <a href="#" id="logout-btn">Log Out</a>a>
-                        </div>div>
-                </div>div>
-          </div>div>
-      </div>div>
-  </nav>nav>
+                                  <a href="dashboard.html">Dashboard</a>
+                                  <a href="profile.html">My Profile</a>
+                                  <a href="#" id="logout-btn">Log Out</a>
+                        </div>
+                </div>
+          </div>
+      </div>
+  </nav>
 <main class="dashboard-main">
   <div class="dashboard-inner">
   
@@ -36,30 +36,30 @@
       <div class="onboarding-banner" id="onboarding-banner" style="display:none;">
             <div class="onboarding-steps">
                     <div class="onboarding-step" id="step-profile">
-                              <div class="step-icon incomplete" id="step-profile-icon">1</div>div>
+                              <div class="step-icon incomplete" id="step-profile-icon">1</div>
                               <div class="step-text">
                                           <span class="step-title">Complete your profile</span>
                                           <span class="step-sub">Add your name and role</span>
-                              </div>div>
-                              <a href="profile.html" class="step-action">Go &#8594;</a>a>
-                    </div>div>
-                    <div class="onboarding-divider"></div>div>
+                              </div>
+                              <a href="profile.html" class="step-action">Go &#8594;</a>
+                    </div>
+                    <div class="onboarding-divider"></div>
                     <div class="onboarding-step" id="step-room">
-                              <div class="step-icon incomplete" id="step-room-icon">2</div>div>
+                              <div class="step-icon incomplete" id="step-room-icon">2</div>
                               <div class="step-text">
                                           <span class="step-title">Create your first data room</span>
                                           <span class="step-sub">Get your fundraise organised</span>
-                              </div>div>
-                              <button class="step-action" id="step-create-room-btn">Create &#8594;</button>button>
-                    </div>div>
-            </div>div>
-      </div>div>
+                              </div>
+                              <button class="step-action" id="step-create-room-btn">Create &#8594;</button>
+                    </div>
+            </div>
+      </div>
   
       <!-- ── DASHBOARD HEADER ────────────────────────────── -->
       <div class="dash-header" id="dash-header">
             <div>
-                      <h1 id="dash-greeting">My Data Rooms</h1>h1>
-                      <p class="dash-subtitle" id="dash-subtitle"></p>p>
+                      <h1 id="dash-greeting">My Data Rooms</h1>
+                      <p class="dash-subtitle" id="dash-subtitle"></p>
             </div>
               <div id="dash-header-actions"></div>
       </div>
@@ -69,63 +69,63 @@
         <div id="rooms-empty" class="empty-state" style="display:none;">
                 <div class="empty-icon">&#128193;</div>
                 <h2>No data rooms yet</h2>
-              <p id="empty-state-msg">Create your first data room to get started.</p>p>
-              <button class="btn-primary" id="empty-create-btn">Create Data Room</button>button>
+              <p id="empty-state-msg">Create your first data room to get started.</p>
+              <button class="btn-primary" id="empty-create-btn">Create Data Room</button>
         </div>
       <div class="room-grid" id="room-grid" style="display:none;"></div>
   
   </div>
-</main>main>
+</main>
 
 <!-- Create Data Room Modal -->
 <div class="modal-overlay" id="create-modal" style="display:none;">
   <div class="modal-box">
-      <button class="modal-close" id="modal-close-btn">&#10005;</button>button>
+      <button class="modal-close" id="modal-close-btn">&#10005;</button>
       <h2 class="modal-title">Create Data Room</h2>
-      <p class="modal-subtitle">Set up your new data room in seconds</p>p>
+      <p class="modal-subtitle">Set up your new data room in seconds</p>
       <form id="create-room-form" novalidate>
             <div class="form-group">
-                    <label class="form-label" for="company-name">Company Name <span class="required">*</span></label>label>
+                    <label class="form-label" for="company-name">Company Name <span class="required">*</span></label>
                     <input class="form-input" type="text" id="company-name" placeholder="e.g. Acme Inc." maxlength="80" required>
             </div>
             <div class="form-group">
-                    <label class="form-label" for="short-desc">Short Description</label>label>
+                    <label class="form-label" for="short-desc">Short Description</label>
                     <input class="form-input" type="text" id="short-desc" placeholder="One line about your company" maxlength="120">
             </div>
             <div class="form-row">
                     <div class="form-group">
-                              <label class="form-label" for="stage">Stage</label>label>
+                              <label class="form-label" for="stage">Stage</label>
                               <select class="form-input" id="stage">
-                                          <option value="">Select stage</option>option>
-                                          <option value="Pre-seed">Pre-seed</option>option>
-                                          <option value="Seed">Seed</option>option>
-                                          <option value="Series A">Series A</option>option>
-                                          <option value="Other">Other</option>option>
-                              </select>select>
+                                          <option value="">Select stage</option>
+                                          <option value="Pre-seed">Pre-seed</option>
+                                          <option value="Seed">Seed</option>
+                                          <option value="Series A">Series A</option>
+                                          <option value="Other">Other</option>
+                              </select>
                     </div>
                     <div class="form-group">
-                              <label class="form-label" for="owner-role">Your Role</label>label>
+                              <label class="form-label" for="owner-role">Your Role</label>
                               <select class="form-input" id="owner-role">
-                                          <option value="">Select role</option>option>
-                                          <option value="Founder">Founder</option>option>
-                                          <option value="Investor">Investor</option>option>
-                              </select>select>
+                                          <option value="">Select role</option>
+                                          <option value="Founder">Founder</option>
+                                          <option value="Investor">Investor</option>
+                              </select>
                     </div>
             </div>
             <div class="form-group">
-                    <label class="form-label" for="website">Website</label>label>
+                    <label class="form-label" for="website">Website</label>
                     <input class="form-input" type="url" id="website" placeholder="https://yoursite.com">
             </div>
             <div class="form-group">
-                    <label class="form-label" for="location">Location</label>label>
+                    <label class="form-label" for="location">Location</label>
                     <input class="form-input" type="text" id="location" placeholder="e.g. San Francisco, CA" maxlength="80">
             </div>
             <div class="modal-error" id="modal-error" style="display:none;"></div>
             <div class="modal-actions">
-                    <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>button>
-                    <button type="submit" class="btn-primary" id="create-submit-btn">Create Data Room</button>button>
+                    <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="create-submit-btn">Create Data Room</button>
             </div>
-      </form>form>
+      </form>
   </div>
 </div>
 
@@ -359,7 +359,7 @@
   }
 </script>
 </body>
-</html>html>
+</html>
 </script></h2>
             </div></span>
 </body></title>
