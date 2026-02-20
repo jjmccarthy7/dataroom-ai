@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Profile – DataRoom.ai</title>
+  <title>My Profile â DataRoom.ai</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/dashboard.css">
@@ -58,7 +58,7 @@
               Change Photo
             </label>
             <input type="file" id="avatar-file-input" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none;">
-            <p class="avatar-hint">JPG, PNG, GIF or WebP · Max 5MB</p>
+            <p class="avatar-hint">JPG, PNG, GIF or WebP Â· Max 5MB</p>
           </div>
           <div class="profile-email-display">
             <span class="detail-label">Email</span>
@@ -90,17 +90,17 @@
               <label class="form-label">I am a</label>
               <div class="role-selector" id="role-selector">
                 <button type="button" class="role-btn" data-role="Entrepreneur">
-                  <span class="role-icon">🚀</span>
+                  <span class="role-icon">ð</span>
                   <span class="role-label">Entrepreneur</span>
                   <span class="role-desc">I'm raising capital</span>
                 </button>
                 <button type="button" class="role-btn" data-role="Investor">
-                  <span class="role-icon">💼</span>
+                  <span class="role-icon">ð¼</span>
                   <span class="role-label">Investor</span>
                   <span class="role-desc">I'm reviewing deals</span>
                 </button>
                 <button type="button" class="role-btn" data-role="Both">
-                  <span class="role-icon">⚡</span>
+                  <span class="role-icon">â¡</span>
                   <span class="role-label">Both</span>
                   <span class="role-desc">I do both</span>
                 </button>
@@ -127,7 +127,7 @@
     var handleCheckTimeout = null;
     var avatarUploading = false;
 
-    // ── INIT ───────────────────────────────────────────────────
+    // ââ INIT âââââââââââââââââââââââââââââââââââââââââââââââââââ
     document.addEventListener('DOMContentLoaded', async function() {
       var sessionRes = await auth.getSession();
       if (!sessionRes.session) { window.location.href = 'login.html'; return; }
@@ -160,7 +160,7 @@
         });
       });
 
-      // Handle input — real-time uniqueness check
+      // Handle input â real-time uniqueness check
       document.getElementById('handle').addEventListener('input', function() {
         var val = this.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
         this.value = val;
@@ -172,9 +172,9 @@
         handleCheckTimeout = setTimeout(async function() {
           var res = await checkHandleAvailable(val);
           if (res.available) {
-            status.textContent = '✓ Available'; status.className = 'handle-status ok';
+            status.textContent = 'â Available'; status.className = 'handle-status ok';
           } else {
-            status.textContent = '✗ Taken'; status.className = 'handle-status error';
+            status.textContent = 'â Taken'; status.className = 'handle-status error';
           }
         }, 500);
       });
@@ -186,7 +186,7 @@
       document.getElementById('profile-form').addEventListener('submit', handleSave);
     });
 
-    // ── LOAD PROFILE ───────────────────────────────────────────
+    // ââ LOAD PROFILE âââââââââââââââââââââââââââââââââââââââââââ
     async function loadProfile() {
       var res = await profiles.getMyProfile();
       currentProfile = res.profile;
@@ -221,14 +221,14 @@
       }
     }
 
-    // ── HANDLE CHECK ───────────────────────────────────────────
+    // ââ HANDLE CHECK âââââââââââââââââââââââââââââââââââââââââââ
     async function checkHandleAvailable(handle) {
       var r = await _supabase.from('profiles').select('id').eq('handle', handle).neq('id', currentUser.id);
       if (r.error) return { available: true };
       return { available: !r.data || r.data.length === 0 };
     }
 
-    // ── AVATAR UPLOAD ──────────────────────────────────────────
+    // ââ AVATAR UPLOAD ââââââââââââââââââââââââââââââââââââââââââ
     async function handleAvatarUpload(e) {
       var file = e.target.files[0];
       e.target.value = '';
@@ -240,7 +240,7 @@
       avatarUploading = true;
 
       var ext = file.name.split('.').pop().toLowerCase();
-      var path = 'avatars/' + currentUser.id + '.' + ext;
+      var path = currentUser.id + '.' + ext;
 
       var uploadRes = await _supabase.storage.from('avatars').upload(path, file, { upsert: true });
       if (uploadRes.error) {
@@ -263,7 +263,7 @@
       showSuccess('Profile photo updated.');
     }
 
-    // ── SAVE ───────────────────────────────────────────────────
+    // ââ SAVE âââââââââââââââââââââââââââââââââââââââââââââââââââ
     async function handleSave(e) {
       e.preventDefault();
       hideMessages();
@@ -304,7 +304,7 @@
       showSuccess('Profile saved successfully.');
     }
 
-    // ── NAV UPDATE ─────────────────────────────────────────────
+    // ââ NAV UPDATE âââââââââââââââââââââââââââââââââââââââââââââ
     function updateNav(displayName, avatarUrl) {
       document.getElementById('nav-name').textContent = displayName || '';
       var initials = (displayName || '?').split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
@@ -320,7 +320,7 @@
       }
     }
 
-    // ── AVATAR DISPLAY ─────────────────────────────────────────
+    // ââ AVATAR DISPLAY âââââââââââââââââââââââââââââââââââââââââ
     function showAvatarImage(url) {
       var img = document.getElementById('profile-avatar-img');
       img.src = url;
@@ -335,7 +335,7 @@
       document.getElementById('profile-avatar-img').style.display = 'none';
     }
 
-    // ── MESSAGES ───────────────────────────────────────────────
+    // ââ MESSAGES âââââââââââââââââââââââââââââââââââââââââââââââ
     function showSuccess(msg) {
       document.getElementById('profile-success-msg').textContent = msg;
       document.getElementById('profile-success').style.display = 'flex';
