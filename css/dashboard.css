@@ -1613,3 +1613,43 @@ select.form-input:focus {
   transition: opacity 0.15s;
 }
 .btn-copy-link:hover { opacity: 0.85; }
+
+/* ── Room logo upload UX ──────────────────────────────────────────────────── */
+
+/* Owner: show pointer + position relative for overlay */
+.room-logo--owner {
+  cursor: pointer;
+  position: relative;
+}
+
+/* Camera overlay — hidden by default, appears on hover */
+.room-logo-camera {
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0,0,0,0.45);
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.room-logo--owner:hover .room-logo-camera {
+  display: flex;
+}
+
+/* Uploading spinner state */
+.room-logo--uploading {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* When logo has initials (no image), render them via attr */
+.room-logo:not([style*="background-image"])::before {
+  content: attr(data-initials);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+}

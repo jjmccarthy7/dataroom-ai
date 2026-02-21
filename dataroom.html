@@ -35,7 +35,7 @@
       <span id="breadcrumb-name"></span>
     </div>
     <div class="room-header" id="room-header">
-      <div class="room-logo" id="room-logo"></div>
+      <div class="room-logo" id="room-logo"><span class="room-logo-camera" aria-hidden="true">&#128247;</span></div>
       <div class="room-meta">
         <div class="room-title-row">
           <h1 id="room-title"></h1>
@@ -97,6 +97,8 @@
 </main>
 <!-- Hidden file input -->
 <input type="file" id="file-input" accept=".pdf,.pptx,.docx,.xlsx,.png,.jpg,.jpeg" style="display:none;">
+<!-- Hidden logo input -->
+<input type="file" id="logo-input" accept=".png,.jpg,.jpeg,.gif,.webp,.svg" style="display:none;">
 
 <!-- Delete Modal -->
 <div class="modal-overlay" id="delete-modal" style="display:none;">
@@ -228,6 +230,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('upload-first-btn').addEventListener('click', function(){document.getElementById('file-input').click();});
     document.getElementById('link-first-btn').addEventListener('click', openLinkModal);
     document.getElementById('file-input').addEventListener('change', handleFileSelect);
+    document.getElementById('logo-input').addEventListener('change', handleLogoSelect);
+    document.getElementById('room-logo').addEventListener('click', function() {
+      if (currentIsOwner) document.getElementById('logo-input').click();
+    });
     document.getElementById('invite-btn').addEventListener('click', openInviteModal);
     document.getElementById('invite-modal-close-btn').addEventListener('click', closeInviteModal);
     document.getElementById('invite-modal-cancel-btn').addEventListener('click', closeInviteModal);
@@ -270,8 +276,17 @@ function renderRoom(room) {
   if (room.logo_url) {
     logoEl.style.backgroundImage = 'url(' + room.logo_url + ')';
     logoEl.style.backgroundSize = 'cover';
+    logoEl.style.backgroundPosition = 'center';
+    // hide initials when logo is loaded
+    var camSpan = logoEl.querySelector('.room-logo-camera');
+    if (camSpan) camSpan.dataset.hasLogo = 'true';
   } else {
-    logoEl.textContent = room.company_name.slice(0,2).toUpperCase();
+    logoEl.dataset.initials = room.company_name.slice(0,2).toUpperCase();
+    logoEl.setAttribute('data-initials', room.company_name.slice(0,2).toUpperCase());
+  }
+  if (currentIsOwner) {
+    logoEl.classList.add('room-logo--owner');
+    logoEl.title = 'Click to upload logo';
   }
   if (room.owner_role) {
     var r = document.getElementById('room-role-badge');
@@ -452,6 +467,43 @@ async function handleAddLink() {
   if (res.error) { errorEl.textContent='Failed to add link: '+(res.error.message||res.error); errorEl.style.display='block'; return; }
   closeLinkModal();
   await loadDocuments();
+}
+
+// ── LOGO UPLOAD ────────────────────────────────────────────
+async function handleLogoSelect(e) {
+  var file = e.target.files[0];
+  e.target.value = '';
+  if (!file) return;
+  var allowed = ['png','jpg','jpeg','gif','webp','svg'];
+  var ext = file.name.split('.').pop().toLowerCase();
+  if (!allowed.includes(ext)) {
+    var err = document.getElementById('upload-error');
+    err.textContent = 'Logo must be PNG, JPG, GIF, WEBP, or SVG.';
+    err.style.display = 'block';
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    var err2 = document.getElementById('upload-error');
+    err2.textContent = 'Logo must be under 5 MB.';
+    err2.style.display = 'block';
+    return;
+  }
+  var logoEl = document.getElementById('room-logo');
+  logoEl.classList.add('room-logo--uploading');
+  var res = await dataRooms.uploadLogo(currentRoomId, file);
+  logoEl.classList.remove('room-logo--uploading');
+  if (res.error) {
+    var err3 = document.getElementById('upload-error');
+    err3.textContent = 'Logo upload failed: ' + (res.error.message || res.error);
+    err3.style.display = 'block';
+    return;
+  }
+  // Update logo display in-place
+  logoEl.style.backgroundImage = 'url(' + res.url + '?' + Date.now() + ')';
+  logoEl.style.backgroundSize = 'cover';
+  logoEl.style.backgroundPosition = 'center';
+  logoEl.setAttribute('data-initials', '');
+  currentRoom.logo_url = res.url;
 }
 
 // ── DOC MENU HELPERS ──────────────────────────────────────────

@@ -124,6 +124,20 @@ var dataRooms = {
     var r = await _supabase.from('data_rooms').delete().eq('id', id).eq('owner_id', u.user.id);
     return { error: r.error };
   }
+,
+  uploadLogo: async function(roomId, file) {
+    var u = await auth.getUser();
+    if (!u.user) return { url: null, error: 'Not authenticated' };
+    var ext = file.name.split('.').pop().toLowerCase();
+    var path = roomId + '/logo.' + ext;
+    var up = await _supabase.storage.from('room-logos').upload(path, file, { upsert: true });
+    if (up.error) return { url: null, error: up.error };
+    var pub = _supabase.storage.from('room-logos').getPublicUrl(path);
+    var logoUrl = pub.data.publicUrl;
+    var upd = await dataRooms.updateRoom(roomId, { logo_url: logoUrl });
+    if (upd.error) return { url: null, error: upd.error };
+    return { url: logoUrl, error: null };
+  }
 };
 
 var documents = {
