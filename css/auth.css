@@ -13,19 +13,19 @@
 /* ── DESIGN TOKENS ──────────────────────────────────────── */
 :root {
   /* Colors */
-  --green-dark:    #1F4D3A;   /* Authority / Headers / Primary CTA */
-  --green-mid:     #2A6B52;   /* Hover states */
-  --green-light:   #5FAF8F;   /* Accents / Highlights / Success */
-  --green-tint:    #EAF4EF;   /* Light green backgrounds */
+  --green-dark:    #2F4F3E;   /* primary green */   /* Authority / Headers / Primary CTA */
+  --green-mid:     #264233;   /* hover green */   /* Hover states */
+  --green-light:   #3F6B55;   /* secondary green */   /* Accents / Highlights / Success */
+  --green-tint:    #DDE5DF;   /* sage tint */   /* Light green backgrounds */
 
-  --off-white:     #F6F5F2;   /* Page background */
-  --white:         #FFFFFF;   /* Cards */
-  --soft-gray:     #E5E5E5;   /* Borders */
-  --light-gray:    #F0EFEC;   /* Subtle UI / hover */
+  --off-white:     #F6F4F1;   /* warm cream page bg */   /* Page background */
+  --white:         #FFFFFF;   /* card surface */   /* Cards */
+  --soft-gray:     #E6E3DF;   /* borders */   /* Borders */
+  --light-gray:    #FBFAF8;   /* subtle surface / hover */   /* Subtle UI / hover */
 
-  --charcoal:      #1C1C1C;   /* Primary text */
-  --muted:         #6B6B6B;   /* Secondary text */
-  --placeholder:   #9E9E9E;   /* Input placeholders */
+  --charcoal:      #1E1E1E;   /* primary text */   /* Primary text */
+  --muted:         #6F6F6F;   /* secondary text */   /* Secondary text */
+  --placeholder:   #9A9A9A;   /* muted / placeholder */   /* Input placeholders */
 
   --wood:          #D8B38A;   /* Accent — use very sparingly */
 
@@ -36,15 +36,18 @@
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Radii */
-  --radius-sm:   6px;
-  --radius-md:   10px;
-  --radius-lg:   14px;
-  --radius-xl:   16px;
+  --radius-sm:     10px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --radius-xl:     20px;
 
   /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-modal: 0 16px 48px rgba(0,0,0,0.14);
+  --shadow-card:   0 2px 10px rgba(0,0,0,0.04);
+  --shadow-hover:  0 8px 24px rgba(0,0,0,0.06);
+  --shadow-modal:  0 16px 48px rgba(0,0,0,0.10);
+
+  /* Focus */
+  --focus-ring:    0 0 0 3px rgba(47,79,62,0.22);
 
   /* Transitions */
   --transition: 0.18s ease;
@@ -57,7 +60,7 @@ html {
 
 body {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 16px;
   color: var(--charcoal);
   line-height: 1.6;
   background: var(--off-white);
@@ -339,7 +342,7 @@ nav {
 .form-group input:focus,
 .form-input:focus {
   border-color: var(--green-light);
-  box-shadow: 0 0 0 3px rgba(95,175,143,0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .form-group input::placeholder,
@@ -367,7 +370,7 @@ select.form-input {
 .form-group select:focus,
 select.form-input:focus {
   border-color: var(--green-light);
-  box-shadow: 0 0 0 3px rgba(95,175,143,0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .form-row {
@@ -461,7 +464,7 @@ select.form-input:focus {
 
 .input-with-prefix:focus-within {
   border-color: var(--green-light);
-  box-shadow: 0 0 0 3px rgba(95,175,143,0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .input-prefix {
