@@ -267,7 +267,9 @@
             var initials = room.company_name.slice(0,2).toUpperCase();
             return '<div class="room-card" data-room-id="' + escapeAttr(room.id) + '">' +
                     '<div class="room-card-header">' +
-                      '<div class="room-card-logo">' + initials + '</div>' +
+                      (room.logo_url
+          ? '<div class="room-card-logo" style="background-image:url(' + escapeAttr(room.logo_url) + ');background-size:cover;background-position:center;"></div>'
+          : '<div class="room-card-logo">' + initials + '</div>') +
                       '<div class="room-card-badges">' +
                         (room.owner_role ? '<span class="badge badge-role">'  + escapeHtml(room.owner_role) + '</span>' : '') +
                         (room.stage      ? '<span class="badge badge-stage">' + escapeHtml(room.stage)      + '</span>' : '') +
