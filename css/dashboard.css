@@ -6,8 +6,11 @@
 
 /* ── DASHBOARD NAV ──────────────────────────────────────── */
 .dash-nav {
-  background: var(--off-white) !important;
-  border-bottom: 1px solid var(--soft-gray);
+  background: rgba(246,244,241,0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: none;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
 
 .nav-right {
@@ -36,9 +39,9 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border: 1px solid var(--soft-gray);
-  border-radius: var(--radius-md);
+  border-radius: 999px;
   background: var(--white);
   cursor: pointer;
   font-family: var(--sans);
@@ -291,18 +294,19 @@
   background: var(--white);
   border: 1px solid var(--soft-gray);
   border-radius: var(--radius-lg);
-  padding: 22px 24px;
+  padding: 24px 26px;
   cursor: pointer;
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
 .room-card:hover {
-  border-color: var(--green-dark);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-1px);
+  border-color: rgba(47,79,62,0.3);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
 }
 
 .room-card-header {
@@ -408,7 +412,7 @@
   max-height: 90vh;
   overflow-y: auto;
   padding: 32px;
-  box-shadow: var(--shadow-modal);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.12);
   border: 1px solid var(--soft-gray);
 }
 
@@ -632,6 +636,7 @@ select.form-input:focus {
   border-radius: var(--radius-lg);
   padding: 28px 32px;
   margin-top: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
 .section-header {
