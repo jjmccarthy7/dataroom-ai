@@ -2,17 +2,17 @@
 -- Enables owner-to-investor invite system with token-based deep links.
 
 CREATE TABLE IF NOT EXISTS public.room_memberships (
-  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  room_id      UUID NOT NULL REFERENCES public.data_rooms(id) ON DELETE CASCADE,
-  invited_by   UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  email        TEXT NOT NULL,
-  handle       TEXT,
-  user_id      UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-  role         TEXT NOT NULL DEFAULT 'investor',
-  status       TEXT NOT NULL DEFAULT 'pending'
-                 CHECK (status IN ('pending','accepted')),
-  token        UUID NOT NULL DEFAULT gen_random_uuid(),
-  created_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_id    UUID NOT NULL REFERENCES public.data_rooms(id) ON DELETE CASCADE,
+  invited_by UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  email      TEXT NOT NULL,
+  handle     TEXT,
+  user_id    UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  role       TEXT NOT NULL DEFAULT 'investor',
+  status     TEXT NOT NULL DEFAULT 'pending'
+                  CHECK (status IN ('pending','accepted')),
+  token      UUID NOT NULL DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (room_id, email)
 );
 
@@ -75,10 +75,32 @@ CREATE POLICY "memberships_delete_owner"
     WHERE dr.id = room_memberships.room_id AND dr.owner_id = auth.uid()
   ));
 
--- Widen data_rooms SELECT: two separate policies (owner + member) instead of one OR policy
--- This avoids truncation issues in some SQL editors.
-DROP POLICY IF EXISTS "data_rooms_select_owner" ON public.data_rooms;
+-- ─────────────────────────────────────────────────────────────────────────────
+-- SECURITY DEFINER helper – avoids RLS recursion when data_rooms policy
+-- checks room_memberships, which would otherwise check data_rooms again.
+-- ─────────────────────────────────────────────────────────────────────────────
+CREATE OR REPLACE FUNCTION public.is_room_member(p_room_id uuid, p_user_id uuid)
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.room_memberships rm
+    WHERE rm.room_id = p_room_id
+      AND (
+        rm.user_id = p_user_id
+        OR rm.email = (SELECT email FROM auth.users WHERE id = p_user_id)
+      )
+  );
+$$;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Widen data_rooms SELECT: owner policy + member policy (via SECURITY DEFINER)
+-- ─────────────────────────────────────────────────────────────────────────────
+DROP POLICY IF EXISTS "data_rooms_select_owner"           ON public.data_rooms;
 DROP POLICY IF EXISTS "data_rooms_select_owner_or_member" ON public.data_rooms;
+DROP POLICY IF EXISTS "data_rooms_select_member"          ON public.data_rooms;
 
 CREATE POLICY "data_rooms_select_owner"
   ON public.data_rooms FOR SELECT
@@ -86,18 +108,15 @@ CREATE POLICY "data_rooms_select_owner"
 
 CREATE POLICY "data_rooms_select_member"
   ON public.data_rooms FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.room_memberships rm
-    WHERE rm.room_id = data_rooms.id
-      AND (
-        rm.user_id = auth.uid()
-        OR rm.email = (SELECT email FROM auth.users WHERE id = auth.uid())
-      )
-  ));
+  USING (public.is_room_member(id, auth.uid()));
 
--- Widen documents SELECT: two separate policies
-DROP POLICY IF EXISTS "documents_select_uploader" ON public.documents;
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Widen documents SELECT
+-- ─────────────────────────────────────────────────────────────────────────────
+DROP POLICY IF EXISTS "documents_select_uploader"           ON public.documents;
 DROP POLICY IF EXISTS "documents_select_uploader_or_member" ON public.documents;
+DROP POLICY IF EXISTS "documents_select_room_owner"         ON public.documents;
+DROP POLICY IF EXISTS "documents_select_member"             ON public.documents;
 
 CREATE POLICY "documents_select_uploader"
   ON public.documents FOR SELECT
@@ -112,17 +131,14 @@ CREATE POLICY "documents_select_room_owner"
 
 CREATE POLICY "documents_select_member"
   ON public.documents FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.room_memberships rm
-    WHERE rm.room_id = documents.room_id
-      AND (
-        rm.user_id = auth.uid()
-        OR rm.email = (SELECT email FROM auth.users WHERE id = auth.uid())
-      )
-  ));
+  USING (public.is_room_member(room_id, auth.uid()));
 
+-- ─────────────────────────────────────────────────────────────────────────────
 -- Widen room-documents storage SELECT
-DROP POLICY IF EXISTS "room_docs_select" ON storage.objects;
+-- ─────────────────────────────────────────────────────────────────────────────
+DROP POLICY IF EXISTS "room_docs_select"        ON storage.objects;
+DROP POLICY IF EXISTS "room_docs_select_owner"  ON storage.objects;
+DROP POLICY IF EXISTS "room_docs_select_member" ON storage.objects;
 
 CREATE POLICY "room_docs_select_owner"
   ON storage.objects FOR SELECT TO authenticated
@@ -139,12 +155,8 @@ CREATE POLICY "room_docs_select_member"
   ON storage.objects FOR SELECT TO authenticated
   USING (
     bucket_id = 'room-documents'
-    AND EXISTS (
-      SELECT 1 FROM public.room_memberships rm
-      WHERE rm.room_id::text = split_part(name, '/', 2)
-        AND (
-          rm.user_id = auth.uid()
-          OR rm.email = (SELECT email FROM auth.users WHERE id = auth.uid())
+    AND public.is_room_member(
+          (split_part(name, '/', 2))::uuid,
+          auth.uid()
         )
-    )
   );
