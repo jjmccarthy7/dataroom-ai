@@ -300,7 +300,7 @@
 }
 
 .room-card:hover {
-  border-color: var(--green-light);
+  border-color: var(--green-dark);
   box-shadow: var(--shadow-hover);
   transform: translateY(-1px);
 }
@@ -492,7 +492,7 @@ select.form-input {
 .modal .form-group select:focus,
 select.form-input:focus {
   border-color: var(--green-light);
-  box-shadow: 0 0 0 3px rgba(95,175,143,0.15);
+  box-shadow: var(--focus-ring);
 }
 
 /* ── BREADCRUMB ─────────────────────────────────────────── */
@@ -1032,7 +1032,7 @@ select.form-input:focus {
 
 .handle-input-wrap:focus-within {
   border-color: var(--green-light);
-  box-shadow: 0 0 0 3px rgba(95,175,143,0.15);
+  box-shadow: var(--focus-ring);
 }
 
 .handle-prefix {
@@ -1226,8 +1226,8 @@ select.form-input:focus {
 
 /* ── LINK-TYPE DOC ROWS ─────────────────────────────────── */
 .doc-type-badge.link-badge {
-  background: #eef2ff;
-  color: #4a5fa0;
+  background: #f0f4f1;
+  color: #2F4F3E;
 }
 .doc-source-link {
   display: inline-flex;
@@ -1360,9 +1360,9 @@ select.form-input:focus {
 
 /* Success banner */
 .invite-success-banner {
-  background: #ecfdf5;
-  border: 1px solid #6ee7b7;
-  color: #065f46;
+  background: #f0f4f1;
+  border: 1px solid #a8c4b0;
+  color: #2F4F3E;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 14px;
@@ -1388,8 +1388,8 @@ select.form-input:focus {
   font-size: 13px;
 }
 .invite-result-ok {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: #f4f7f5;
+  border: 1px solid #c4d9ca;
 }
 .invite-result-error {
   background: #fff5f5;
@@ -1400,7 +1400,7 @@ select.form-input:focus {
   font-size: 14px;
   flex-shrink: 0;
 }
-.invite-result-ok .invite-result-icon  { color: #16a34a; }
+.invite-result-ok .invite-result-icon  { color: #2F4F3E; }
 .invite-result-error .invite-result-icon { color: #dc2626; }
 .invite-result-email, .invite-result-raw {
   flex: 1;
@@ -1541,9 +1541,9 @@ select.form-input:focus {
   overflow-y: auto;
 }
 .invite-success-banner {
-  background: #edfaf2;
-  color: #1a6b3c;
-  border: 1px solid #9dd9b8;
+  background: #f0f4f1;
+  color: #2F4F3E;
+  border: 1px solid #a8c4b0;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 13px;
@@ -1559,7 +1559,7 @@ select.form-input:focus {
   border: 1px solid #e8e9ea;
 }
 .invite-result-ok {
-  border-color: #9dd9b8;
+  border-color: #a8c4b0;
   background: #f3fbf6;
 }
 .invite-result-error {
