@@ -1290,3 +1290,326 @@ select.form-input:focus {
     padding: 20px 18px;
   }
 }
+
+
+/* ── Invite system styles ──────────────────────────────────────────────────── */
+
+/* Section header — flex row so invite + add-doc sit side by side */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.section-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Invite Investors button */
+.btn-invite {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--green-dark, #2d5a3d);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-invite:hover { background: var(--green-mid, #3d7a55); }
+
+/* Viewer badge */
+.badge-viewer {
+  background: #e8f0fe;
+  color: #1a56db;
+  border: 1px solid #bfdbfe;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Invite modal — slightly wider than default */
+.invite-modal-box {
+  max-width: 520px;
+  width: 100%;
+}
+
+/* Textarea in invite modal */
+.invite-textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Hint text below textarea */
+.invite-hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--muted, #6b7280);
+}
+
+/* Success banner */
+.invite-success-banner {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* Per-recipient result rows */
+.invite-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.invite-result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.invite-result-ok {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+.invite-result-error {
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+.invite-result-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.invite-result-ok .invite-result-icon  { color: #16a34a; }
+.invite-result-error .invite-result-icon { color: #dc2626; }
+.invite-result-email, .invite-result-raw {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.invite-result-msg {
+  flex: 1;
+  font-size: 12px;
+  color: #7f1d1d;
+}
+
+/* Copy link button inside result row */
+.btn-copy-link {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.1s, border-color 0.1s;
+}
+.btn-copy-link:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Read-only "Open" button in investor doc rows */
+.btn-doc-open {
+  padding: 4px 12px;
+  background: transparent;
+  border: 1px solid var(--green-dark, #2d5a3d);
+  color: var(--green-dark, #2d5a3d);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.btn-doc-open:hover {
+  background: var(--green-dark, #2d5a3d);
+  color: #fff;
+}
+
+
+/* ── Viewer badge ─────────────────────────────────────────────────────────── */
+.badge-viewer {
+  background: #e8f4fd;
+  color: #1a6fa8;
+  border: 1px solid #a8d4f0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Section header actions (invite + add-doc side-by-side) ──────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.section-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Invite button ────────────────────────────────────────────────────────── */
+.btn-invite {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 36px;
+  background: #fff;
+  border: 1.5px solid var(--green-dark, #2d5a3d);
+  color: var(--green-dark, #2d5a3d);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-invite:hover {
+  background: var(--green-dark, #2d5a3d);
+  color: #fff;
+}
+
+/* ── Investor read-only open button in doc rows ───────────────────────────── */
+.btn-doc-open {
+  background: none;
+  border: 1px solid var(--border, #e0e0e0);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--green-dark, #2d5a3d);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s;
+}
+.btn-doc-open:hover {
+  background: var(--green-light, #f0f7f2);
+}
+
+/* ── Invite modal (wider than default) ────────────────────────────────────── */
+.modal-box--wide {
+  max-width: 540px;
+  width: 90vw;
+}
+
+/* ── Invite textarea ──────────────────────────────────────────────────────── */
+.invite-textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── Invite results ───────────────────────────────────────────────────────── */
+#invite-results {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.invite-success-banner {
+  background: #edfaf2;
+  color: #1a6b3c;
+  border: 1px solid #9dd9b8;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.invite-result-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid #e8e9ea;
+}
+.invite-result-ok {
+  border-color: #9dd9b8;
+  background: #f3fbf6;
+}
+.invite-result-error {
+  border-color: #f5b8b8;
+  background: #fff5f5;
+}
+.invite-result-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+}
+.invite-result-msg {
+  font-size: 12px;
+  color: #555;
+}
+.error-msg {
+  color: #c0392b;
+}
+.already-invited {
+  font-weight: 400;
+  color: #888;
+  font-size: 12px;
+}
+.invite-link-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.invite-link-input {
+  flex: 1;
+  font-size: 11px;
+  font-family: monospace;
+  padding: 5px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  min-width: 0;
+}
+.btn-copy-link {
+  padding: 5px 12px;
+  background: var(--green-dark, #2d5a3d);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.btn-copy-link:hover { opacity: 0.85; }
