@@ -1,127 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Data Room – DataRoom.ai</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Room – DataRoom.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
 <body>
-  <nav class="dash-nav">
-      <div class="nav-inner">
-            <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
-          <div class="nav-right">
-                <div class="user-menu" id="user-menu">
-                        <button class="user-menu-btn" id="user-menu-btn">
-                                  <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
-                                  <span id="nav-name"></span>
-                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                        </button>
-                        <div class="user-dropdown" id="user-dropdown">
-                                  <a href="dashboard.html">Dashboard</a>
-                                  <a href="profile.html">My Profile</a>
-                                  <a href="#" id="logout-btn">Log Out</a>
-                        </div>
-                </div>
-          </div>
+<nav class="dash-nav">
+  <div class="nav-inner">
+    <a href="dashboard.html" class="logo">DataRoom<span>.ai</span></a>
+    <div class="nav-right">
+      <div class="user-menu" id="user-menu">
+        <button class="user-menu-btn" id="user-menu-btn">
+          <div class="avatar-small" id="nav-avatar"><span id="nav-initials"></span></div>
+          <span id="nav-name"></span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="profile.html">My Profile</a>
+          <a href="#" id="logout-btn">Log Out</a>
+        </div>
       </div>
-  </nav>
+    </div>
+  </div>
+</nav>
 <main class="dashboard-main">
   <div class="dashboard-inner">
-  
-      <!-- Breadcrumb -->
-      <div class="breadcrumb">
-            <a href="dashboard.html">&#8592; Dashboard</a>
-            <span id="breadcrumb-name"></span>
-      </div>
-  
-      <!-- Room Header -->
-      <div class="room-header" id="room-header">
-            <div class="room-logo" id="room-logo"></div>
-            <div class="room-meta">
-                    <div class="room-title-row">
-                              <h1 id="room-title"></h1>
-                              <div class="room-badges">
-                                          <span class="badge badge-role" id="room-role-badge"></span>
-                                          <span class="badge badge-stage" id="room-stage-badge"></span>
-                              </div>
-                    </div>
-                    <p class="room-subtitle" id="room-subtitle"></p>
-            </div>
-      </div>
-  
-      <!-- Room Details -->
-      <div class="room-details-grid" id="room-details"></div>
-  
-      <!-- Documents Section -->
-      <div class="section-card" id="documents-section">
-            <div class="section-header">
-                    <h2 class="section-title">Documents</h2>
-                    <div class="add-doc-split" id="add-doc-split" style="display:none;">
-          <button class="btn-add-doc-main" id="add-doc-main-btn">+ Add Document</button>
-          <button class="btn-add-doc-arrow" id="add-doc-arrow-btn" aria-label="More options">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </button>
-          <div class="add-doc-split-dropdown" id="add-doc-dropdown">
-            <button id="opt-upload-file">
-              <span class="split-icon">&#128196;</span>
-              <span><span class="split-label">Upload File</span><span class="split-sub">PDF, PPTX, DOCX, XLSX&hellip;</span></span>
-            </button>
-            <button id="opt-add-link">
-              <span class="split-icon">&#128279;</span>
-              <span><span class="split-label">Paste a Link</span><span class="split-sub">Google Docs, Slides, Notion&hellip;</span></span>
-            </button>
+    <div class="breadcrumb">
+      <a href="dashboard.html">&#8592; Dashboard</a>
+      <span id="breadcrumb-name"></span>
+    </div>
+    <div class="room-header" id="room-header">
+      <div class="room-logo" id="room-logo"></div>
+      <div class="room-meta">
+        <div class="room-title-row">
+          <h1 id="room-title"></h1>
+          <div class="room-badges">
+            <span class="badge badge-role" id="room-role-badge"></span>
+            <span class="badge badge-stage" id="room-stage-badge"></span>
+            <span class="badge badge-viewer" id="viewer-badge" style="display:none;">&#128065; Viewer</span>
           </div>
         </div>
+        <p class="room-subtitle" id="room-subtitle"></p>
+      </div>
+    </div>
+    <div class="room-details-grid" id="room-details"></div>
+    <div class="section-card" id="documents-section">
+      <div class="section-header">
+        <h2 class="section-title">Documents</h2>
+        <div class="section-header-actions">
+          <div class="add-doc-split" id="add-doc-split" style="display:none;">
+            <button class="btn-add-doc-main" id="add-doc-main-btn">+ Add Document</button>
+            <button class="btn-add-doc-arrow" id="add-doc-arrow-btn" aria-label="More options">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="add-doc-split-dropdown" id="add-doc-dropdown">
+              <button id="opt-upload-file">
+                <span class="split-icon">&#128196;</span>
+                <span><span class="split-label">Upload File</span><span class="split-sub">PDF, PPTX, DOCX, XLSX&hellip;</span></span>
+              </button>
+              <button id="opt-add-link">
+                <span class="split-icon">&#128279;</span>
+                <span><span class="split-label">Paste a Link</span><span class="split-sub">Google Docs, Slides, Notion&hellip;</span></span>
+              </button>
             </div>
-            <!-- Loading -->
-            <div id="docs-loading" class="docs-loading">Loading documents...</div>
-            <!-- Empty State -->
-            <div class="docs-empty" id="docs-empty" style="display:none;">
-                    <div class="docs-empty-icon">&#128196;</div>
-                    <p class="docs-empty-title">No documents yet</p>
-                    <p class="docs-empty-sub">Upload your first document to get started</p>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+          </div>
+          <button class="btn-invite" id="invite-btn" style="display:none;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="margin-right:5px;vertical-align:middle;"><path d="M9.5 7C10.88 7 12 5.88 12 4.5S10.88 2 9.5 2 7 3.12 7 4.5 8.12 7 9.5 7zm-5 0C5.88 7 7 5.88 7 4.5S5.88 2 4.5 2 2 3.12 2 4.5 3.12 7 4.5 7zm0 1.5C2.83 8.5 0 9.34 0 11v1h9v-1c0-1.66-2.83-2.5-4.5-2.5zm5 0c-.21 0-.44.01-.68.04C9.6 9.28 10.5 10.06 10.5 11v1H14v-1c0-1.66-2.83-2.5-4.5-2.5z" fill="currentColor"/></svg>
+            Invite Investors
+          </button>
+        </div>
+      </div>
+      <div id="docs-loading" class="docs-loading">Loading documents...</div>
+      <div class="docs-empty" id="docs-empty" style="display:none;">
+        <div class="docs-empty-icon">&#128196;</div>
+        <p class="docs-empty-title">No documents yet</p>
+        <p class="docs-empty-sub" id="docs-empty-sub">Upload your first document to get started</p>
+        <div id="empty-owner-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
           <button class="btn-upload-first" id="upload-first-btn">&#128196; Upload File</button>
           <button class="btn-upload-first" id="link-first-btn" style="background:var(--green-mid);">&#128279; Paste a Link</button>
         </div>
-            </div>
-            <!-- Document List -->
-            <div id="docs-list" style="display:none;">
-                    <table class="docs-table">
-                              <thead>
-                                            <tr>
-                                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Size</th>
-                                            <th>Uploaded</th>
-                                            <th></th>
-                                            </tr>
-                              </thead>
-                              <tbody id="docs-tbody"></tbody>
-                    </table>
-            </div>
-            <!-- Upload Error -->
-            <div class="upload-error" id="upload-error" style="display:none;"></div>
       </div>
-  
+      <div id="docs-list" style="display:none;">
+        <table class="docs-table">
+          <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Uploaded</th><th></th></tr></thead>
+          <tbody id="docs-tbody"></tbody>
+        </table>
+      </div>
+      <div class="upload-error" id="upload-error" style="display:none;"></div>
+    </div>
   </div>
 </main>
-
 <!-- Hidden file input -->
 <input type="file" id="file-input" accept=".pdf,.pptx,.docx,.xlsx,.png,.jpg,.jpeg" style="display:none;">
 
-<!-- Delete Confirm Modal -->
+<!-- Delete Modal -->
 <div class="modal-overlay" id="delete-modal" style="display:none;">
   <div class="modal-box">
-      <h3 class="modal-title">Delete Document</h3>
-      <p class="modal-body" id="delete-modal-body">Are you sure you want to delete this document? This cannot be undone.</p>
-      <div class="modal-actions">
-            <button class="btn-secondary" id="delete-cancel-btn">Cancel</button>
-            <button class="btn-danger" id="delete-confirm-btn">Delete</button>
-      </div>
+    <h3 class="modal-title">Delete Document</h3>
+    <p class="modal-body" id="delete-modal-body">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="delete-cancel-btn">Cancel</button>
+      <button class="btn-danger" id="delete-confirm-btn">Delete</button>
+    </div>
   </div>
 </div>
 
@@ -151,494 +136,426 @@
   </div>
 </div>
 
+<!-- Invite Modal -->
+<div class="modal-overlay" id="invite-modal" style="display:none;">
+  <div class="modal-box invite-modal-box">
+    <button class="modal-close" id="invite-modal-close-btn">&#10005;</button>
+    <h2 class="modal-title">Invite Investors</h2>
+    <p class="modal-subtitle">Enter email addresses or @handles, separated by commas or new lines.</p>
+    <div id="invite-modal-error" class="modal-error" style="display:none;"></div>
+    <div class="form-group">
+      <label class="form-label" for="invite-recipients-input">Recipients <span class="required">*</span></label>
+      <textarea class="form-input invite-textarea" id="invite-recipients-input"
+        placeholder="alice@example.com, bob@example.com&#10;@charlie"
+        rows="4" autocomplete="off" spellcheck="false"></textarea>
+      <p class="invite-hint">Accepts email addresses or @handles (with or without @).</p>
+    </div>
+    <div id="invite-results" style="display:none;"></div>
+    <div class="modal-actions" id="invite-modal-actions">
+      <button type="button" class="btn-secondary" id="invite-modal-cancel-btn">Cancel</button>
+      <button type="button" class="btn-primary" id="invite-modal-submit-btn">Send Invites</button>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script>
-  var currentRoomId = null;
-  var currentRoom   = null;
-  var pendingDeleteId   = null;
-  var pendingDeletePath = null;
-  var pendingDeleteName = null;
+var currentRoomId = null, currentRoom = null, currentIsOwner = false;
+var pendingDeleteId = null, pendingDeletePath = null, pendingDeleteName = null;
+var ALLOWED_EXTS = ['pdf','pptx','docx','xlsx','png','jpg','jpeg'];
+var MAX_SIZE = 25*1024*1024;
 
-  // ── ALLOWED FILE TYPES & MAX SIZE ────────────────────────────
-  var ALLOWED_TYPES = [
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'image/png',
-      'image/jpeg'
-    ];
-  var ALLOWED_EXTS = ['pdf','pptx','docx','xlsx','png','jpg','jpeg'];
-  var MAX_SIZE = 25 * 1024 * 1024; // 25 MB
+function getTypeIcon(t,f){var e=(f||'').split('.').pop().toLowerCase();if(t.includes('pdf')||e==='pdf')return'📕';if(t.includes('presentation')||e==='pptx')return'📊';if(t.includes('wordprocessing')||e==='docx')return'📝';if(t.includes('spreadsheet')||e==='xlsx')return'📗';if(t.includes('image')||e==='png'||e==='jpg'||e==='jpeg')return'🖼️';return'📄';}
+function getTypeLabel(t,f){return((f||'').split('.').pop().toUpperCase()||'FILE');}
+function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
+function formatDate(iso){var d=new Date(iso);return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
 
-  // ── TYPE ICONS ───────────────────────────────────────────────
-  function getTypeIcon(fileType, filename) {
-      var ext = (filename || '').split('.').pop().toLowerCase();
-      if (fileType.includes('pdf')          || ext === 'pdf')  return '\uD83D\uDCD5';
-      if (fileType.includes('presentation') || ext === 'pptx') return '\uD83D\uDCCA';
-      if (fileType.includes('wordprocessing')|| ext === 'docx') return '\uD83D\uDCDD';
-      if (fileType.includes('spreadsheet')  || ext === 'xlsx') return '\uD83D\uDCD7';
-      if (fileType.includes('image') || ext === 'png' || ext === 'jpg' || ext === 'jpeg') return '\uD83D\uDDBC\uFE0F';
-      return '\uD83D\uDCC4';
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async function() {
+  var params = new URLSearchParams(window.location.search);
+  currentRoomId = params.get('id');
+  var inviteToken = params.get('invite');
+
+  var sessionRes = await auth.getSession();
+  if (!sessionRes.session) {
+    var next = encodeURIComponent(window.location.pathname + window.location.search);
+    window.location.href = 'login.html?next=' + next;
+    return;
+  }
+  var user = sessionRes.session.user;
+  if (!currentRoomId) { window.location.href = 'dashboard.html'; return; }
+
+  // Accept invite token if present
+  if (inviteToken) {
+    await invites.acceptInvite(inviteToken);
+    history.replaceState(null, '', window.location.pathname + '?id=' + currentRoomId);
   }
 
-  function getTypeLabel(fileType, filename) {
-      var ext = (filename || '').split('.').pop().toUpperCase();
-      return ext || 'FILE';
+  // Nav
+  var profileRes = await profiles.getMyProfile();
+  var p = profileRes.profile;
+  var displayName = (p && p.display_name) ? p.display_name : (user.user_metadata && user.user_metadata.full_name) ? user.user_metadata.full_name : user.email;
+  document.getElementById('nav-name').textContent = displayName;
+  var initials = displayName.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+  document.getElementById('nav-initials').textContent = initials;
+  if (p && p.avatar_url) {
+    document.getElementById('nav-avatar').style.backgroundImage = 'url('+p.avatar_url+')';
+    document.getElementById('nav-avatar').style.backgroundSize = 'cover';
+    document.getElementById('nav-initials').style.display = 'none';
   }
 
-  function formatBytes(bytes) {
-      if (bytes < 1024)             return bytes + ' B';
-      if (bytes < 1024 * 1024)     return (bytes / 1024).toFixed(1) + ' KB';
-      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  var roomRes = await dataRooms.getRoom(currentRoomId);
+  if (roomRes.error || !roomRes.data) { window.location.href = 'dashboard.html'; return; }
+  currentRoom    = roomRes.data;
+  currentIsOwner = roomRes.isOwner;
+
+  renderRoom(currentRoom);
+  await loadDocuments();
+  applyRoleUI();
+
+  document.getElementById('user-menu-btn').addEventListener('click', function(e){e.stopPropagation();document.getElementById('user-dropdown').classList.toggle('open');});
+  document.addEventListener('click', function(){document.getElementById('user-dropdown').classList.remove('open');});
+  document.getElementById('logout-btn').addEventListener('click', async function(e){e.preventDefault();await auth.signOut();window.location.href='login.html';});
+
+  if (currentIsOwner) {
+    document.getElementById('add-doc-main-btn').addEventListener('click', function(){document.getElementById('file-input').click();});
+    document.getElementById('add-doc-arrow-btn').addEventListener('click', function(e){e.stopPropagation();document.getElementById('add-doc-split').classList.toggle('open');});
+    document.getElementById('opt-upload-file').addEventListener('click', function(){document.getElementById('add-doc-split').classList.remove('open');document.getElementById('file-input').click();});
+    document.getElementById('opt-add-link').addEventListener('click', function(){document.getElementById('add-doc-split').classList.remove('open');openLinkModal();});
+    document.addEventListener('click', function(e){var s=document.getElementById('add-doc-split');if(s&&!s.contains(e.target))s.classList.remove('open');});
+    document.getElementById('upload-first-btn').addEventListener('click', function(){document.getElementById('file-input').click();});
+    document.getElementById('link-first-btn').addEventListener('click', openLinkModal);
+    document.getElementById('file-input').addEventListener('change', handleFileSelect);
+    document.getElementById('invite-btn').addEventListener('click', openInviteModal);
+    document.getElementById('invite-modal-close-btn').addEventListener('click', closeInviteModal);
+    document.getElementById('invite-modal-cancel-btn').addEventListener('click', closeInviteModal);
+    document.getElementById('invite-modal-submit-btn').addEventListener('click', handleSendInvites);
+    document.getElementById('invite-modal').addEventListener('click', function(e){if(e.target===this)closeInviteModal();});
   }
-
-  function formatDate(iso) {
-      var d = new Date(iso);
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  document.getElementById('link-modal-close-btn').addEventListener('click', closeLinkModal);
+  document.getElementById('link-modal-cancel-btn').addEventListener('click', closeLinkModal);
+  document.getElementById('link-modal-submit-btn').addEventListener('click', handleAddLink);
+  document.getElementById('link-modal').addEventListener('click', function(e){if(e.target===this)closeLinkModal();});
+  document.getElementById('link-url-input').addEventListener('input', updateLinkPreview);
+  document.getElementById('delete-cancel-btn').addEventListener('click', closeDeleteModal);
+  document.getElementById('delete-confirm-btn').addEventListener('click', confirmDelete);
+  document.getElementById('delete-modal').addEventListener('click', function(e){if(e.target===this)closeDeleteModal();});
+});
+</script>
+<script>
+// ── ROLE UI ───────────────────────────────────────────────────
+function applyRoleUI() {
+  if (currentIsOwner) {
+    document.getElementById('add-doc-split').style.display = 'inline-flex';
+    document.getElementById('invite-btn').style.display = 'inline-flex';
+  } else {
+    // Investor/viewer mode
+    document.getElementById('viewer-badge').style.display = 'inline-block';
+    document.getElementById('add-doc-split').style.display = 'none';
+    document.getElementById('invite-btn').style.display = 'none';
+    document.getElementById('empty-owner-actions').style.display = 'none';
+    var sub = document.getElementById('docs-empty-sub');
+    if (sub) sub.textContent = 'No documents have been shared yet.';
   }
+}
 
-  // ── INIT ─────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', async function() {
-      var sessionRes = await auth.getSession();
-      if (!sessionRes.session) { window.location.href = 'login.html'; return; }
-      var user = sessionRes.session.user;
-
-      var params = new URLSearchParams(window.location.search);
-      currentRoomId = params.get('id');
-      if (!currentRoomId) { window.location.href = 'dashboard.html'; return; }
-
-      // Nav
-      var profileRes  = await profiles.getMyProfile();
-      var p           = profileRes.profile;
-      var displayName = (p && p.display_name)
-        ? p.display_name
-            : (user.user_metadata && user.user_metadata.full_name)
-          ? user.user_metadata.full_name
-              : user.email;
-
-      document.getElementById('nav-name').textContent = displayName;
-      var initials = displayName.split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
-      document.getElementById('nav-initials').textContent = initials;
-      if (p && p.avatar_url) {
-            document.getElementById('nav-avatar').style.backgroundImage = 'url(' + p.avatar_url + ')';
-            document.getElementById('nav-avatar').style.backgroundSize  = 'cover';
-            document.getElementById('nav-initials').style.display = 'none';
-      }
-
-      // ── FIX: getRoom returns { data, error } not { room, error } ──
-      var roomRes = await dataRooms.getRoom(currentRoomId);
-      if (roomRes.error || !roomRes.data) {
-            window.location.href = 'dashboard.html';
-            return;
-      }
-      currentRoom = roomRes.data;
-      renderRoom(currentRoom);
-
-      // Load documents
-      await loadDocuments();
-
-      // Show add-doc button
-      document.getElementById('add-doc-split').style.display = 'inline-flex';
-
-      // Nav dropdown
-      document.getElementById('user-menu-btn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.getElementById('user-dropdown').classList.toggle('open');
-      });
-      document.addEventListener('click', function() {
-            document.getElementById('user-dropdown').classList.remove('open');
-      });
-
-      // Logout
-      document.getElementById('logout-btn').addEventListener('click', async function(e) {
-            e.preventDefault();
-            await auth.signOut();
-            window.location.href = 'login.html';
-      });
-
-      // File input
-      // ── Add Document split button ──────────────────────────
-      // Main button = upload file (most common action)
-      document.getElementById('add-doc-main-btn').addEventListener('click', function() {
-        document.getElementById('file-input').click();
-      });
-      // Arrow = open dropdown
-      document.getElementById('add-doc-arrow-btn').addEventListener('click', function(e) {
-        e.stopPropagation();
-        document.getElementById('add-doc-split').classList.toggle('open');
-      });
-      document.getElementById('opt-upload-file').addEventListener('click', function() {
-        document.getElementById('add-doc-split').classList.remove('open');
-        document.getElementById('file-input').click();
-      });
-      document.getElementById('opt-add-link').addEventListener('click', function() {
-        document.getElementById('add-doc-split').classList.remove('open');
-        openLinkModal();
-      });
-      // Close split dropdown on outside click
-      document.addEventListener('click', function(e) {
-        var split = document.getElementById('add-doc-split');
-        if (split && !split.contains(e.target)) split.classList.remove('open');
-      });
-      // Empty-state buttons
-      document.getElementById('upload-first-btn').addEventListener('click', function() {
-        document.getElementById('file-input').click();
-      });
-      document.getElementById('link-first-btn').addEventListener('click', openLinkModal);
-      // File input change
-      document.getElementById('file-input').addEventListener('change', handleFileSelect);
-      // ── Link modal wiring ────────────────────────────────────
-      document.getElementById('link-modal-close-btn').addEventListener('click', closeLinkModal);
-      document.getElementById('link-modal-cancel-btn').addEventListener('click', closeLinkModal);
-      document.getElementById('link-modal-submit-btn').addEventListener('click', handleAddLink);
-      document.getElementById('link-modal').addEventListener('click', function(e) {
-        if (e.target === this) closeLinkModal();
-      });
-      document.getElementById('link-url-input').addEventListener('input', updateLinkPreview);
-
-      // Delete modal
-      document.getElementById('delete-cancel-btn').addEventListener('click', closeDeleteModal);
-      document.getElementById('delete-confirm-btn').addEventListener('click', confirmDelete);
-      document.getElementById('delete-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeDeleteModal();
-      });
-  });
-
-  // ── RENDER ROOM ──────────────────────────────────────────────
-  function renderRoom(room) {
-      document.title = room.company_name + ' \u2013 DataRoom.ai';
-      document.getElementById('breadcrumb-name').textContent = room.company_name;
-      document.getElementById('room-title').textContent      = room.company_name;
-
-      var logoEl = document.getElementById('room-logo');
-      if (room.logo_url) {
-            logoEl.style.backgroundImage = 'url(' + room.logo_url + ')';
-            logoEl.style.backgroundSize  = 'cover';
-      } else {
-            logoEl.textContent = room.company_name.slice(0,2).toUpperCase();
-      }
-
-      if (room.owner_role) {
-            var roleEl = document.getElementById('room-role-badge');
-            roleEl.textContent     = room.owner_role;
-            roleEl.style.display   = 'inline-block';
-      }
-      if (room.stage) {
-            var stageEl = document.getElementById('room-stage-badge');
-            stageEl.textContent   = room.stage;
-            stageEl.style.display = 'inline-block';
-      }
-      if (room.short_description) {
-            document.getElementById('room-subtitle').textContent = room.short_description;
-      }
-
-      var details = [];
-      if (room.short_description) details.push({ label: 'Description', value: escapeHtml(room.short_description) });
-      if (room.website)           details.push({ label: 'Website',     value: '<a href="' + escapeHtml(room.website) + '" target="_blank">' + escapeHtml(room.website) + '</a>' });
-      if (room.location)          details.push({ label: 'Location',    value: escapeHtml(room.location) });
-      details.push({ label: 'Created', value: formatDate(room.created_at) });
-
-      document.getElementById('room-details').innerHTML = details.map(function(d) {
-            return '<div class="detail-item"><span class="detail-label">' + d.label + '</span><span class="detail-value">' + d.value + '</span></div>';
-      }).join('');
+// ── RENDER ROOM ───────────────────────────────────────────────
+function renderRoom(room) {
+  document.title = room.company_name + ' – DataRoom.ai';
+  document.getElementById('breadcrumb-name').textContent = room.company_name;
+  document.getElementById('room-title').textContent = room.company_name;
+  var logoEl = document.getElementById('room-logo');
+  if (room.logo_url) {
+    logoEl.style.backgroundImage = 'url(' + room.logo_url + ')';
+    logoEl.style.backgroundSize = 'cover';
+  } else {
+    logoEl.textContent = room.company_name.slice(0,2).toUpperCase();
   }
-
-  // ── LOAD DOCUMENTS ───────────────────────────────────────────
-  async function loadDocuments() {
-      document.getElementById('docs-loading').style.display = 'block';
-      document.getElementById('docs-empty').style.display   = 'none';
-      document.getElementById('docs-list').style.display    = 'none';
-
-      var res = await documents.getDocuments(currentRoomId);
-      document.getElementById('docs-loading').style.display = 'none';
-
-      if (res.error) {
-            document.getElementById('docs-empty').style.display = 'flex';
-            return;
-      }
-      if (!res.documents || res.documents.length === 0) {
-            document.getElementById('docs-empty').style.display = 'flex';
-            return;
-      }
-      renderDocumentList(res.documents);
+  if (room.owner_role) {
+    var r = document.getElementById('room-role-badge');
+    r.textContent = room.owner_role; r.style.display = 'inline-block';
   }
+  if (room.stage) {
+    var s = document.getElementById('room-stage-badge');
+    s.textContent = room.stage; s.style.display = 'inline-block';
+  }
+  if (room.short_description) document.getElementById('room-subtitle').textContent = room.short_description;
+  var details = [];
+  if (room.short_description) details.push({label:'Description', value:escapeHtml(room.short_description)});
+  if (room.website) details.push({label:'Website', value:'<a href="'+escapeHtml(room.website)+'" target="_blank">'+escapeHtml(room.website)+'</a>'});
+  if (room.location) details.push({label:'Location', value:escapeHtml(room.location)});
+  details.push({label:'Created', value:formatDate(room.created_at)});
+  document.getElementById('room-details').innerHTML = details.map(function(d){
+    return '<div class="detail-item"><span class="detail-label">'+d.label+'</span><span class="detail-value">'+d.value+'</span></div>';
+  }).join('');
+}
 
-  // ── RENDER DOCUMENT LIST ─────────────────────────────────────
-  // ── FIX: use data-* attributes + addEventListener instead of
-  //         inline onclick strings with fragile quote escaping ──
-  function renderDocumentList(docs) {
-    var tbody = document.getElementById('docs-tbody');
-    tbody.innerHTML = docs.map(function(doc) {
-      var isLink = (doc.source_type === 'link');
-      var icon   = isLink ? '\uD83D\uDD17' : getTypeIcon(doc.file_type, doc.original_filename);
-      var badge  = isLink ? '<span class="doc-type-badge link-badge">LINK</span>'
-                          : '<span class="doc-type-badge">' + getTypeLabel(doc.file_type, doc.original_filename) + '</span>';
-      var size   = isLink ? '<span style="color:var(--muted);font-size:12px;">&#8212;</span>'
-                          : formatBytes(doc.file_size);
-      var actions;
+// ── LOAD DOCUMENTS ────────────────────────────────────────────
+async function loadDocuments() {
+  document.getElementById('docs-loading').style.display = 'block';
+  document.getElementById('docs-empty').style.display = 'none';
+  document.getElementById('docs-list').style.display = 'none';
+  var res = await documents.getDocuments(currentRoomId);
+  document.getElementById('docs-loading').style.display = 'none';
+  if (res.error || !res.documents || res.documents.length === 0) {
+    document.getElementById('docs-empty').style.display = 'flex';
+    return;
+  }
+  renderDocumentList(res.documents);
+}
+
+// ── RENDER DOCUMENT LIST ──────────────────────────────────────
+function renderDocumentList(docs) {
+  var tbody = document.getElementById('docs-tbody');
+  tbody.innerHTML = docs.map(function(doc) {
+    var isLink = (doc.source_type === 'link');
+    var icon  = isLink ? '🔗' : getTypeIcon(doc.file_type, doc.original_filename);
+    var badge = isLink ? '<span class="doc-type-badge link-badge">LINK</span>' : '<span class="doc-type-badge">'+getTypeLabel(doc.file_type,doc.original_filename)+'</span>';
+    var size  = isLink ? '<span style="color:var(--muted);font-size:12px;">&#8212;</span>' : formatBytes(doc.file_size);
+    var actions;
+    if (currentIsOwner) {
       if (isLink) {
-        actions =
-          '<div class="doc-menu-wrapper">' +
-            '<button class="doc-menu-btn" title="Options" data-doc-menu>&#8943;</button>' +
-            '<div class="doc-menu-dropdown">' +
-              '<button data-action="open-link" data-doc-id="' + escapeAttr(doc.id) + '" data-source-url="' + escapeAttr(doc.source_url || '') + '">Open Link</button>' +
-              '<button data-action="delete" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="" data-filename="' + escapeAttr(doc.original_filename) + '" class="danger">Remove</button>' +
-            '</div>' +
-          '</div>';
+        actions = '<div class="doc-menu-wrapper"><button class="doc-menu-btn" data-doc-menu>&#8943;</button><div class="doc-menu-dropdown"><button data-action="open-link" data-source-url="'+escapeAttr(doc.source_url||'')+'">Open Link</button><button data-action="delete" data-doc-id="'+escapeAttr(doc.id)+'" data-file-path="" data-filename="'+escapeAttr(doc.original_filename)+'" class="danger">Remove</button></div></div>';
       } else {
-        actions =
-          '<div class="doc-menu-wrapper">' +
-            '<button class="doc-menu-btn" title="Options" data-doc-menu>&#8943;</button>' +
-            '<div class="doc-menu-dropdown">' +
-              '<button data-action="open" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '">Open</button>' +
-              '<button data-action="download" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '" data-filename="' + escapeAttr(doc.original_filename) + '">Download</button>' +
-              '<button data-action="delete" data-doc-id="' + escapeAttr(doc.id) + '" data-file-path="' + escapeAttr(doc.file_path) + '" data-filename="' + escapeAttr(doc.original_filename) + '" class="danger">Delete</button>' +
-            '</div>' +
-          '</div>';
+        actions = '<div class="doc-menu-wrapper"><button class="doc-menu-btn" data-doc-menu>&#8943;</button><div class="doc-menu-dropdown"><button data-action="open" data-doc-id="'+escapeAttr(doc.id)+'" data-file-path="'+escapeAttr(doc.file_path)+'">Open</button><button data-action="download" data-doc-id="'+escapeAttr(doc.id)+'" data-file-path="'+escapeAttr(doc.file_path)+'" data-filename="'+escapeAttr(doc.original_filename)+'">Download</button><button data-action="delete" data-doc-id="'+escapeAttr(doc.id)+'" data-file-path="'+escapeAttr(doc.file_path)+'" data-filename="'+escapeAttr(doc.original_filename)+'" class="danger">Delete</button></div></div>';
       }
-      return '<tr>' +
-        '<td class="doc-name-cell">' +
-          '<span class="doc-icon">' + icon + '</span>' +
-          '<span class="doc-name">' + escapeHtml(doc.original_filename) + '</span>' +
-        '</td>' +
-        '<td>' + badge + '</td>' +
-        '<td class="doc-size">' + size + '</td>' +
-        '<td class="doc-date">' + formatDate(doc.created_at) + '</td>' +
-        '<td class="doc-actions">' + actions + '</td>' +
-      '</tr>';
-    }).join('');
-
-    tbody.addEventListener('click', handleDocTableClick);
-    document.getElementById('docs-list').style.display = 'block';
-    document.getElementById('docs-empty').style.display = 'none';
-  }
-  function handleDocTableClick(e) {
-    var menuBtn = e.target.closest('[data-doc-menu]');
-    var actionBtn = e.target.closest('[data-action]');
-    if (menuBtn) {
-      var wrapper = menuBtn.closest('.doc-menu-wrapper');
-      var isOpen = wrapper.classList.contains('open');
-      closeAllDocMenus();
-      if (!isOpen) wrapper.classList.add('open');
-      return;
-    }
-    if (actionBtn) {
-      var action    = actionBtn.dataset.action;
-      var docId     = actionBtn.dataset.docId;
-      var filePath  = actionBtn.dataset.filePath;
-      var filename  = actionBtn.dataset.filename;
-      var sourceUrl = actionBtn.dataset.sourceUrl;
-      closeAllDocMenus();
-      if (action === 'open')      openDocument(docId, filePath);
-      if (action === 'download')  downloadDocument(docId, filePath, filename);
-      if (action === 'open-link') window.open(sourceUrl, '_blank', 'noopener');
-      if (action === 'delete')    promptDelete(docId, filePath, filename);
-    }
-  }
-  // ── FILE SELECT & UPLOAD ─────────────────────────────────────
-  async function handleFileSelect(e) {
-      var file = e.target.files[0];
-      e.target.value = '';
-      if (!file) return;
-
-      var ext     = file.name.split('.').pop().toLowerCase();
-      var errorEl = document.getElementById('upload-error');
-      errorEl.style.display = 'none';
-
-      if (!ALLOWED_EXTS.includes(ext)) {
-            errorEl.textContent  = 'File type not allowed. Accepted: PDF, PPTX, DOCX, XLSX, PNG, JPG.';
-            errorEl.style.display = 'block';
-            return;
+    } else {
+      // Investor: read-only — only show Open
+      if (isLink) {
+        actions = '<button class="btn-doc-open" data-action="open-link" data-source-url="'+escapeAttr(doc.source_url||'')+'">Open</button>';
+      } else {
+        actions = '<button class="btn-doc-open" data-action="open" data-doc-id="'+escapeAttr(doc.id)+'" data-file-path="'+escapeAttr(doc.file_path)+'">Open</button>';
       }
-      if (file.size > MAX_SIZE) {
-            errorEl.textContent  = 'File is too large. Maximum size is 25\u00A0MB.';
-            errorEl.style.display = 'block';
-            return;
-      }
-
-      var addBtn   = document.getElementById('add-doc-btn');
-      var firstBtn = document.getElementById('upload-first-btn');
-      addBtn.textContent   = 'Uploading\u2026';  addBtn.disabled   = true;
-      firstBtn.textContent = 'Uploading\u2026';  firstBtn.disabled = true;
-
-      var res = await documents.uploadDocument(currentRoomId, file);
-
-      addBtn.textContent   = '+ Add Document';      addBtn.disabled   = false;
-      firstBtn.textContent = 'Upload First Document'; firstBtn.disabled = false;
-
-      if (res.error) {
-            errorEl.textContent  = 'Upload failed: ' + res.error.message;
-            errorEl.style.display = 'block';
-            return;
-      }
-      await loadDocuments();
-  }
-
-  // ── OPEN / DOWNLOAD ──────────────────────────────────────────
-  async function openDocument(docId, filePath) {
-      var res = await documents.getSignedUrl(filePath);
-      if (res.error || !res.url) { alert('Could not open document. Please try again.'); return; }
-      window.open(res.url, '_blank');
-  }
-
-  async function downloadDocument(docId, filePath, filename) {
-      var res = await documents.getSignedUrl(filePath);
-      if (res.error || !res.url) { alert('Could not download document. Please try again.'); return; }
-      var a = document.createElement('a');
-      a.href = res.url; a.download = filename;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  }
-
-  // ── DELETE ───────────────────────────────────────────────────
-  function promptDelete(docId, filePath, filename) {
-      pendingDeleteId   = docId;
-      pendingDeletePath = filePath;
-      pendingDeleteName = filename;
-      document.getElementById('delete-modal-body').textContent =
-            'Are you sure you want to delete "' + filename + '"? This cannot be undone.';
-      document.getElementById('delete-modal').style.display = 'flex';
-  }
-
-  function closeDeleteModal() {
-      document.getElementById('delete-modal').style.display = 'none';
-      pendingDeleteId   = null;
-      pendingDeletePath = null;
-      pendingDeleteName = null;
-  }
-
-  async function confirmDelete() {
-      if (!pendingDeleteId) return;
-      var btn = document.getElementById('delete-confirm-btn');
-      btn.textContent = 'Deleting\u2026'; btn.disabled = true;
-      var res = await documents.deleteDocument(pendingDeleteId, pendingDeletePath, currentRoomId);
-      btn.textContent = 'Delete'; btn.disabled = false;
-      closeDeleteModal();
-      if (res.error) { alert('Delete failed: ' + res.error.message); return; }
-      await loadDocuments();
-  }
-
-  // ── LINK MODAL ──────────────────────────────────────────
-  function getLinkIcon(url) {
-    if (!url) return '\uD83D\uDD17';
-    var u = url.toLowerCase();
-    if (u.includes('docs.google.com/document'))       return '\uD83D\uDCDD';
-    if (u.includes('docs.google.com/presentation'))   return '\uD83D\uDCCA';
-    if (u.includes('docs.google.com/spreadsheets'))   return '\uD83D\uDCD7';
-    if (u.includes('notion.so') || u.includes('notion.site')) return '\uD83D\uDCD3';
-    if (u.includes('figma.com'))                      return '\uD83C\uDFA8';
-    if (u.includes('loom.com'))                       return '\uD83C\uDFAC';
-    return '\uD83D\uDD17';
-  }
-
-  function isValidUrl(str) {
-    try { var u = new URL(str); return u.protocol === 'http:' || u.protocol === 'https:'; }
-    catch (_) { return false; }
-  }
-
-  function openLinkModal() {
-    document.getElementById('link-url-input').value = '';
-    document.getElementById('link-label-input').value = '';
-    document.getElementById('link-modal-error').style.display = 'none';
-    var preview = document.getElementById('link-preview');
-    if (preview) preview.remove();
-    document.getElementById('link-modal').style.display = 'flex';
-    document.getElementById('link-url-input').focus();
-  }
-
-  function closeLinkModal() {
-    document.getElementById('link-modal').style.display = 'none';
-  }
-
-  function updateLinkPreview() {
-    var urlVal = document.getElementById('link-url-input').value.trim();
-    var labelInput = document.getElementById('link-label-input');
-    // Auto-fill label from URL hostname if label is empty
-    if (urlVal && isValidUrl(urlVal) && !labelInput.value.trim()) {
-      try {
-        var host = new URL(urlVal).hostname.replace('www.','');
-        if (host.includes('docs.google.com')) {
-          var path = new URL(urlVal).pathname;
-          if (path.includes('/presentation/')) labelInput.placeholder = 'e.g. Pitch Deck';
-          else if (path.includes('/document/')) labelInput.placeholder = 'e.g. Executive Summary';
-          else if (path.includes('/spreadsheets/')) labelInput.placeholder = 'e.g. Financial Model';
-        }
-      } catch(_) {}
     }
+    return '<tr><td class="doc-name-cell"><span class="doc-icon">'+icon+'</span><span class="doc-name">'+escapeHtml(doc.original_filename)+'</span></td><td>'+badge+'</td><td class="doc-size">'+size+'</td><td class="doc-date">'+formatDate(doc.created_at)+'</td><td class="doc-actions">'+actions+'</td></tr>';
+  }).join('');
+  tbody.addEventListener('click', handleDocTableClick);
+  document.getElementById('docs-list').style.display = 'block';
+  document.getElementById('docs-empty').style.display = 'none';
+}
+
+function handleDocTableClick(e) {
+  var menuBtn   = e.target.closest('[data-doc-menu]');
+  var actionBtn = e.target.closest('[data-action]');
+  if (menuBtn) {
+    var wrapper = menuBtn.closest('.doc-menu-wrapper');
+    var isOpen  = wrapper.classList.contains('open');
+    closeAllDocMenus();
+    if (!isOpen) wrapper.classList.add('open');
+    return;
+  }
+  if (actionBtn) {
+    var action    = actionBtn.dataset.action;
+    var docId     = actionBtn.dataset.docId;
+    var filePath  = actionBtn.dataset.filePath;
+    var filename  = actionBtn.dataset.filename;
+    var sourceUrl = actionBtn.dataset.sourceUrl;
+    closeAllDocMenus();
+    if (action==='open')      openDocument(docId, filePath);
+    if (action==='download')  downloadDocument(docId, filePath, filename);
+    if (action==='open-link') window.open(sourceUrl,'_blank','noopener');
+    if (action==='delete')    promptDelete(docId, filePath, filename);
+  }
+}
+</script>
+<script>
+// ── FILE SELECT & UPLOAD ──────────────────────────────────────
+async function handleFileSelect(e) {
+  var file = e.target.files[0];
+  e.target.value = '';
+  if (!file) return;
+  var ext = file.name.split('.').pop().toLowerCase();
+  var errorEl = document.getElementById('upload-error');
+  errorEl.style.display = 'none';
+  if (!ALLOWED_EXTS.includes(ext)) { errorEl.textContent='File type not allowed. Accepted: PDF, PPTX, DOCX, XLSX, PNG, JPG.'; errorEl.style.display='block'; return; }
+  if (file.size > MAX_SIZE) { errorEl.textContent='File is too large. Maximum size is 25 MB.'; errorEl.style.display='block'; return; }
+  var mainBtn  = document.getElementById('add-doc-main-btn');
+  var firstBtn = document.getElementById('upload-first-btn');
+  mainBtn.textContent='Uploading…'; mainBtn.disabled=true;
+  firstBtn.textContent='Uploading…'; firstBtn.disabled=true;
+  var res = await documents.uploadDocument(currentRoomId, file);
+  mainBtn.textContent='+ Add Document'; mainBtn.disabled=false;
+  firstBtn.textContent='Upload File'; firstBtn.disabled=false;
+  if (res.error) { errorEl.textContent='Upload failed: '+res.error.message; errorEl.style.display='block'; return; }
+  await loadDocuments();
+}
+
+async function openDocument(docId, filePath) {
+  var res = await documents.getSignedUrl(filePath);
+  if (res.error||!res.url) { alert('Could not open document.'); return; }
+  window.open(res.url,'_blank');
+}
+async function downloadDocument(docId, filePath, filename) {
+  var res = await documents.getSignedUrl(filePath);
+  if (res.error||!res.url) { alert('Could not download document.'); return; }
+  var a = document.createElement('a'); a.href=res.url; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ── DELETE ────────────────────────────────────────────────────
+function promptDelete(docId, filePath, filename) {
+  pendingDeleteId=docId; pendingDeletePath=filePath; pendingDeleteName=filename;
+  document.getElementById('delete-modal-body').textContent = 'Are you sure you want to delete "'+filename+'"? This cannot be undone.';
+  document.getElementById('delete-modal').style.display='flex';
+}
+function closeDeleteModal() {
+  document.getElementById('delete-modal').style.display='none';
+  pendingDeleteId=null; pendingDeletePath=null; pendingDeleteName=null;
+}
+async function confirmDelete() {
+  if (!pendingDeleteId) return;
+  var btn = document.getElementById('delete-confirm-btn');
+  btn.textContent='Deleting…'; btn.disabled=true;
+  var res = await documents.deleteDocument(pendingDeleteId, pendingDeletePath, currentRoomId);
+  btn.textContent='Delete'; btn.disabled=false;
+  closeDeleteModal();
+  if (res.error) { alert('Delete failed: '+res.error.message); return; }
+  await loadDocuments();
+}
+
+// ── LINK MODAL ────────────────────────────────────────────────
+function isValidUrl(str) { try { var u=new URL(str); return u.protocol==='http:'||u.protocol==='https:'; } catch(_){return false;} }
+function openLinkModal() {
+  document.getElementById('link-url-input').value='';
+  document.getElementById('link-label-input').value='';
+  document.getElementById('link-modal-error').style.display='none';
+  document.getElementById('link-modal').style.display='flex';
+  document.getElementById('link-url-input').focus();
+}
+function closeLinkModal() { document.getElementById('link-modal').style.display='none'; }
+function updateLinkPreview() {
+  var urlVal = document.getElementById('link-url-input').value.trim();
+  var labelInput = document.getElementById('link-label-input');
+  if (urlVal && isValidUrl(urlVal) && !labelInput.value.trim()) {
+    try {
+      var path = new URL(urlVal).pathname;
+      if (path.includes('/presentation/')) labelInput.placeholder='e.g. Pitch Deck';
+      else if (path.includes('/document/')) labelInput.placeholder='e.g. Executive Summary';
+      else if (path.includes('/spreadsheets/')) labelInput.placeholder='e.g. Financial Model';
+    } catch(_){}
+  }
+}
+async function handleAddLink() {
+  var urlVal   = document.getElementById('link-url-input').value.trim();
+  var labelVal = document.getElementById('link-label-input').value.trim();
+  var errorEl  = document.getElementById('link-modal-error');
+  errorEl.style.display='none';
+  if (!urlVal) { errorEl.textContent='Please enter a document URL.'; errorEl.style.display='block'; return; }
+  if (!isValidUrl(urlVal)) { errorEl.textContent='That doesn’t look like a valid URL. Please include https://.'; errorEl.style.display='block'; return; }
+  if (!labelVal) { errorEl.textContent='Please give this document a label.'; errorEl.style.display='block'; return; }
+  var btn = document.getElementById('link-modal-submit-btn');
+  btn.textContent='Adding…'; btn.disabled=true;
+  var res = await documents.addLinkDocument(currentRoomId, labelVal, urlVal);
+  btn.textContent='Add Link'; btn.disabled=false;
+  if (res.error) { errorEl.textContent='Failed to add link: '+(res.error.message||res.error); errorEl.style.display='block'; return; }
+  closeLinkModal();
+  await loadDocuments();
+}
+
+// ── DOC MENU HELPERS ──────────────────────────────────────────
+function closeAllDocMenus() {
+  document.querySelectorAll('.doc-menu-wrapper.open').forEach(function(el){el.classList.remove('open');});
+}
+document.addEventListener('click', function(e){if(!e.target.closest('.doc-menu-wrapper'))closeAllDocMenus();});
+</script>
+<script>
+// ── INVITE MODAL ──────────────────────────────────────────────
+function openInviteModal() {
+  document.getElementById('invite-recipients-input').value = '';
+  document.getElementById('invite-modal-error').style.display = 'none';
+  document.getElementById('invite-results').style.display = 'none';
+  document.getElementById('invite-results').innerHTML = '';
+  document.getElementById('invite-modal-actions').style.display = 'flex';
+  document.getElementById('invite-modal-submit-btn').textContent = 'Send Invites';
+  document.getElementById('invite-modal-submit-btn').disabled = false;
+  document.getElementById('invite-modal').style.display = 'flex';
+  document.getElementById('invite-recipients-input').focus();
+}
+
+function closeInviteModal() {
+  document.getElementById('invite-modal').style.display = 'none';
+}
+
+function buildInviteLink(token) {
+  return window.location.origin + '/dataroom.html?id=' + currentRoomId + '&invite=' + token;
+}
+
+async function handleSendInvites() {
+  var rawInput = document.getElementById('invite-recipients-input').value.trim();
+  var errorEl  = document.getElementById('invite-modal-error');
+  errorEl.style.display = 'none';
+
+  if (!rawInput) {
+    errorEl.textContent = 'Please enter at least one email address or @handle.';
+    errorEl.style.display = 'block';
+    return;
   }
 
-  async function handleAddLink() {
-    var urlVal   = document.getElementById('link-url-input').value.trim();
-    var labelVal = document.getElementById('link-label-input').value.trim();
-    var errorEl  = document.getElementById('link-modal-error');
-    errorEl.style.display = 'none';
+  var btn = document.getElementById('invite-modal-submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
 
-    if (!urlVal) {
-      errorEl.textContent = 'Please enter a document URL.';
-      errorEl.style.display = 'block';
-      return;
-    }
-    if (!isValidUrl(urlVal)) {
-      errorEl.textContent = 'That doesn\u2019t look like a valid URL. Please include https://.';
-      errorEl.style.display = 'block';
-      return;
-    }
-    if (!labelVal) {
-      errorEl.textContent = 'Please give this document a label so others know what it is.';
-      errorEl.style.display = 'block';
-      return;
-    }
+  var res = await invites.inviteToRoom(currentRoomId, rawInput);
 
-    var submitBtn = document.getElementById('link-modal-submit-btn');
-    submitBtn.textContent = 'Adding\u2026';
-    submitBtn.disabled = true;
+  btn.textContent = 'Send Invites';
+  btn.disabled = false;
 
-    var res = await documents.addLinkDocument(currentRoomId, labelVal, urlVal);
-
-    submitBtn.textContent = 'Add Link';
-    submitBtn.disabled = false;
-
-    if (res.error) {
-      errorEl.textContent = 'Failed to add link: ' + (res.error.message || res.error);
-      errorEl.style.display = 'block';
-      return;
-    }
-
-    closeLinkModal();
-    await loadDocuments();
+  if (res.error && !res.results) {
+    errorEl.textContent = res.error;
+    errorEl.style.display = 'block';
+    return;
   }
 
-  // ── DOC MENU HELPERS ─────────────────────────────────────────
-  function closeAllDocMenus() {
-      document.querySelectorAll('.doc-menu-wrapper.open').forEach(function(el) {
-            el.classList.remove('open');
+  // Render per-recipient results
+  var successCount = res.successCount;
+  var results      = res.results || [];
+  var resultsEl    = document.getElementById('invite-results');
+
+  var html = '';
+
+  if (successCount > 0) {
+    html += '<div class="invite-success-banner">&#10003; Invited ' + successCount + ' ' + (successCount === 1 ? 'person' : 'people') + '</div>';
+  }
+
+  html += '<div class="invite-result-list">';
+  results.forEach(function(r) {
+    if (r.error) {
+      html += '<div class="invite-result-row invite-result-error">'
+            + '<span class="invite-result-icon">&#10005;</span>'
+            + '<span class="invite-result-raw">' + escapeHtml(r.raw) + '</span>'
+            + '<span class="invite-result-msg">' + escapeHtml(r.error) + '</span>'
+            + '</div>';
+    } else {
+      var link = buildInviteLink(r.token);
+      var label = r.alreadyInvited ? ' (already invited)' : '';
+      html += '<div class="invite-result-row invite-result-ok">'
+            + '<span class="invite-result-icon">&#10003;</span>'
+            + '<span class="invite-result-email">' + escapeHtml(r.email) + escapeHtml(label) + '</span>'
+            + '<button class="btn-copy-link" data-link="' + escapeAttr(link) + '" title="Copy invite link">&#128203; Copy link</button>'
+            + '</div>';
+    }
+  });
+  html += '</div>';
+
+  resultsEl.innerHTML = html;
+  resultsEl.style.display = 'block';
+
+  // Wire copy buttons
+  resultsEl.querySelectorAll('.btn-copy-link').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(btn.dataset.link).then(function() {
+        btn.textContent = '✓ Copied!';
+        setTimeout(function(){ btn.innerHTML = '&#128203; Copy link'; }, 2000);
       });
-  }
-
-  document.addEventListener('click', function(e) {
-      if (!e.target.closest('.doc-menu-wrapper')) closeAllDocMenus();
+    });
   });
 
-  // ── UTILS ────────────────────────────────────────────────────
-  function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-  }
-
-  function escapeAttr(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;');
-  }
+  // Change footer to just "Done" after results shown
+  document.getElementById('invite-modal-submit-btn').style.display = 'none';
+  document.getElementById('invite-modal-cancel-btn').textContent = 'Done';
+}
 </script>
 </body>
 </html>
-</script></th></th>
-                                            </tr>
-                              </thead></span>
-</body></title>
-  </head>
