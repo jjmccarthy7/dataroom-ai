@@ -46,7 +46,7 @@
         <div class="onboarding-step" id="step-room">
           <div class="step-icon incomplete" id="step-room-icon">2</div>
           <div class="step-text">
-            <span class="step-title">Create your first data room</span>
+            <span class="step-title">Create your first ZetaRoom</span>
             <span class="step-sub">Get your fundraise organised</span>
           </div>
           <button class="step-action" id="step-create-room-btn">Create &#8594;</button>
@@ -56,7 +56,7 @@
     <!-- ── DASHBOARD HEADER ────────────────────────────── -->
     <div class="dash-header" id="dash-header">
       <div>
-        <h1 id="dash-greeting">My Data Rooms</h1>
+        <h1 id="dash-greeting">My ZetaRooms</h1>
         <p class="dash-subtitle" id="dash-subtitle"></p>
       </div>
       <div id="dash-header-actions"></div>
@@ -65,19 +65,19 @@
     <div id="rooms-loading" class="loading-state">Loading your rooms...</div>
     <div id="rooms-empty" class="empty-state" style="display:none;">
       <div class="empty-icon">&#128193;</div>
-      <h2>No data rooms yet</h2>
-      <p id="empty-state-msg">Create your first data room to get started.</p>
-      <button class="btn-primary" id="empty-create-btn">Create Data Room</button>
+      <h2>No ZetaRooms yet</h2>
+      <p id="empty-state-msg">Create your first ZetaRoom to get started.</p>
+      <button class="btn-primary" id="empty-create-btn">Create ZetaRoom</button>
     </div>
     <div class="room-grid" id="room-grid" style="display:none;"></div>
   </div>
 </main>
-<!-- Create Data Room Modal -->
+<!-- Create ZetaRoom Modal -->
 <div class="modal-overlay" id="create-modal" style="display:none;">
   <div class="modal-box">
     <button class="modal-close" id="modal-close-btn">&#10005;</button>
-    <h2 class="modal-title">Create Data Room</h2>
-    <p class="modal-subtitle">Set up your new data room in seconds</p>
+    <h2 class="modal-title">Create ZetaRoom</h2>
+    <p class="modal-subtitle">Set up your new ZetaRoom in seconds</p>
     <form id="create-room-form" novalidate>
       <div class="form-group">
         <label class="form-label" for="company-name">Company Name <span class="required">*</span></label>
@@ -118,7 +118,7 @@
       <div class="modal-error" id="modal-error" style="display:none;"></div>
       <div class="modal-actions">
         <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
-        <button type="submit" class="btn-primary" id="create-submit-btn">Create Data Room</button>
+        <button type="submit" class="btn-primary" id="create-submit-btn">Create ZetaRoom</button>
       </div>
     </form>
   </div>
@@ -180,11 +180,11 @@ document.addEventListener('DOMContentLoaded', async function() {
   var greeting = 'Welcome back, ' + firstName + '.';
   var subtitle = '';
   if (role === 'Entrepreneur') {
-    greeting = 'Your data rooms, ' + firstName + '.';
+    greeting = 'Your ZetaRooms, ' + firstName + '.';
     subtitle = 'Organise your fundraise. Share with confidence.';
   } else if (role === 'Investor') {
     greeting = 'Deal review, ' + firstName + '.';
-    subtitle = 'Your shared data rooms will appear here.';
+    subtitle = 'Your shared ZetaRooms will appear here.';
   } else if (role === 'Both') {
     greeting = 'Welcome back, ' + firstName + '.';
     subtitle = 'Manage your rooms or review shared deals.';
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   if (userRooms.length > 0) {
     var btn = document.createElement('button');
     btn.className = 'btn-primary';
-    btn.textContent = '+ Create Data Room';
+    btn.textContent = '+ Create ZetaRoom';
     btn.addEventListener('click', openModal);
     document.getElementById('dash-header-actions').appendChild(btn);
   }
@@ -300,7 +300,7 @@ async function handleCreateRoom(e) {
     website: document.getElementById('website').value.trim() || null,
     location: document.getElementById('location').value.trim() || null
   });
-  btn.textContent = 'Create Data Room';
+  btn.textContent = 'Create ZetaRoom';
   btn.disabled = false;
   if (res.error) {
     document.getElementById('modal-error').textContent = res.error.message;
