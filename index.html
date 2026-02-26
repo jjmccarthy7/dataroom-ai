@@ -134,23 +134,82 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
 .footer-col a{display:block;color:rgba(255,255,255,0.45);text-decoration:none;font-size:13px;padding:4px 0;transition:color 0.2s}
 .footer-col a:hover{color:var(--white)}
 .footer-bottom{max-width:1200px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;text-align:center}
+/* ── Hamburger base styles (hidden on desktop) ── */
+.nav-toggle-input{display:none}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.nav-hamburger span{display:block;width:24px;height:2px;background:var(--charcoal);border-radius:2px;transition:transform 0.2s,opacity 0.2s}
+.nav-mobile-menu{display:none;flex-direction:column;gap:0;background:rgba(255,255,255,0.98);border-top:1px solid var(--soft-gray);padding:8px 0 16px}
+.nav-mobile-menu a{display:block;padding:14px 24px;font-size:15px;color:var(--charcoal);text-decoration:none;font-weight:500}
+.nav-mobile-menu a:hover{color:var(--green-dark)}
+.nav-mobile-cta{background:var(--green-dark);color:var(--white) !important;margin:12px 24px 4px;border-radius:10px;text-align:center;padding:13px 24px !important}
+
 @media(max-width:768px){
-  .hero-bg{margin:0 4%;border-radius:8px}
-  .hero-inner{grid-template-columns:1fr;gap:40px}
-  .hero h1{font-size:36px}
-  .audience-grid{grid-template-columns:1fr}
-  .props-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  .footer-inner{grid-template-columns:1fr 1fr}
-  .ai-inner{grid-template-columns:1fr}
+  /* Nav */
+  .nav-inner{padding:0 20px 0 8px;height:72px}
+  .logo{height:72px}
   .nav-links{display:none}
+  .nav-auth{display:none}
+  .nav-hamburger{display:flex}
+  .nav-toggle-input:checked ~ .nav-mobile-menu{display:flex}
+  .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(2){opacity:0}
+  .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* Hero */
+  .hero{padding:80px 0 60px}
+  .hero-bg{margin:0 4%;border-radius:8px;padding:60px 0}
+  .hero-bg .container{padding:0 24px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero h1{font-size:32px;letter-spacing:-0.3px}
+  .hero h2{font-size:15px;margin-bottom:28px}
+  .hero-cta-row{flex-direction:column;align-items:stretch;gap:12px}
+  .btn-primary,.btn-secondary{text-align:center;padding:14px 24px}
+  .mock-ui{display:none}
+
+  /* Sections */
+  section{padding:64px 24px}
+  .section-title{font-size:30px}
+  .section-subtitle{font-size:15px}
+
+  /* Trust bar */
+  .trust-bar{padding:40px 24px}
+  .trust-logos{flex-wrap:wrap;gap:24px;justify-content:center}
+
+  /* Why (props) */
+  .props-grid{grid-template-columns:1fr}
+
+  /* Audiences */
+  .audience-grid{grid-template-columns:1fr}
+  .audience-card{padding:32px 24px}
+  .audience-card h3{font-size:22px}
+
+  /* How it works */
+  .steps{grid-template-columns:1fr}
+
+  /* Mock UI */
   .mock-body{grid-template-columns:1fr}
   .mock-nav{display:none}
+
+  /* AI section */
+  .ai-inner{grid-template-columns:1fr}
+  .ai-chat-panel{padding:28px 20px}
+
+  /* CTA banner */
+  .cta-banner{padding:64px 24px}
+  .cta-banner h2{font-size:28px}
+  .cta-form{flex-direction:column;align-items:stretch}
+  .cta-form input,.cta-form button{width:100%;text-align:center}
+
+  /* Footer */
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  footer{padding:48px 24px 28px}
+  .footer-brand .logo-img--footer{height:120px}
 }
 </style>
 </head>
 <body>
 <nav>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
   <div class="nav-inner">
     <a href="#" class="logo"><img src="images/logo.png" alt="ZetaRooms" class="logo-img"></a>
     <ul class="nav-links">
@@ -162,6 +221,16 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
       <a href="signup.html" class="nav-cta">Sign Up</a>
       <a href="login.html" class="nav-login">Sign In</a>
     </div>
+    <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+  <div class="nav-mobile-menu">
+    <a href="#entrepreneurs">For Entrepreneurs</a>
+    <a href="#investors">For Investors</a>
+    <a href="#how-it-works">How it Works</a>
+    <a href="signup.html" class="nav-cta nav-mobile-cta">Sign Up</a>
+    <a href="login.html">Sign In</a>
   </div>
 </nav>
 <section class="hero">
