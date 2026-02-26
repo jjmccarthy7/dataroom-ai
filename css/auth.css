@@ -1,6 +1,5 @@
 /* ============================================================
-   DataRoom.ai — Design System V1
-   Auth & Shared Styles
+auth.css: increase .logo-img height to 300px   Auth & Shared Styles
    ============================================================ */
 
 /* ── RESET ─────────────────────────────────────────────── */
@@ -94,7 +93,7 @@ nav {
 }
 
 .logo-img {
-  height: 96px;
+  height: 300px;
   width: auto;
   display: block;
 }
