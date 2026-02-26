@@ -88,12 +88,15 @@ nav {
 }
 
 .logo {
-  font-family: var(--sans);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--green-dark);
   text-decoration: none;
-  letter-spacing: -0.3px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .logo span {
