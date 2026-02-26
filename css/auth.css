@@ -93,7 +93,8 @@ nav {
 }
 
 .logo-img {
-  height: 300px;
+  height: auto;
+  max-height: 44px;
   width: auto;
   display: block;
 }
