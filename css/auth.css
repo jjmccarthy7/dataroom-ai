@@ -1,6 +1,5 @@
 /* ============================================================
-   DataRoom.ai — Design System V1
-   Auth & Shared Styles
+Auth & Shared Styles
    ============================================================ */
 
 /* ── RESET ─────────────────────────────────────────────── */
@@ -88,12 +87,16 @@ nav {
 }
 
 .logo {
-  font-family: var(--sans);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--green-dark);
   text-decoration: none;
-  letter-spacing: -0.3px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: auto;
+  max-height: 44px;
+  width: auto;
+  display: block;
 }
 
 .logo span {

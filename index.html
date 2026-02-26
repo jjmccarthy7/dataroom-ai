@@ -24,9 +24,11 @@
 }
 html{scroll-behavior:smooth;width:100%;overflow-x:hidden}
 body{font-family:var(--sans);color:var(--charcoal);line-height:1.6;background:var(--white);width:100%;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;width:100%;background:transparent;backdrop-filter:blur(10px);z-index:1000}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-family:var(--sans);font-size:20px;font-weight:700;color:var(--green-dark);text-decoration:none;letter-spacing:-0.3px}
+nav{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);z-index:1000}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 40px 0 15px;display:flex;align-items:center;justify-content:space-between;height:100px;overflow:hidden}
+.logo{text-decoration:none;display:inline-flex;align-items:center;overflow:hidden;height:100px}
+.logo-img{height:320px;width:auto;display:block}
+.logo-img--footer{height:200px;width:auto;display:block}
 .nav-links{display:flex;gap:28px;list-style:none;align-items:center}
 .nav-links a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;transition:color 0.2s}
 .nav-links a:hover{color:var(--green-dark)}
@@ -38,7 +40,7 @@ nav{position:fixed;top:0;left:0;width:100%;background:transparent;backdrop-filte
 section{padding:120px 40px}
 .container{max-width:1200px;margin:0 auto}
 .hero{
-  padding:80px 0 80px;
+  padding:100px 0 80px;
   background:var(--white);
   width:100%;
 }
@@ -126,7 +128,7 @@ section{padding:120px 40px}
 .cta-form button:hover{background:#335a46}
 footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px 36px}
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
-.footer-brand .logo{color:var(--white);font-size:18px;display:inline-block;margin-bottom:14px}
+.footer-brand .logo{display:inline-flex;align-items:center;margin-bottom:14px}
 .footer-brand p{font-size:13px;line-height:1.65;max-width:260px}
 .footer-col h4{color:var(--white);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
 .footer-col a{display:block;color:rgba(255,255,255,0.45);text-decoration:none;font-size:13px;padding:4px 0;transition:color 0.2s}
@@ -150,7 +152,7 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">ZetaRooms</a>
+    <a href="#" class="logo"><img src="images/logo.png" alt="ZetaRooms" class="logo-img"></a>
     <ul class="nav-links">
       <li><a href="#entrepreneurs">For Entrepreneurs</a></li>
       <li><a href="#investors">For Investors</a></li>
@@ -362,7 +364,7 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="#" class="logo">ZetaRooms</a>
+      <a href="#" class="logo"><img src="images/logo.png" alt="ZetaRooms" class="logo-img logo-img--footer"></a>
       <p>The AI-powered data room platform where founders and investors connect, collaborate, and close deals faster.</p>
     </div>
     <div class="footer-col">
