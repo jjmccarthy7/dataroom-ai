@@ -545,6 +545,7 @@ async function handleSendInvites() {
     return;
   }
 
+    try {
   var btn = document.getElementById('invite-modal-submit-btn');
   btn.textContent = 'Sending…';
   btn.disabled = true;
@@ -607,6 +608,14 @@ async function handleSendInvites() {
   // Change footer to just "Done" after results shown
   document.getElementById('invite-modal-submit-btn').style.display = 'none';
   document.getElementById('invite-modal-cancel-btn').textContent = 'Done';
+    } catch (err) {
+          var errEl = document.getElementById('invite-modal-error');
+          errEl.textContent = 'Something went wrong: ' + (err.message || String(err));
+          errEl.style.display = 'block';
+          var subBtn = document.getElementById('invite-modal-submit-btn');
+          subBtn.textContent = 'Send Invites';
+          subBtn.disabled = false;
+    }
 }
 </script>
 </body>
