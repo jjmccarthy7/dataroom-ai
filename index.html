@@ -55,11 +55,13 @@ section{padding:120px 40px}
 .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .hero h1{font-family:var(--sans);font-size:50px;line-height:1.13;color:var(--green-dark);margin-bottom:28px;letter-spacing:-0.6px;font-weight:600}
 .hero h2{font-size:17px;color:var(--muted);line-height:1.75;margin-bottom:36px;max-width:500px;font-weight:400}
-.hero-cta-row{display:flex;gap:16px;align-items:center}
+.hero-cta-row{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .btn-primary{background:var(--green-dark);color:var(--white);padding:13px 28px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:600;transition:background 0.2s;border:none;cursor:pointer;display:inline-block}
 .btn-primary:hover{background:var(--green-mid)}
 .btn-secondary{background:transparent;color:var(--green-dark);padding:13px 28px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:500;border:1.5px solid var(--green-dark);transition:all 0.2s;display:inline-block}
 .btn-secondary:hover{background:var(--green-dark);color:var(--white)}
+.btn-text-link{background:transparent;color:var(--charcoal);text-decoration:none;font-size:15px;font-weight:500;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:color 0.2s}
+.btn-text-link:hover{color:var(--green-dark)}
 .product-mock{background:var(--off-white);border-radius:12px;border:1px solid var(--soft-gray);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
 .mock-header{background:var(--white);border-bottom:1px solid var(--soft-gray);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
 .mock-header-title{font-size:13px;font-weight:600;color:var(--green-dark)}
@@ -164,7 +166,7 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
   .hero h1{font-size:32px;letter-spacing:-0.3px}
   .hero h2{font-size:15px;margin-bottom:28px}
   .hero-cta-row{flex-direction:column;align-items:stretch;gap:12px}
-  .btn-primary,.btn-secondary{text-align:center;padding:14px 24px}
+      .btn-primary,.btn-secondary,.btn-text-link{text-align:center;padding:14px 24px}
   .product-mock{display:none}
 
   /* Sections */
@@ -242,8 +244,8 @@ footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px
           <h1>Intelligent data rooms you can talk to</h1>
           <h2>ZetaRooms are AI-powered data rooms where founders organize their fundraising materials and investors discover their next great deal.</h2>
           <div class="hero-cta-row">
-            <a href="#cta-banner" class="btn-primary">Request Early Access</a>
-            <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+                          <a href="signup.html" class="btn-primary">Create Your Room</a>
+                        <a href="signup.html" class="btn-text-link">See a Sample Room →</a>
           </div>
         </div>
         <div class="product-mock">
