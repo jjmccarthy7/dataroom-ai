@@ -531,3 +531,294 @@ select.form-input:focus {
     padding: 0 20px;
   }
 }
+
+
+/* ============================================================
+   ZEDBAR — Zed AI associate sidebar/drawer
+   Appears only on dataroom.html (ZetaRoom viewer page)
+   ============================================================ */
+
+/* ── ROOM LAYOUT (dataroom page wrapper) ─────────────────── */
+.room-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 64px);   /* full height minus nav */
+}
+
+.room-content {
+  flex: 1 1 0%;
+  min-width: 0;                      /* prevent flex blowout */
+  transition: margin-right 0.28s ease;
+}
+
+/* ── ZEDBAR SIDEBAR (desktop) ────────────────────────────── */
+.zedbar-sidebar {
+  width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  height: calc(100vh - 64px);
+  position: sticky;
+  top: 64px;                         /* stick below fixed nav */
+  border-left: 1px solid transparent;
+  background: var(--white);
+  transition: width 0.28s ease, border-color 0.28s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.zedbar-sidebar.zedbar-sidebar--open {
+  width: 320px;
+  border-left-color: var(--soft-gray);
+}
+
+/* ── ZEDBAR INNER SCROLL CONTAINER ──────────────────────── */
+.zedbar-inner {
+  display: flex;
+  flex-direction: column;
+  width: 320px;                      /* fixed width — slides with parent */
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── ZEDBAR HEADER ───────────────────────────────────────── */
+.zedbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--soft-gray);
+  flex-shrink: 0;
+}
+
+.zedbar-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.zedbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--green-dark);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: -0.3px;
+}
+
+.zedbar-identity-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.zedbar-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.2;
+  letter-spacing: -0.1px;
+}
+
+.zedbar-role {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.zedbar-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+
+.zedbar-close-btn:hover {
+  background: var(--light-gray);
+  color: var(--charcoal);
+}
+
+/* ── ZEDBAR MESSAGES ─────────────────────────────────────── */
+.zedbar-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── ZED MESSAGE BUBBLE ──────────────────────────────────── */
+.zedbar-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.zedbar-message--zed .zedbar-message-bubble {
+  background: var(--off-white);
+  color: var(--charcoal);
+  border: 1px solid var(--soft-gray);
+  border-radius: 4px 12px 12px 12px;
+  padding: 11px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 100%;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── SCANNING STATE ──────────────────────────────────────── */
+.zedbar-scanning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 2px;
+}
+
+.zedbar-scanning-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* ── TYPING INDICATOR (three-dot pulse) ──────────────────── */
+.zedbar-typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.zedbar-typing-indicator span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green-light);
+  opacity: 0.3;
+  animation: zedbar-dot-pulse 1.4s ease-in-out infinite both;
+}
+
+.zedbar-typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.zedbar-typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.zedbar-typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes zedbar-dot-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); }
+  40%            { opacity: 1;   transform: scale(1.15); }
+}
+
+/* ── MOBILE DRAWER ───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Room layout stacks vertically on mobile */
+  .room-layout {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .room-content {
+    width: 100%;
+  }
+
+  /* Zedbar becomes a bottom drawer */
+  .zedbar-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;        /* override desktop width */
+    height: auto;
+    max-height: 70vh;
+    border-left: none;
+    border-top: 1px solid var(--soft-gray);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    z-index: 500;
+    top: auto;                     /* unset sticky top */
+    overflow: visible;
+  }
+
+  /* Closed state: slide drawer down off-screen */
+  .zedbar-sidebar.zedbar-drawer--closed {
+    transform: translateY(100%);
+  }
+
+  /* Ensure inner panel fills mobile width */
+  .zedbar-inner {
+    width: 100%;
+    max-height: 70vh;
+    overflow: hidden;
+  }
+
+  .zedbar-messages {
+    max-height: calc(70vh - 70px);  /* drawer height minus header */
+  }
+}
+
+/* ── MOBILE OPEN BUTTON (FAB) ────────────────────────────── */
+.zedbar-mobile-fab {
+  display: none;                   /* hidden on desktop */
+}
+
+@media (max-width: 768px) {
+  .zedbar-mobile-fab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 490;
+    background: var(--green-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 18px 10px 12px;
+    box-shadow: 0 4px 16px rgba(47,79,62,0.28);
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background var(--transition), opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .zedbar-mobile-fab:hover {
+    background: var(--green-mid);
+  }
+
+  .zedbar-mobile-fab-label {
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    flex-shrink: 0;
+  }
+
+  .zedbar-mobile-fab--hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+}
