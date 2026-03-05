@@ -7,7 +7,7 @@ Auth & Shared Styles
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+
 
 /* ── DESIGN TOKENS ──────────────────────────────────────── */
 :root {
@@ -94,7 +94,7 @@ nav {
 
 .logo-img {
   height: auto;
-  max-height: 44px;
+  max-height: 56px;
   width: auto;
   display: block;
 }
