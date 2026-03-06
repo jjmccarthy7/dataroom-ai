@@ -111,9 +111,6 @@
             <span class="zedbar-role">Your AI associate</span>
           </div>
         </div>
-        <button class="zedbar-close-btn" id="zedbar-close-btn" aria-label="Close Zedbar">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
       </div>
 
       <!-- Messages area -->
@@ -676,7 +673,6 @@ async function handleSendInvites() {
 // ── ZEDBAR ─────────────────────────────────────────────
 (function() {
   var zedbar    = document.getElementById('zedbar');
-  var closeBtn  = document.getElementById('zedbar-close-btn');
   var mobileFab = document.getElementById('zedbar-mobile-fab');
 
   function isMobile() {
@@ -701,14 +697,7 @@ async function handleSendInvites() {
     document.body.classList.add('zedbar-drawer-open');
   }
 
-  function closeZedbar() {
-    zedbar.classList.remove('zedbar-sidebar--open');
-    zedbar.classList.add('zedbar-drawer--closed');
-    if (mobileFab) mobileFab.classList.remove('zedbar-mobile-fab--hidden');
-    document.body.classList.remove('zedbar-drawer-open');
-  }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeZedbar);
   if (mobileFab) mobileFab.addEventListener('click', openZedbar);
 
   // Re-init on resize (debounced)
