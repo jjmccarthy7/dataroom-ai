@@ -352,7 +352,6 @@ function renderRoom(room) {
   }
   if (room.short_description) document.getElementById('room-subtitle').textContent = room.short_description;
   var details = [];
-  if (room.short_description) details.push({label:'Description', value:escapeHtml(room.short_description)});
   if (room.website) details.push({label:'Website', value:'<a href="'+escapeHtml(room.website)+'" target="_blank">'+escapeHtml(room.website)+'</a>'});
   if (room.location) details.push({label:'Location', value:escapeHtml(room.location)});
   details.push({label:'Created', value:formatDate(room.created_at)});
