@@ -822,3 +822,37 @@ select.form-input:focus {
     transform: translateY(12px);
   }
 }
+
+
+/* ── DOCS TABLE RESPONSIVE ─────────────────────────────── */
+.docs-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+/* ── MOBILE RESPONSIVE FIXES ────────────────────────────── */
+@media (max-width: 480px) {
+  /* Collapse nav username on small screens to prevent overflow */
+  #nav-name {
+    display: none;
+  }
+}
+
+/* ── ZEDBAR DRAWER OPEN — CONTENT PADDING ───────────────── */
+/* When Zedbar drawer is open on mobile, push content up so it
+   isn't hidden behind the fixed bottom drawer */
+@media (max-width: 768px) {
+  body.zedbar-drawer-open .room-content {
+    padding-bottom: 280px; /* ~253px drawer + breathing room */
+  }
+
+  /* iOS safe-area support for FAB and drawer */
+  .zedbar-mobile-fab {
+    bottom: max(24px, calc(24px + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .zedbar-sidebar {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
