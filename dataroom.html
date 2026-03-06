@@ -87,12 +87,12 @@
           <button class="btn-upload-first" id="link-first-btn" style="background:var(--green-mid);">&#128279; Paste a Link</button>
         </div>
       </div>
-      <div id="docs-list" style="display:none;">
+      <div id="docs-list" style="display:none;"><div class="docs-table-wrapper">
         <table class="docs-table">
           <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Uploaded</th><th></th></tr></thead>
           <tbody id="docs-tbody"></tbody>
         </table>
-      </div>
+      </div></div>
       <div class="upload-error" id="upload-error" style="display:none;"></div>
     </div>
   </div>
@@ -699,12 +699,14 @@ async function handleSendInvites() {
     zedbar.classList.add('zedbar-sidebar--open');
     zedbar.classList.remove('zedbar-drawer--closed');
     if (mobileFab) mobileFab.classList.add('zedbar-mobile-fab--hidden');
+    document.body.classList.add('zedbar-drawer-open');
   }
 
   function closeZedbar() {
     zedbar.classList.remove('zedbar-sidebar--open');
     zedbar.classList.add('zedbar-drawer--closed');
     if (mobileFab) mobileFab.classList.remove('zedbar-mobile-fab--hidden');
+    document.body.classList.remove('zedbar-drawer-open');
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeZedbar);
