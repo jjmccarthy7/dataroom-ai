@@ -237,6 +237,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.location.href = 'login.html?next=' + next;
     return;
   }
+  // Refresh the token on room load so it stays fresh for user actions
+  await _supabase.auth.refreshSession();
   var user = sessionRes.session.user;
   if (!currentRoomId) { window.location.href = 'dashboard.html'; return; }
 
