@@ -164,11 +164,12 @@ var documents = {
           return { url: r.data?.signedUrl, error: r.error };
     },
     addLinkDocument: async function(roomId, label, url) {
-          var u = await auth.getUser();
-          if (!u.user) return { document: null, error: 'Not authenticated' };
+          var refreshed = await _supabase.auth.refreshSession();
+          var user = refreshed.data && refreshed.data.user ? refreshed.data.user : null;
+          if (!user) return { document: null, error: 'Not authenticated' };
           var r = await _supabase.from('documents').insert([{
                   room_id: roomId,
-                  uploader_id: u.user.id,
+                  uploader_id: user.id,
                   original_filename: label,
                   file_path: null,
                   file_type: 'link',
