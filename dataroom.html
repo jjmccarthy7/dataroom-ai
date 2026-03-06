@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/dashboard.css">
-</head>
+</head
 <body>
 <nav class="dash-nav">
   <div class="nav-inner">
@@ -29,6 +29,8 @@
   </div>
 </nav>
 <main class="dashboard-main">
+  <div class="room-layout">
+  <div class="room-content">
   <div class="dashboard-inner">
     <div class="breadcrumb">
       <a href="dashboard.html">&#8592; Dashboard</a>
@@ -85,16 +87,68 @@
           <button class="btn-upload-first" id="link-first-btn" style="background:var(--green-mid);">&#128279; Paste a Link</button>
         </div>
       </div>
-      <div id="docs-list" style="display:none;">
+      <div id="docs-list" style="display:none;"><div class="docs-table-wrapper">
         <table class="docs-table">
           <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Uploaded</th><th></th></tr></thead>
           <tbody id="docs-tbody"></tbody>
         </table>
-      </div>
+      </div></div>
       <div class="upload-error" id="upload-error" style="display:none;"></div>
     </div>
   </div>
+  </div><!-- /.room-content -->
+
+  <!-- ── ZEDBAR SIDEBAR ────────────────────────────────── -->
+  <aside class="zedbar-sidebar" id="zedbar">
+    <div class="zedbar-inner">
+
+      <!-- Header -->
+      <div class="zedbar-header">
+        <div class="zedbar-identity">
+          <div class="zedbar-avatar">Z</div>
+          <div class="zedbar-identity-text">
+            <span class="zedbar-name">Zed</span>
+            <span class="zedbar-role">Your AI associate</span>
+          </div>
+        </div>
+        <button class="zedbar-close-btn" id="zedbar-close-btn" aria-label="Close Zedbar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Messages area -->
+      <div class="zedbar-messages" id="zedbar-messages">
+
+        <!-- Initial Zed message -->
+        <div class="zedbar-message zedbar-message--zed">
+          <div class="zedbar-message-bubble">
+            We&rsquo;re in! Give me a second to take a quick look around.
+          </div>
+        </div>
+
+        <!-- Scanning state -->
+        <div class="zedbar-scanning" id="zedbar-scanning">
+          <span class="zedbar-scanning-label">Zed is scanning the room&hellip;</span>
+          <span class="zedbar-typing-indicator" aria-label="Zed is thinking">
+            <span></span><span></span><span></span>
+          </span>
+        </div>
+
+      </div>
+      <!-- /messages -->
+
+    </div>
+  </aside>
+  <!-- /.zedbar-sidebar -->
+
+  </div><!-- /.room-layout -->
 </main>
+
+<!-- ── ZEDBAR MOBILE TOGGLE ──────────────────────────── -->
+<button class="zedbar-mobile-fab" id="zedbar-mobile-fab" aria-label="Open Zed">
+  <span class="zedbar-mobile-fab-label">Z</span>
+  <span class="zedbar-mobile-fab-text">Ask Zed</span>
+</button>
 <!-- Hidden file input -->
 <input type="file" id="file-input" accept=".pdf,.pptx,.docx,.xlsx,.png,.jpg,.jpeg" style="display:none;">
 <!-- Hidden logo input -->
@@ -617,6 +671,57 @@ async function handleSendInvites() {
           subBtn.disabled = false;
     }
 }
+</script>
+
+<script>
+// ── ZEDBAR ─────────────────────────────────────────────
+(function() {
+  var zedbar    = document.getElementById('zedbar');
+  var closeBtn  = document.getElementById('zedbar-close-btn');
+  var mobileFab = document.getElementById('zedbar-mobile-fab');
+
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Desktop: open by default; Mobile: closed by default
+  function initZedbar() {
+    if (isMobile()) {
+      zedbar.classList.remove('zedbar-sidebar--open');
+      zedbar.classList.add('zedbar-drawer--closed');
+    } else {
+      zedbar.classList.add('zedbar-sidebar--open');
+      zedbar.classList.remove('zedbar-drawer--closed');
+    }
+  }
+
+  function openZedbar() {
+    zedbar.classList.add('zedbar-sidebar--open');
+    zedbar.classList.remove('zedbar-drawer--closed');
+    if (mobileFab) mobileFab.classList.add('zedbar-mobile-fab--hidden');
+    document.body.classList.add('zedbar-drawer-open');
+  }
+
+  function closeZedbar() {
+    zedbar.classList.remove('zedbar-sidebar--open');
+    zedbar.classList.add('zedbar-drawer--closed');
+    if (mobileFab) mobileFab.classList.remove('zedbar-mobile-fab--hidden');
+    document.body.classList.remove('zedbar-drawer-open');
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeZedbar);
+  if (mobileFab) mobileFab.addEventListener('click', openZedbar);
+
+  // Re-init on resize (debounced)
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initZedbar, 150);
+  });
+
+  // Init on load
+  initZedbar();
+})();
 </script>
 </body>
 </html>

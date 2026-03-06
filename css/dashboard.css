@@ -1658,3 +1658,146 @@ select.form-input:focus {
   font-weight: 700;
   color: var(--white);
 }
+
+
+/* ============================================================
+   MOBILE UI CLEANUP
+   Docs table card layout + section header action stacking
+   Applies on top of existing responsive rules
+   ============================================================ */
+
+/* ── DOCS TABLE — CARD LAYOUT ON MOBILE ─────────────────────
+   Transforms the documents table into a card-per-row layout.
+   No JS changes required — pure CSS reflow.
+   Column order in HTML: name-cell | type | size | date | actions
+   ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Kill the horizontal scroll wrapper we added in PR #39 —
+     the card layout makes it unnecessary at this breakpoint */
+  .docs-table-wrapper {
+    overflow-x: visible;
+  }
+
+  /* Hide the thead — labels become implicit from layout */
+  .docs-table thead {
+    display: none;
+  }
+
+  /* Each row becomes a 2-column grid:
+     left col: name + meta (flex: 1)
+     right col: action button (auto width, spans both rows) */
+  .docs-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 8px;
+    row-gap: 3px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--light-gray);
+    align-items: start;
+  }
+
+  .docs-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  /* Row hover still works */
+  .docs-table tbody tr:hover {
+    background: var(--light-gray);
+  }
+
+  /* Reset all td padding — grid handles spacing */
+  .docs-table td {
+    display: block;
+    padding: 0;
+    border: none;
+    line-height: 1.4;
+  }
+
+  /* Col 1 Row 1: name cell — takes up grid col 1 */
+  .docs-table td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Expand the doc-name to full width (was max-width: 280px) */
+  .docs-table .doc-name {
+    max-width: none;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* Col 1 Row 2: type badge + size inline — both in grid col 1, row 2 */
+  .docs-table td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+    display: inline;
+  }
+
+  .docs-table td:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+    display: inline;
+    margin-left: 6px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  /* Hide the date column — redundant on small screens */
+  .docs-table .doc-date {
+    display: none;
+  }
+
+  /* Actions column: spans both rows on the right */
+  .docs-table .doc-actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    text-align: right;
+    align-self: center;
+    padding-left: 4px;
+  }
+}
+
+/* ── SECTION HEADER ACTIONS — STACK ON MOBILE ───────────────
+   "+ Add Document" + "Invite Investors" take full width
+   when they wrap to their own row on narrow viewports
+   ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .section-header-actions {
+    width: 100%;
+  }
+
+  /* Add Document split button stretches full width */
+  .add-doc-split {
+    flex: 1;
+  }
+
+  .add-doc-split .btn-add-doc-main {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Invite Investors button stretches full width */
+  .btn-invite {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ── DASHBOARD HEADER — STACK GRACEFULLY ────────────────────
+   On very narrow screens, heading and action button
+   stack vertically with consistent spacing
+   ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .dash-header h1,
+  #dash-greeting {
+    font-size: 20px;
+  }
+}
