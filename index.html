@@ -24,14 +24,42 @@
     }
     html{scroll-behavior:smooth;width:100%;overflow-x:hidden}
     body{font-family:var(--sans);color:var(--charcoal);line-height:1.6;background:var(--white);width:100%;overflow-x:hidden}
+
+    /* ── NAV ── */
     nav{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);z-index:1000}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px 0 15px;display:flex;align-items:center;justify-content:space-between;height:100px;overflow:hidden}
     .logo{text-decoration:none;display:inline-flex;align-items:center;overflow:hidden;height:100px}
     .logo-img{height:auto;max-height:24px;width:auto;display:block}
     .logo-img--footer{height:200px;width:auto;display:block}
-    .nav-links{display:flex;gap:28px;list-style:none;align-items:center}
-    .nav-links a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;transition:color 0.2s}
+
+    /* Nav links with animated underline */
+    .nav-links{display:flex;gap:0;list-style:none;align-items:stretch;position:relative}
+    .nav-links li{display:flex;align-items:stretch}
+    .nav-links a{
+      text-decoration:none;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:500;
+      transition:color 0.2s;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      position:relative;
+    }
     .nav-links a:hover{color:var(--green-dark)}
+    .nav-links a.nav-mode-active{color:var(--green-dark);font-weight:600}
+
+    /* Animated underline bar */
+    .nav-underline{
+      position:absolute;
+      bottom:0;
+      height:3px;
+      background:var(--green-dark);
+      border-radius:2px 2px 0 0;
+      transition:left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events:none;
+    }
+
     .nav-auth{display:flex;gap:12px;align-items:center}
     .nav-login{text-decoration:none;color:var(--charcoal);font-size:14px;font-weight:500;transition:color 0.2s}
     .nav-login:hover{color:var(--green-dark)}
@@ -43,35 +71,74 @@
     .nav-mobile-menu{display:none;flex-direction:column;gap:0;background:rgba(255,255,255,0.98);border-top:1px solid var(--soft-gray);padding:8px 0 16px}
     .nav-mobile-menu a{display:block;padding:14px 24px;font-size:15px;color:var(--charcoal);text-decoration:none;font-weight:500}
     .nav-mobile-menu a:hover{color:var(--green-dark)}
+    .nav-mobile-menu a.nav-mode-active{color:var(--green-dark);font-weight:600}
     .nav-mobile-cta{background:var(--green-dark);color:var(--white) !important;margin:12px 24px 4px;border-radius:10px;text-align:center;padding:13px 24px !important}
+
+    /* ── BUTTONS ── */
     .btn-primary{background:var(--green-dark);color:var(--white);padding:13px 28px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:600;transition:background 0.2s;border:none;cursor:pointer;display:inline-block}
     .btn-primary:hover{background:var(--green-mid)}
-    .btn-secondary{background:transparent;color:var(--green-dark);padding:13px 28px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:500;border:1.5px solid var(--green-dark);transition:all 0.2s;display:inline-block}
-    .btn-secondary:hover{background:var(--green-dark);color:var(--white)}
+    .btn-secondary{background:rgba(255,255,255,0.15);color:var(--white);padding:13px 28px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:500;border:1.5px solid rgba(255,255,255,0.6);transition:all 0.2s;display:inline-block;backdrop-filter:blur(4px)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.25);border-color:var(--white)}
+
+    /* ── HOMEPAGE WRAPPER ── */
     .homepage{padding-top:100px}
-    .audience-toggle-bar{display:flex;justify-content:center;padding:48px 40px 0}
-    .audience-toggle{display:inline-flex;border:1px solid var(--soft-gray);border-radius:6px;overflow:hidden;background:var(--off-white)}
-    .audience-toggle button{background:transparent;border:none;padding:10px 32px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all 0.18s;letter-spacing:0.2px}
-    .audience-toggle button.active{background:var(--green-dark);color:var(--white)}
-    .hero{padding:56px 40px 80px}
-    .hero-inner{max-width:760px;margin:0 auto;text-align:center}
-    .hero h1{font-size:52px;line-height:1.1;color:var(--green-dark);margin-bottom:24px;letter-spacing:-0.8px;font-weight:700}
-    .hero h2{font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto;font-weight:400}
-    .hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ── HERO with background image ── */
+    .hero{
+      position:relative;
+      padding:100px 40px 120px;
+      overflow:hidden;
+    }
+    .hero-bg-image{
+      position:absolute;
+      inset:0;
+      background:url(hero-bg.jpg) center / cover no-repeat;
+      z-index:0;
+    }
+    /* Gradient: light top-left fade keeps image atmospheric, text readable */
+    .hero-bg-image::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        105deg,
+        rgba(18,36,28,0.78) 0%,
+        rgba(18,36,28,0.55) 55%,
+        rgba(18,36,28,0.30) 100%
+      );
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      max-width:700px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .hero h1{font-size:52px;line-height:1.1;color:var(--white);margin-bottom:22px;letter-spacing:-0.8px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.15)}
+    .hero h2{font-size:18px;color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;font-weight:400}
+    .hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* ── SECTION STRUCTURE ── */
     .hp-section{padding:96px 40px;border-top:1px solid var(--soft-gray)}
     .hp-section--alt{background:var(--off-white)}
     .container{max-width:1100px;margin:0 auto}
     .section-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
     .section-grid--reverse{direction:rtl}
     .section-grid--reverse > *{direction:ltr}
+
+    /* ── SECTION COPY ── */
     .section-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--green-light);font-weight:600;margin-bottom:14px}
     .section-heading{font-size:34px;line-height:1.18;color:var(--green-dark);font-weight:700;letter-spacing:-0.4px;margin-bottom:16px}
     .section-body{font-size:16px;color:var(--muted);line-height:1.75}
+
+    /* ── VISUAL PLACEHOLDER ── */
     .visual-placeholder{background:var(--off-white);border:1px solid var(--soft-gray);border-radius:6px;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
     .hp-section--alt .visual-placeholder{background:var(--white)}
     .visual-placeholder-icon{width:48px;height:48px;border-radius:6px;border:1px solid var(--soft-gray);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:22px}
     .hp-section--alt .visual-placeholder-icon{background:var(--off-white)}
     .visual-placeholder span{font-size:12px;font-weight:500;letter-spacing:0.5px;color:var(--soft-gray);text-transform:uppercase}
+
+    /* ── CTA BANNER ── */
     .cta-banner{background:var(--green-dark);text-align:center;padding:96px 40px}
     .cta-banner h2{font-size:38px;color:var(--white);margin-bottom:14px;letter-spacing:-0.4px;font-weight:700}
     .cta-banner p{font-size:17px;color:rgba(255,255,255,0.65);margin-bottom:36px;max-width:460px;margin-left:auto;margin-right:auto}
@@ -80,6 +147,8 @@
     .btn-primary--white:hover{opacity:0.9}
     .btn-secondary--white{background:transparent;color:var(--white);padding:13px 28px;border-radius:6px;text-decoration:none;font-size:15px;font-weight:500;border:1.5px solid rgba(255,255,255,0.4);transition:border-color 0.2s;display:inline-block}
     .btn-secondary--white:hover{border-color:var(--white)}
+
+    /* ── FOOTER ── */
     footer{background:var(--charcoal);color:rgba(255,255,255,0.55);padding:60px 40px 36px}
     .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
     .footer-brand .logo{display:inline-flex;align-items:center;margin-bottom:14px}
@@ -88,6 +157,8 @@
     .footer-col a{display:block;color:rgba(255,255,255,0.45);text-decoration:none;font-size:13px;padding:4px 0;transition:color 0.2s}
     .footer-col a:hover{color:var(--white)}
     .footer-bottom{max-width:1200px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;text-align:center}
+
+    /* ── RESPONSIVE ── */
     @media(max-width:768px){
       .nav-inner{padding:0 20px 0 8px;height:72px}
       .logo{height:72px;align-items:center}
@@ -99,8 +170,7 @@
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(2){opacity:0}
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
       .homepage{padding-top:72px}
-      .audience-toggle-bar{padding:32px 24px 0}
-      .hero{padding:40px 24px 64px}
+      .hero{padding:72px 24px 96px}
       .hero h1{font-size:34px;letter-spacing:-0.4px}
       .hero h2{font-size:16px}
       .hero-cta-row{flex-direction:column;align-items:stretch}
@@ -119,13 +189,16 @@
   </style>
 </head>
 <body>
+
+<!-- ══ GLOBAL NAV ══ -->
 <nav>
   <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
   <div class="nav-inner">
     <a href="index.html" class="logo"><img src="images/logo.png" alt="ZetaRooms" class="logo-img"></a>
-    <ul class="nav-links">
-      <li><a href="#investors">For Investors</a></li>
-      <li><a href="#companies">For Companies</a></li>
+    <ul class="nav-links" id="nav-links-list">
+      <li><a href="#" id="nav-investors" class="nav-mode-link nav-mode-active" onclick="setAudience('investors');return false;">For Investors</a></li>
+      <li><a href="#" id="nav-companies" class="nav-mode-link" onclick="setAudience('companies');return false;">For Companies</a></li>
+      <div class="nav-underline" id="nav-underline"></div>
     </ul>
     <div class="nav-auth">
       <a href="signup.html" class="nav-cta">Sign Up</a>
@@ -136,21 +209,21 @@
     </label>
   </div>
   <div class="nav-mobile-menu">
-    <a href="#investors">For Investors</a>
-    <a href="#companies">For Companies</a>
+    <a href="#" id="mobile-nav-investors" class="nav-mode-active" onclick="setAudience('investors');closeMobileNav();return false;">For Investors</a>
+    <a href="#" id="mobile-nav-companies" onclick="setAudience('companies');closeMobileNav();return false;">For Companies</a>
     <a href="signup.html" class="nav-cta nav-mobile-cta">Sign Up</a>
     <a href="login.html">Sign In</a>
   </div>
 </nav>
+
+<!-- ══ HOMEPAGE CONTENT ══ -->
 <main class="homepage">
-  <div class="audience-toggle-bar">
-    <div class="audience-toggle" role="group" aria-label="Audience selector">
-      <button class="active" id="toggle-investors" onclick="setAudience('investors')" type="button">Investors</button>
-      <button id="toggle-companies" onclick="setAudience('companies')" type="button">Companies</button>
-    </div>
-  </div>
+
+  <!-- ══ INVESTOR VIEW ══ -->
   <div id="view-investors">
+
     <section class="hero">
+      <div class="hero-bg-image"></div>
       <div class="hero-inner">
         <h1>Your data room should be sourcing deals for you.</h1>
         <h2>Discover companies aligned with your investment thesis &mdash; and interrogate them intelligently.</h2>
@@ -160,6 +233,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt" id="investors">
       <div class="container">
         <div class="section-grid">
@@ -175,6 +249,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section">
       <div class="container">
         <div class="section-grid section-grid--reverse">
@@ -190,6 +265,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt">
       <div class="container">
         <div class="section-grid">
@@ -205,6 +281,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section">
       <div class="container">
         <div class="section-grid section-grid--reverse">
@@ -220,6 +297,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt">
       <div class="container">
         <div class="section-grid">
@@ -235,6 +313,7 @@
         </div>
       </div>
     </section>
+
     <section class="cta-banner">
       <div class="container">
         <h2>Build your Zetabase.</h2>
@@ -245,9 +324,14 @@
         </div>
       </div>
     </section>
-  </div>
+
+  </div><!-- /view-investors -->
+
+  <!-- ══ COMPANY VIEW ══ -->
   <div id="view-companies" style="display:none">
+
     <section class="hero">
+      <div class="hero-bg-image"></div>
       <div class="hero-inner">
         <h1>Your data room should be fundraising for you.</h1>
         <h2>Make it easy for the right investors to discover and invest in your company.</h2>
@@ -257,6 +341,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt" id="companies">
       <div class="container">
         <div class="section-grid">
@@ -272,6 +357,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section">
       <div class="container">
         <div class="section-grid section-grid--reverse">
@@ -287,6 +373,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt">
       <div class="container">
         <div class="section-grid">
@@ -302,6 +389,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section">
       <div class="container">
         <div class="section-grid section-grid--reverse">
@@ -317,6 +405,7 @@
         </div>
       </div>
     </section>
+
     <section class="hp-section hp-section--alt">
       <div class="container">
         <div class="section-grid">
@@ -332,6 +421,7 @@
         </div>
       </div>
     </section>
+
     <section class="cta-banner">
       <div class="container">
         <h2>Create your ZetaRoom.</h2>
@@ -342,8 +432,12 @@
         </div>
       </div>
     </section>
-  </div>
+
+  </div><!-- /view-companies -->
+
 </main>
+
+<!-- ══ GLOBAL FOOTER ══ -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -352,8 +446,8 @@
     </div>
     <div class="footer-col">
       <h4>Product</h4>
-      <a href="#investors">For Investors</a>
-      <a href="#companies">For Companies</a>
+      <a href="#" onclick="setAudience('investors');return false;">For Investors</a>
+      <a href="#" onclick="setAudience('companies');return false;">For Companies</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
@@ -373,24 +467,67 @@
     <p>&copy; 2026 ZetaRooms. All rights reserved.</p>
   </div>
 </footer>
+
 <script>
+  // ── AUDIENCE SWITCHER ──
+  var _currentAudience = 'investors';
+
   function setAudience(audience) {
-    var investors = document.getElementById('view-investors');
-    var companies = document.getElementById('view-companies');
-    var btnInvestors = document.getElementById('toggle-investors');
-    var btnCompanies = document.getElementById('toggle-companies');
+    if (_currentAudience === audience) return;
+    _currentAudience = audience;
+
+    var vInvestors  = document.getElementById('view-investors');
+    var vCompanies  = document.getElementById('view-companies');
+    var navInv      = document.getElementById('nav-investors');
+    var navCo       = document.getElementById('nav-companies');
+    var mobileInv   = document.getElementById('mobile-nav-investors');
+    var mobileCo    = document.getElementById('mobile-nav-companies');
+
     if (audience === 'investors') {
-      investors.style.display = '';
-      companies.style.display = 'none';
-      btnInvestors.classList.add('active');
-      btnCompanies.classList.remove('active');
+      vInvestors.style.display  = '';
+      vCompanies.style.display  = 'none';
+      navInv.classList.add('nav-mode-active');
+      navCo.classList.remove('nav-mode-active');
+      if (mobileInv) mobileInv.classList.add('nav-mode-active');
+      if (mobileCo)  mobileCo.classList.remove('nav-mode-active');
     } else {
-      investors.style.display = 'none';
-      companies.style.display = '';
-      btnCompanies.classList.add('active');
-      btnInvestors.classList.remove('active');
+      vInvestors.style.display  = 'none';
+      vCompanies.style.display  = '';
+      navCo.classList.add('nav-mode-active');
+      navInv.classList.remove('nav-mode-active');
+      if (mobileCo)  mobileCo.classList.add('nav-mode-active');
+      if (mobileInv) mobileInv.classList.remove('nav-mode-active');
     }
+
+    positionUnderline(audience);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  function positionUnderline(audience) {
+    var underline = document.getElementById('nav-underline');
+    var target    = document.getElementById(audience === 'investors' ? 'nav-investors' : 'nav-companies');
+    if (!underline || !target) return;
+    var list = document.getElementById('nav-links-list');
+    var listRect   = list.getBoundingClientRect();
+    var targetRect = target.getBoundingClientRect();
+    underline.style.left  = (targetRect.left - listRect.left) + 'px';
+    underline.style.width = targetRect.width + 'px';
+  }
+
+  function closeMobileNav() {
+    var cb = document.getElementById('nav-toggle');
+    if (cb) cb.checked = false;
+  }
+
+  // Initialise underline position after fonts/layout settle
+  window.addEventListener('load', function() {
+    positionUnderline('investors');
+  });
+  // Also run on resize
+  window.addEventListener('resize', function() {
+    positionUnderline(_currentAudience);
+  });
 </script>
+
 </body>
 </html>
