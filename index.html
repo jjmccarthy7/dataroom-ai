@@ -26,7 +26,7 @@
     body{font-family:var(--sans);color:var(--charcoal);line-height:1.6;background:var(--white);width:100%;overflow-x:hidden}
 
     /* ── NAV ── */
-    nav{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.06);z-index:1000}
+    nav{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:1000}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px 0 15px;display:flex;align-items:center;justify-content:space-between;height:100px;overflow:hidden}
     .logo{text-decoration:none;display:inline-flex;align-items:center;overflow:hidden;height:100px}
     .logo-img{height:auto;max-height:24px;width:auto;display:block}
@@ -87,7 +87,7 @@
     /* -- HERO framed canvas layout -- */
         .hero{
                 position:relative;
-                margin:24px 40px 0;
+                margin:24px 40px 48px;
                 min-height:75vh;
                 overflow:hidden;
                 border-radius:6px;
@@ -97,7 +97,7 @@
                 position:relative;
                 z-index:2;
                 padding:100px 60px 100px 64px;
-                max-width:480px;
+                max-width:640px;
                 display:flex;
                 flex-direction:column;
                 justify-content:center;
@@ -115,10 +115,11 @@
                 background:url(hero-bg.jpg) right bottom / cover no-repeat;
         }
         .hero h1{font-size:50px;line-height:1.1;color:var(--green-dark);margin-bottom:20px;letter-spacing:-0.8px;font-weight:700}
-        .hero h2{font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:420px;font-weight:400}
+        .hero h2{font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:560px;font-weight:400}
         .hero-cta-row{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
         .hero-text-link{color:var(--green-dark);text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:4px;transition:opacity 0.2s}
         .hero-text-link:hover{opacity:0.7}
+        .hero-cta-ghost{display:none}
 
     /* ── SECTION STRUCTURE ── */
     .hp-section{padding:96px 40px;border-top:1px solid var(--soft-gray)}
@@ -172,11 +173,14 @@
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(2){opacity:0}
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
       .homepage{padding-top:72px}
-            .hero{margin:12px 16px 0;min-height:520px;border-radius:4px}
+            .hero{margin:12px 16px 32px;min-height:520px;border-radius:4px}
             .hero-text{position:relative;z-index:3;padding:40px 24px 40px 24px;max-width:100%;justify-content:flex-start}
             .hero-image{background:linear-gradient(to bottom, var(--off-white) 0%, var(--off-white) 76%, transparent 92%)}
             .hero-bg-image{background:url(hero-bg.jpg) 100% 100% / 220% auto no-repeat}
             .hero-cta-row{align-items:flex-start;gap:12px}
+      .hero-text-link{display:none}
+      .hero-cta-ghost{display:block;text-align:center;padding:12px 28px;border:1.5px solid var(--green-dark);border-radius:6px;color:var(--green-dark);text-decoration:none;font-size:15px;font-weight:500;transition:all 0.2s}
+      .hero-cta-ghost:hover{background:rgba(47,79,62,0.06)}
       .hero h1{font-size:26px;letter-spacing:-0.2px;margin-bottom:12px;max-width:200px;line-height:1.15}
       .hero h2{font-size:14px;margin-bottom:18px;max-width:210px;line-height:1.6}
       .hero-cta-row{flex-direction:column;align-items:stretch}
@@ -235,6 +239,7 @@
                     <div class="hero-cta-row">
                               <a href="signup.html" class="btn-primary">Build your Zetabase</a>
                               <a href="signup.html" class="hero-text-link">See a sample ZetaRoom &rarr;</a>
+                <a href="signup.html" class="hero-cta-ghost">See a sample ZetaRoom</a>
                     </div>
             </div>
           <div class="hero-image">
@@ -345,6 +350,7 @@
                 <div class="hero-cta-row">
                           <a href="signup.html" class="btn-primary">Create your ZetaRoom</a>
                           <a href="signup.html" class="hero-text-link">See how it works &rarr;</a>
+                <a href="signup.html" class="hero-cta-ghost">See how it works</a>
                 </div>
         </div>
       <div class="hero-image">
