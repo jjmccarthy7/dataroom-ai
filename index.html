@@ -84,39 +84,37 @@
     .homepage{padding-top:100px}
 
     /* ── HERO with background image ── */
-    .hero{
-      position:relative;
-      padding:100px 40px 120px;
-      overflow:hidden;
-    }
-    .hero-bg-image{
-      position:absolute;
-      inset:0;
-      background:url(hero-bg.jpg) center / cover no-repeat;
-      z-index:0;
-    }
-    /* Gradient: light top-left fade keeps image atmospheric, text readable */
-    .hero-bg-image::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(
-        105deg,
-        rgba(18,36,28,0.78) 0%,
-        rgba(18,36,28,0.55) 55%,
-        rgba(18,36,28,0.30) 100%
-      );
-    }
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      max-width:700px;
-      margin:0 auto;
-      text-align:center;
-    }
-    .hero h1{font-size:52px;line-height:1.1;color:var(--white);margin-bottom:22px;letter-spacing:-0.8px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.15)}
-    .hero h2{font-size:18px;color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;font-weight:400}
-    .hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    /* -- HERO two-column layout -- */
+        .hero{
+                padding:0;
+                min-height:600px;
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                align-items:stretch;
+                background:var(--white);
+        }
+        .hero-text{
+                padding:120px 60px 120px 40px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                max-width:600px;
+        }
+        .hero-image{
+                position:relative;
+                overflow:hidden;
+                min-height:600px;
+        }
+        .hero-bg-image{
+                position:absolute;
+                inset:0;
+                background:url(hero-bg.jpg) right bottom / cover no-repeat;
+        }
+        .hero h1{font-size:50px;line-height:1.1;color:var(--green-dark);margin-bottom:20px;letter-spacing:-0.8px;font-weight:700}
+        .hero h2{font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px;font-weight:400}
+        .hero-cta-row{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+        .hero-text-link{color:var(--green-dark);text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:4px;transition:opacity 0.2s}
+        .hero-text-link:hover{opacity:0.7}
 
     /* ── SECTION STRUCTURE ── */
     .hp-section{padding:96px 40px;border-top:1px solid var(--soft-gray)}
@@ -170,7 +168,10 @@
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(2){opacity:0}
       .nav-toggle-input:checked ~ .nav-inner .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
       .homepage{padding-top:72px}
-      .hero{padding:72px 24px 96px}
+            .hero{grid-template-columns:1fr;min-height:auto}
+            .hero-text{padding:72px 24px 56px}
+            .hero-image{min-height:320px}
+            .hero-cta-row{align-items:stretch}
       .hero h1{font-size:34px;letter-spacing:-0.4px}
       .hero h2{font-size:16px}
       .hero-cta-row{flex-direction:column;align-items:stretch}
@@ -223,15 +224,17 @@
   <div id="view-investors">
 
     <section class="hero">
-      <div class="hero-bg-image"></div>
-      <div class="hero-inner">
-        <h1>Your data room should be sourcing deals for you.</h1>
-        <h2>Discover companies aligned with your investment thesis &mdash; and interrogate them intelligently.</h2>
-        <div class="hero-cta-row">
-          <a href="signup.html" class="btn-primary">Build your Zetabase</a>
-          <a href="signup.html" class="btn-secondary">Explore ZetaRooms</a>
-        </div>
-      </div>
+            <div class="hero-text">
+                      <h1>Your data room should be sourcing deals for you.</h1>
+                    <h2>Discover companies aligned with your investment thesis &mdash; and interrogate them intelligently.</h2>
+                    <div class="hero-cta-row">
+                              <a href="signup.html" class="btn-primary">Build your Zetabase</a>
+                              <a href="signup.html" class="hero-text-link">See a sample ZetaRoom &rarr;</a>
+                    </div>
+            </div>
+          <div class="hero-image">
+                  <div class="hero-bg-image"></div>
+          </div>
     </section>
 
     <section class="hp-section hp-section--alt" id="investors">
@@ -330,17 +333,19 @@
   <!-- ══ COMPANY VIEW ══ -->
   <div id="view-companies" style="display:none">
 
-    <section class="hero">
-      <div class="hero-bg-image"></div>
-      <div class="hero-inner">
-        <h1>Your data room should be fundraising for you.</h1>
-        <h2>Make it easy for the right investors to discover and invest in your company.</h2>
-        <div class="hero-cta-row">
-          <a href="signup.html" class="btn-primary">Create your ZetaRoom</a>
-          <a href="signup.html" class="btn-secondary">See how it works</a>
+<section class="hero">
+        <div class="hero-text">
+                  <h1>Your data room should be fundraising for you.</h1>
+                <h2>Make it easy for the right investors to discover and invest in your company.</h2>
+                <div class="hero-cta-row">
+                          <a href="signup.html" class="btn-primary">Create your ZetaRoom</a>
+                          <a href="signup.html" class="hero-text-link">See how it works &rarr;</a>
+                </div>
         </div>
+      <div class="hero-image">
+              <div class="hero-bg-image"></div>
       </div>
-    </section>
+</section>
 
     <section class="hp-section hp-section--alt" id="companies">
       <div class="container">
