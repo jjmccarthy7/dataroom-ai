@@ -52,7 +52,7 @@
     /* Animated underline bar */
     .nav-underline{
       position:absolute;
-      bottom:0;
+      bottom:-8px;
       height:3px;
       background:var(--green-dark);
       border-radius:2px 2px 0 0;
@@ -510,8 +510,9 @@
     var list = document.getElementById('nav-links-list');
     var listRect   = list.getBoundingClientRect();
     var targetRect = target.getBoundingClientRect();
-    underline.style.left  = (targetRect.left - listRect.left) + 'px';
-    underline.style.width = targetRect.width + 'px';
+var reducedW             = targetRect.width * 0.8;
+        underline.style.width = reducedW + 'px';
+        underline.style.left  = (targetRect.left - listRect.left) + (targetRect.width * 0.1) + 'px';
   }
 
   function closeMobileNav() {
