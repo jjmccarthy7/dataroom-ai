@@ -161,7 +161,65 @@
     .footer-col a:hover{color:var(--white)}
     .footer-bottom{max-width:1200px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;text-align:center}
 
-    /* ── RESPONSIVE ── */
+    
+/* ── PRODUCT VISUALS ── */
+.pv{background:var(--white);border:1px solid var(--soft-gray);border-radius:6px;min-height:320px;padding:20px;display:flex;flex-direction:column;gap:0;overflow:hidden;font-family:var(--sans)}
+.hp-section--alt .pv{background:var(--off-white)}
+.pv-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--soft-gray);margin-bottom:14px}
+.pv-title{font-size:13px;font-weight:600;color:var(--charcoal);line-height:1.2}
+.pv-subtitle{font-size:11px;color:var(--muted);margin-top:2px}
+.pv-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;background:#EEF4F0;color:var(--green-dark);letter-spacing:0.3px}
+.pv-tabs{display:flex;gap:0;border-bottom:1px solid var(--soft-gray);margin-bottom:14px}
+.pv-tab{font-size:11px;font-weight:500;color:var(--muted);padding:6px 12px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.pv-tab.active{color:var(--green-dark);border-bottom-color:var(--green-dark);font-weight:600}
+.pv-doc-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--soft-gray);border-radius:5px;margin-bottom:6px;background:var(--white)}
+.hp-section--alt .pv-doc-row{background:var(--white)}
+.pv-doc-icon{width:28px;height:28px;border-radius:4px;background:#EEF4F0;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px}
+.pv-doc-name{font-size:12px;font-weight:500;color:var(--charcoal)}
+.pv-doc-meta{font-size:10px;color:var(--muted)}
+.pv-card{background:var(--white);border:1px solid var(--soft-gray);border-radius:5px;padding:12px 14px;margin-bottom:8px}
+.hp-section--alt .pv-card{background:var(--white)}
+.pv-card-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--green-light);font-weight:600;margin-bottom:6px}
+.pv-card-item{font-size:12px;color:var(--charcoal);padding:3px 0;display:flex;align-items:center;gap:6px}
+.pv-card-item::before{content:'•';color:var(--green-light);font-size:14px;line-height:1}
+.pv-chat{display:flex;flex-direction:column;gap:8px;flex:1}
+.pv-chat-msg{border-radius:6px;padding:9px 12px;font-size:12px;line-height:1.5}
+.pv-chat-investor{background:#F0F0F0;color:var(--charcoal);align-self:flex-end;max-width:85%;border-radius:6px 6px 2px 6px}
+.pv-chat-label{font-size:10px;font-weight:600;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px}
+.pv-chat-zed{background:#EEF4F0;color:var(--charcoal);max-width:100%;border-radius:6px 6px 6px 2px}
+.pv-chat-zed-name{font-size:10px;font-weight:700;color:var(--green-dark);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.pv-result-row{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--soft-gray)}
+.pv-result-row:last-child{border-bottom:none}
+.pv-result-dot{width:6px;height:6px;border-radius:50%;background:var(--green-dark);margin-top:5px;flex-shrink:0}
+.pv-result-name{font-size:12px;font-weight:600;color:var(--charcoal)}
+.pv-result-sub{font-size:11px;color:var(--muted)}
+.pv-stat-row{display:flex;gap:8px;margin-bottom:10px}
+.pv-stat{flex:1;background:var(--white);border:1px solid var(--soft-gray);border-radius:5px;padding:10px 12px;text-align:center}
+.hp-section--alt .pv-stat{background:var(--white)}
+.pv-stat-num{font-size:22px;font-weight:700;color:var(--green-dark);line-height:1}
+.pv-stat-lbl{font-size:10px;color:var(--muted);margin-top:3px}
+.pv-match-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--soft-gray)}
+.pv-match-row:last-child{border-bottom:none}
+.pv-match-name{font-size:12px;font-weight:600;color:var(--charcoal)}
+.pv-match-pct{font-size:13px;font-weight:700;color:var(--green-dark)}
+.pv-bar{height:4px;border-radius:2px;background:var(--soft-gray);margin-top:4px;overflow:hidden}
+.pv-bar-fill{height:100%;border-radius:2px;background:var(--green-dark)}
+.pv-form-field{border:1px solid var(--soft-gray);border-radius:5px;padding:9px 12px;margin-bottom:8px;font-size:12px;color:var(--muted);background:var(--white)}
+.hp-section--alt .pv-form-field{background:var(--white)}
+.pv-form-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.pv-btn{background:var(--green-dark);color:var(--white);border-radius:5px;padding:9px 16px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;display:inline-block}
+.pv-btn-ghost{background:transparent;color:var(--green-dark);border:1.5px solid var(--green-dark);border-radius:5px;padding:8px 16px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;display:inline-block}
+.pv-zed-panel{background:#F8FAF9;border:1px solid #D4E5DC;border-radius:6px;padding:12px 14px;margin-bottom:8px}
+.pv-zed-name{font-size:10px;font-weight:700;color:var(--green-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.pv-zed-status{font-size:10px;color:var(--muted);font-style:italic;margin-bottom:8px}
+.pv-notification{background:var(--white);border:1px solid var(--soft-gray);border-radius:6px;padding:16px 18px;margin-bottom:8px}
+.pv-notification-from{font-size:11px;font-weight:700;color:var(--charcoal);margin-bottom:2px}
+.pv-notification-role{font-size:10px;color:var(--muted);margin-bottom:10px}
+.pv-notification-msg{font-size:11px;color:var(--charcoal);background:var(--off-white);border-radius:4px;padding:8px 10px;border-left:3px solid var(--green-dark);line-height:1.5;margin-bottom:10px;font-style:italic}
+.pv-signal{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:11px;color:var(--charcoal);line-height:1.4}
+.pv-signal-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);margin-top:4px;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
     @media(max-width:768px){
       .nav-inner{padding:0 20px 0 8px;height:72px}
       .logo{height:72px;align-items:center}
@@ -255,8 +313,23 @@
             <h2 class="section-heading">Companies create ZetaRooms.</h2>
             <p class="section-body">Every company on ZetaRooms builds an intelligent data room &mdash; their ZetaRoom. It holds everything a serious investor needs: the business overview, financials, team, and market context. It's organized, always current, and built to communicate clearly.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128193;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Spacelift Studios</div><div class="pv-subtitle">Founder · Pre-seed · AI Renovation</div></div>
+    <div class="pv-badge">ZetaRoom</div>
+  </div>
+  <div class="pv-tabs">
+    <div class="pv-tab active">Overview</div>
+    <div class="pv-tab">Financials</div>
+    <div class="pv-tab">Product</div>
+    <div class="pv-tab">Market</div>
+    <div class="pv-tab">Team</div>
+    <div class="pv-tab">News</div>
+  </div>
+  <div class="pv-doc-row"><div class="pv-doc-icon">📄</div><div><div class="pv-doc-name">Spacelift Pitch Deck</div><div class="pv-doc-meta">Updated Mar 2026 · 24 slides</div></div></div>
+  <div class="pv-doc-row"><div class="pv-doc-icon">📊</div><div><div class="pv-doc-name">Financial Summary</div><div class="pv-doc-meta">Q1 2026 · 8 pages</div></div></div>
+  <div class="pv-doc-row"><div class="pv-doc-icon">📰</div><div><div class="pv-doc-name">Forbes Feature Article</div><div class="pv-doc-meta">Forbes · Feb 2026</div></div></div>
+</div>
             <span>ZetaRoom UI &mdash; coming soon</span>
           </div>
         </div>
@@ -271,8 +344,15 @@
             <h2 class="section-heading">You build your Zetabase.</h2>
             <p class="section-body">Your Zetabase is your investment thesis made legible. Define the sectors you focus on, the stages you back, the check sizes you write, and what you care about. The more you put in, the more the network works for you.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#127919;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Your Zetabase</div><div class="pv-subtitle">Investment thesis &amp; intelligence</div></div>
+    <div class="pv-badge">Active</div>
+  </div>
+  <div class="pv-card"><div class="pv-card-label">Investment Verticals</div><div class="pv-card-item">PropTech</div><div class="pv-card-item">Climate</div><div class="pv-card-item">Marketplaces</div></div>
+  <div class="pv-card"><div class="pv-card-label">Check Size &amp; Stage</div><div class="pv-card-item">$250k – $1M · Pre-seed to Seed</div></div>
+  <div class="pv-card"><div class="pv-card-label">Investment Theses</div><div class="pv-card-item">AI + marketplace models</div><div class="pv-card-item">Infrastructure for physical industries</div></div>
+</div>
             <span>Zetabase builder &mdash; coming soon</span>
           </div>
         </div>
@@ -287,8 +367,21 @@
             <h2 class="section-heading">Discover companies aligned with your thesis.</h2>
             <p class="section-body">ZetaRooms surfaces companies that match your Zetabase &mdash; not a generic feed, but a filtered view of what's actually relevant to you. Stop sifting through noise. Start seeing signal.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128270;</div>
+          <div class="pv" style="gap:8px">
+  <div class="pv-header">
+    <div><div class="pv-title">Zed</div><div class="pv-subtitle">Your AI associate</div></div>
+    <div class="pv-badge">Discovery</div>
+  </div>
+  <div class="pv-chat">
+    <div><div class="pv-chat-label">You</div><div class="pv-chat-msg pv-chat-investor">Find companies building AI tools for home renovation.</div></div>
+    <div><div class="pv-chat-zed-name">Zed</div><div class="pv-chat-msg pv-chat-zed">
+      <div style="margin-bottom:8px;font-size:12px">I found 3 companies that match your thesis.</div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">Spacelift Studios</div><div class="pv-result-sub">AI-powered renovation planning</div></div></div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">BuilderFlow</div><div class="pv-result-sub">Contractor marketplace platform</div></div></div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">RenoLogic</div><div class="pv-result-sub">AI construction estimating</div></div></div>
+    </div></div>
+  </div>
+</div>
             <span>Discovery feed &mdash; coming soon</span>
           </div>
         </div>
@@ -303,8 +396,23 @@
             <h2 class="section-heading">Interrogate the room with Zed.</h2>
             <p class="section-body">Zed is ZetaRooms' AI assistant. Ask any question about a company and Zed answers instantly &mdash; pulling from the ZetaRoom's documents, data, and context. Diligence in minutes, not days.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#129302;</div>
+          <div class="pv" style="gap:8px">
+  <div class="pv-header">
+    <div><div class="pv-title">Spacelift Studios</div><div class="pv-subtitle">ZetaRoom · Overview</div></div>
+    <div class="pv-badge">Zed Active</div>
+  </div>
+  <div class="pv-zed-panel">
+    <div class="pv-zed-name">Zed · AI Associate</div>
+    <div class="pv-zed-status">Scanning room…</div>
+    <div><div class="pv-chat-label" style="margin-bottom:4px">You</div><div class="pv-chat-msg pv-chat-investor" style="font-size:11px">How defensible is this company?</div></div>
+    <div style="margin-top:8px"><div class="pv-chat-zed-name">Zed</div><div class="pv-chat-msg pv-chat-zed" style="font-size:11px">
+      <div style="margin-bottom:6px">Spacelift's defensibility comes from:</div>
+      <div class="pv-result-row" style="padding:3px 0"><div class="pv-result-dot"></div><div class="pv-result-name" style="font-size:11px">Proprietary renovation datasets</div></div>
+      <div class="pv-result-row" style="padding:3px 0"><div class="pv-result-dot"></div><div class="pv-result-name" style="font-size:11px">Contractor supply network</div></div>
+      <div class="pv-result-row" style="padding:3px 0"><div class="pv-result-dot"></div><div class="pv-result-name" style="font-size:11px">AI renovation planning engine</div></div>
+    </div></div>
+  </div>
+</div>
             <span>Zed AI interface &mdash; coming soon</span>
           </div>
         </div>
@@ -319,8 +427,21 @@
             <h2 class="section-heading">Your investment intelligence compounds.</h2>
             <p class="section-body">Every company you review, every question you ask, every note you take &mdash; it all lives in your Zetabase. Over time, your view of the market sharpens. Your deal flow improves. Your edge grows.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128202;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Insights from Your Zetabase</div><div class="pv-subtitle">Updated as you review companies</div></div>
+    <div class="pv-badge">12 rooms reviewed</div>
+  </div>
+  <div class="pv-card"><div class="pv-card-label">Common Patterns</div>
+    <div class="pv-card-item">4 PropTech companies using marketplace models</div>
+    <div class="pv-card-item">3 targeting renovation supply chain</div>
+  </div>
+  <div class="pv-card"><div class="pv-card-label">Top Thesis Matches</div>
+    <div class="pv-match-row"><div><div class="pv-match-name">Spacelift Studios</div><div class="pv-bar"><div class="pv-bar-fill" style="width:92%"></div></div></div><div class="pv-match-pct">92%</div></div>
+    <div class="pv-match-row"><div><div class="pv-match-name">BuilderFlow</div><div class="pv-bar"><div class="pv-bar-fill" style="width:86%"></div></div></div><div class="pv-match-pct">86%</div></div>
+  </div>
+  <div class="pv-card"><div class="pv-card-label">Emerging Signal</div><div class="pv-signal"><div class="pv-signal-dot"></div><div>Renovation spend expected to rise 28% through 2027</div></div></div>
+</div>
             <span>Investor dashboard &mdash; coming soon</span>
           </div>
         </div>
@@ -366,8 +487,27 @@
             <h2 class="section-heading">You create your ZetaRoom.</h2>
             <p class="section-body">A ZetaRoom is your company's intelligent data room &mdash; organized, always on, and built to communicate clearly. Upload your materials, structure your narrative, and give investors everything they need to make a decision.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128193;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Create Your ZetaRoom</div><div class="pv-subtitle">Set up your investor data room</div></div>
+    <div class="pv-badge">New Room</div>
+  </div>
+  <div class="pv-tabs">
+    <div class="pv-tab active">Overview</div>
+    <div class="pv-tab">Financials</div>
+    <div class="pv-tab">Product</div>
+    <div class="pv-tab">Market</div>
+    <div class="pv-tab">Team</div>
+    <div class="pv-tab">News</div>
+  </div>
+  <div style="margin-bottom:8px"><div class="pv-form-label">Company name</div><div class="pv-form-field">Spacelift Studios</div></div>
+  <div style="border:1.5px dashed var(--soft-gray);border-radius:5px;padding:14px;text-align:center;color:var(--muted);font-size:12px;margin-bottom:8px">
+    <div style="font-size:18px;margin-bottom:4px">⬆</div>
+    <div>Drop documents to upload</div>
+    <div style="font-size:10px;margin-top:2px;color:var(--soft-gray)">PDF, DOCX, XLSX supported</div>
+  </div>
+  <div class="pv-btn" style="width:100%;box-sizing:border-box">Publish ZetaRoom</div>
+</div>
             <span>ZetaRoom builder &mdash; coming soon</span>
           </div>
         </div>
@@ -382,8 +522,21 @@
             <h2 class="section-heading">Discover investors who back companies like yours.</h2>
             <p class="section-body">ZetaRooms matches your company to investors whose thesis aligns with what you're building. Stage, sector, check size &mdash; it's all filtered automatically. You reach the right people, not everyone.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128270;</div>
+          <div class="pv" style="gap:8px">
+  <div class="pv-header">
+    <div><div class="pv-title">Zed</div><div class="pv-subtitle">Matching companies to investor theses</div></div>
+    <div class="pv-badge">Live Match</div>
+  </div>
+  <div class="pv-chat">
+    <div><div class="pv-chat-label">Investor</div><div class="pv-chat-msg pv-chat-investor">Find companies building AI tools for home renovation.</div></div>
+    <div><div class="pv-chat-zed-name">Zed</div><div class="pv-chat-msg pv-chat-zed">
+      <div style="margin-bottom:8px;font-size:12px">Here are companies that match your thesis.</div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">Spacelift Studios</div><div class="pv-result-sub">AI renovation planning · Pre-seed</div></div></div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">BuilderFlow</div><div class="pv-result-sub">Contractor marketplace · Seed</div></div></div>
+      <div class="pv-result-row"><div class="pv-result-dot"></div><div><div class="pv-result-name">RenoLogic</div><div class="pv-result-sub">AI construction estimating · Pre-seed</div></div></div>
+    </div></div>
+  </div>
+</div>
             <span>Investor discovery &mdash; coming soon</span>
           </div>
         </div>
@@ -398,8 +551,20 @@
             <h2 class="section-heading">Invite investors to your ZetaRoom.</h2>
             <p class="section-body">Send a direct invitation or let investors find you through discovery. You control who gets in and when. Every view is tracked, so you always know who's paying attention.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128231;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Invite Investors</div><div class="pv-subtitle">Spacelift Studios · ZetaRoom</div></div>
+    <div class="pv-badge">3 sent</div>
+  </div>
+  <div style="margin-bottom:8px"><div class="pv-form-label">Email address</div><div class="pv-form-field">partner@sequoiacap.com</div></div>
+  <div style="margin-bottom:8px"><div class="pv-form-label">Add a message (optional)</div><div class="pv-form-field" style="min-height:56px;padding-top:8px">Would love to share our ZetaRoom — we think your thesis aligns closely with what we're building.</div></div>
+  <div style="display:flex;gap:8px;align-items:center;background:var(--off-white);border-radius:5px;padding:8px 10px;margin-bottom:10px;font-size:11px;color:var(--muted)">
+    <div style="width:28px;height:28px;border-radius:50%;background:#EEF4F0;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✉</div>
+    <div><div style="font-weight:600;color:var(--charcoal)">vc@kpophouse.co</div><div>Invited · 2 days ago</div></div>
+    <div style="margin-left:auto;font-size:10px;color:var(--green-dark);font-weight:600">Viewed</div>
+  </div>
+  <div class="pv-btn" style="width:100%;box-sizing:border-box">Send Invitation</div>
+</div>
             <span>Invite flow &mdash; coming soon</span>
           </div>
         </div>
@@ -414,8 +579,22 @@
             <h2 class="section-heading">Investors explore your ZetaRoom.</h2>
             <p class="section-body">Investors use Zed &mdash; ZetaRooms' AI assistant &mdash; to ask questions directly inside your room. You don't have to be on a call to answer. Your ZetaRoom does the work. You see every question asked.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#129302;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">Investor Activity</div><div class="pv-subtitle">Spacelift Studios · This week</div></div>
+    <div class="pv-badge">Live</div>
+  </div>
+  <div class="pv-stat-row">
+    <div class="pv-stat"><div class="pv-stat-num">12</div><div class="pv-stat-lbl">Views this week</div></div>
+    <div class="pv-stat"><div class="pv-stat-num">3</div><div class="pv-stat-lbl">Revisited</div></div>
+    <div class="pv-stat"><div class="pv-stat-num">1</div><div class="pv-stat-lbl">Follow-up requested</div></div>
+  </div>
+  <div class="pv-card" style="margin-bottom:6px"><div class="pv-card-label">Most Viewed Sections</div>
+    <div class="pv-match-row"><div><div class="pv-match-name">Financials</div><div class="pv-bar"><div class="pv-bar-fill" style="width:88%"></div></div></div><div class="pv-match-pct" style="font-size:11px">8 views</div></div>
+    <div class="pv-match-row"><div><div class="pv-match-name">Team</div><div class="pv-bar"><div class="pv-bar-fill" style="width:64%"></div></div></div><div class="pv-match-pct" style="font-size:11px">6 views</div></div>
+    <div class="pv-match-row"><div><div class="pv-match-name">Product</div><div class="pv-bar"><div class="pv-bar-fill" style="width:48%"></div></div></div><div class="pv-match-pct" style="font-size:11px">4 views</div></div>
+  </div>
+</div>
             <span>ZetaRoom investor view &mdash; coming soon</span>
           </div>
         </div>
@@ -430,8 +609,22 @@
             <h2 class="section-heading">Investors request meetings.</h2>
             <p class="section-body">When an investor is ready to go deeper, they request a meeting directly from your ZetaRoom. You get a warm, informed intro &mdash; not a cold email. By the time you're on a call, they already know your business.</p>
           </div>
-          <div class="visual-placeholder" aria-label="Product visual placeholder">
-            <div class="visual-placeholder-icon">&#128197;</div>
+          <div class="pv">
+  <div class="pv-header">
+    <div><div class="pv-title">New Investor Request</div><div class="pv-subtitle">Spacelift Studios · Just now</div></div>
+    <div class="pv-badge" style="background:#FEF3C7;color:#92400E">1 New</div>
+  </div>
+  <div class="pv-notification">
+    <div class="pv-notification-from">Sequoia Scout</div>
+    <div class="pv-notification-role">Sequoia Capital · Early Stage</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">would like to meet.</div>
+    <div class="pv-notification-msg">"Very interested in your approach to AI-driven renovation planning. The contractor network moat is compelling."</div>
+    <div style="display:flex;gap:8px">
+      <div class="pv-btn" style="flex:1;font-size:11px;padding:8px 12px">Schedule Meeting</div>
+      <div class="pv-btn-ghost" style="flex:1;font-size:11px;padding:8px 12px">View Their Zetabase</div>
+    </div>
+  </div>
+</div>
             <span>Meeting request flow &mdash; coming soon</span>
           </div>
         </div>
